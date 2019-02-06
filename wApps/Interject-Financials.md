@@ -7,15 +7,15 @@ description: INTERJECT™ Financials specifics (Topics that are unique/specific 
 ## Overview
 
 ## My Apps
-**Interject Financials:** Includes 44 data portals related to *Financials for Spreadsheets.* Data connection is redirected through ""
-
-**Interject Demos:**  Includes 46 data portals related to demonstrating various interject capabilities using a demo database connection point to INTERJECT's cloud enviroment.
+**Interject Financials:** Includes 44 data portals related to *Financials for Spreadsheets.* Data connection is redirected through "" 
 
 ## Data Connections
 
 **Name:** ""
 
 **Connection String:**
+
+Setup database connection.
 
 **PROD:** Data Source = ""; Initial Catalog=""; Integrated Security=SSPI
 

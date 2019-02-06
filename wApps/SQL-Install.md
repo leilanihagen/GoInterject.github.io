@@ -8,66 +8,39 @@ description:
 ## Settings
 
 ### SQL Server Version
-To check your MSSQL version, run ```SELECT @@VERSION``` in a query window. 
 
-MSSQL Server 2008 and newer is supported.
+MSSQL Server 2008 and newer is supported. To check your MSSQL version, run ```SELECT @@VERSION``` in a query window. 
 
 ### SQL Database Mail Profile
 To check the Mail profile, run ```SELECT name FROM msdb.dbo.sysmail_profile```.
 
 In this case, the result should be **PROD | BETA | DEV:Mail**
 
-### Authentication Type
-**If SQL-AUTH:** Name: N/A Password:
-
-**IF WIN_AUTH:** Name:
 
 ### Interject Database Role
 
-**Name:** ""
+**Name:** "db_Interject"
 
-**Members:**
-- IF SQL-AUTH: ""
-- IF WIN_AUTH: ""
-
-**Databases:**
-- ""
-- ""
-- ""
-
-### INTERJECT Database and User Certificate
-**Certificate Name:** ""
-
-**Certificate User:** ""
-
-**Certificate Password:** "**********"
-
-## Deployment via SSMS
-
-The following activies are to be completed while conected to the SQL Server via SSMS using a user account belonging to the SysAdmin Server Role. Scripts should be executed in order to work correctly.
-
-SQL Script Reference: 
-```
-\\jaxm-files.intuition.com\laminin\Interject\Software\Release.201711\
-```
-**Step 1**
-
-Execute **\01.PrepareServer_MasterDB.sql** in **[master]** db to implement the following on the SQL Server. Estimated run time is a minute.
+## Databases
 
 - CREATE [Interject_Reporting] database, if not already exist 
 
-**Step 2**
+![](/images/A-SQL-Installation/01.png)
 
-Execute **\02.ReportingDB_FullDeployScript.sql** in **[Interject_Reporting]** db to implement the following on the SQL Server:
 
--	Interject Financials for Spreadsheets w/Epicor Enterprise integration database objects
+### Deployment via using PoSH scripts
 
-**Step 3**
+```
+git clone https://gitlab.com/Interject/Interject_Reporting.git -b epicor
 
-Execute **\03.ReportingDB_ExecuteScripts.sql** in **[Interject_Reporting]** db to initialize Epicor Enterprise data for Interject Financials for Spreadsheets.
+git ls-tree --full-tree -r --name-only HEAD > ..\..\ExecuteScripts\DBUpdateList\payload.txt
+```
+
+### Deployment executing scripts
+
+Execute below script db to initialize Epicor Enterprise data for Interject Financials for Spreadsheets.
+
 ```SQL
-EXECUTE [Custom].[EPR_InstallScript1_DatabaseConfig]
-
 EXECUTE [Custom].[EPR_InstallScript1_DatabaseConfig]
 	@MasterEpicorDatabase = '[DemoControl]'
 	,@DefaultDatabaseNameSource = '[DemoHold]'
@@ -76,16 +49,15 @@ EXECUTE [Custom].[EPR_InstallScript2_EpicorImport]
 EXECUTE [Custom].[EPR_InstallScript3_ReportingImport]
 
 EXECUTE [Custom].[EPR_InstallScript3_ReportingImport]
-	@ReportingImport_YearBegin = '1996'
+	@ReportingImport_YearBegin = '1996' --Accont beginning
 	,@ReportingImport_YearEnd = '2000'
 
-EXECUTE [Custom].[EPR_InstallScript4_GroupingImport]
-EXECUTE [Custom].[EPR_InstallScript6_FullAccountGrouping]
-EXECUTE [Custom].[EPR_InstallScript7_CostCenterGrouping]
+EXECUTE [Custom].[EPR_InstallScript4_GroupingImport] 
 ```
-**Step 4**
 
-Execute **\04.ReportingDB_Permissions.sql** in **[Interject_Reporting]** db to implement the following on the SQL Server:
+##### Execute **ReportingDB_Permissions.sql** in **[Interject_Reporting]** db to implement the following on the SQL Server:
+
+[download script][1] 
 
 -	CREATE **[db_Interject]** database role
 -	IF SQL-AUTH: CREATE **[InterjectAppUser]** database user and add to database role
@@ -95,9 +67,12 @@ Execute **\04.ReportingDB_Permissions.sql** in **[Interject_Reporting]** db to i
     - **[Custom]** – EXECUTE
     - **[Report]** – EXECUTE
 
-**Step 5**
 
-Execute **\04.ReportingDB_AddSignaturePermissions.sql** in **[Interject_Reporting]** db to implement the following on the SQL Server:
+##### Execute **ReportingDB_AddSignaturePermissions.sql** in **[Interject_Reporting]** db to implement the following on the SQL Server:
+
+[download script][2] 
+
+![](/images/A-SQL-Installation/02.png)
 
 *** Edit the script to set an alternative password for the certificate ***
 
@@ -121,9 +96,11 @@ Execute **\04.ReportingDB_AddSignaturePermissions.sql** in **[Interject_Reportin
     - [FSData] – SELECT
     - [ImportERP] – SELECT
 
-**Step 6**
+##### Edit and Execute each of the following scripts to install the SQL Server Agent Jobs that accompany the Interject Solution. 
 
-Edit and Execute each of the following scripts to install the SQL Server Agent Jobs that accompany the Interject Solution. 
+```SQL
+EXECUTE [Custom].[EPR_InstallScript5_SetupJobs]
+```
 
 -	10.SQLAgentJob_Interject_Reporting_AddJobsFromScheduler.sql
 -	10.SQLAgentJob_Interject_Reporting_CheckSchedule_ImportActual.sql
@@ -132,3 +109,7 @@ Edit and Execute each of the following scripts to install the SQL Server Agent J
 
 The scripts include default schedules and assumes to be executed on same server as the **[Interject_Reporting]** and Epicor company databases.
 
+
+
+[1]:{{ site.url }}/images/A-SQL-Installation/ReportingDB_Permissions.sql
+[2]:{{ site.url }}/images/A-SQL-Installation/ReportingEpicor_AddSignature_Permission.sql

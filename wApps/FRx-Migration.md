@@ -36,4 +36,7 @@ Clone the the scripts into retro folder
 ```
 git clone https://gitlab.com/Open-Interject/FRxExportColumnRow.git
 
+git ls-tree --full-tree -r --name-only HEAD > ..\..\ExecuteScripts\DBUpdateList\payload.txt
+
 ```
+
