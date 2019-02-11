@@ -30,11 +30,28 @@ In this case, the result should be **PROD | BETA | DEV:Mail**
 
 ### Deployment via using PoSH scripts
 
-```
-git clone https://gitlab.com/Interject/Interject_Reporting.git -b epicor
+Requires git. 
 
-git ls-tree --full-tree -r --name-only HEAD > ..\..\ExecuteScripts\DBUpdateList\payload.txt
+Download PoShDbToolGUI application by cloning the follow repo. 
+
+```PowerShell
+git clone https://gitlab.com/Open-Interject/PowershellDBToolsGui.git -b feature/payload_file
+cd .\PowershellDBToolsGui\PoShDbToolGUI\bin\Release\
+.\DbTools.exe
 ```
+
+[PoShDbToolGUI]:https://gitlab.com/Open-Interject/PowershellDBToolsGui/raw/feature/payload_file/PoShDbToolGUI/bin/Release/DbTools.exe?inline=false
+
+Create copy of the Interject reporting repos using the "Epicor" branch and generate a payload from git repo. 
+
+```PowerShell
+git clone https://gitlab.com/Interject/Interject_Reporting.git -b epicor
+cd Interject_Reporting
+git ls-tree --full-tree -r --name-only HEAD > ..\payload.txt
+```
+Open PoSh GUI 
+
+![](/images/A-SQL-Installation/03.png)
 
 ### Deployment executing scripts
 
@@ -42,14 +59,14 @@ Execute below script db to initialize Epicor Enterprise data for Interject Finan
 
 ```SQL
 EXECUTE [Custom].[EPR_InstallScript1_DatabaseConfig]
-	@MasterEpicorDatabase = '[DemoControl]'
+	 @MasterEpicorDatabase = '[DemoControl]'
 	,@DefaultDatabaseNameSource = '[DemoHold]'
 
 EXECUTE [Custom].[EPR_InstallScript2_EpicorImport]
 EXECUTE [Custom].[EPR_InstallScript3_ReportingImport]
 
 EXECUTE [Custom].[EPR_InstallScript3_ReportingImport]
-	@ReportingImport_YearBegin = '1996' --Accont beginning
+	 @ReportingImport_YearBegin = '1996' --Accont beginning
 	,@ReportingImport_YearEnd = '2000'
 
 EXECUTE [Custom].[EPR_InstallScript4_GroupingImport] 

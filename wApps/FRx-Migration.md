@@ -31,12 +31,22 @@ __Note:__ _If Access database is protected you will need to remove the database 
 
 ### Add FRx Conversion Scripts
 
+Download PoShDbToolGUI application by cloning the follow repo. 
+
+```PowerShell
+git clone https://gitlab.com/Open-Interject/PowershellDBToolsGui.git -b feature/payload_file
+cd .\PowershellDBToolsGui\PoShDbToolGUI\bin\Release\
+.\DbTools.exe
+```
+
 Clone the the scripts into retro folder
 
 ```
 git clone https://gitlab.com/Open-Interject/FRxExportColumnRow.git
-
-git ls-tree --full-tree -r --name-only HEAD > ..\..\ExecuteScripts\DBUpdateList\payload.txt
-
+git ls-tree --full-tree -r --name-only HEAD > ..\payload.txt
 ```
+Open PoSh GUI 
+
+![](/images/A-SQL-Installation/03.png)
+
 

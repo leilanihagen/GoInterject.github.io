@@ -8,14 +8,13 @@ description: INTERJECT™ Financials specifics (Topics that are unique/specific 
 
 ## My Apps
 **Interject Financials:** Includes 44 data portals related to *Financials for Spreadsheets.* Data connection is redirected through "" 
+**Epicor Tools** Includes 3 data portals to help migrate FRx reports. 
 
 ## Data Connections
 
-**Name:** ""
-
 **Connection String:**
 
-Setup database connection.
+Setup database connection. [ Database Connection ](/wPortal/L-Database-Connection.html)
 
 **PROD:** Data Source = ""; Initial Catalog=""; Integrated Security=SSPI
 

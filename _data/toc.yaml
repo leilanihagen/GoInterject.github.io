@@ -92,6 +92,8 @@ apps:
       path: /wApps/SQL-Install.html
     - title: "FRx Migration"
       path: /wApps/FRx-Migration.html
+    - title: "Convert FRx Reports To Interject"
+      path: /wApps/ConvertingReports.html
     
 getstarted:
   - sectiontitle: Creating with INTERJECT
