@@ -17,9 +17,6 @@ To check the Mail profile, run ```SELECT name FROM msdb.dbo.sysmail_profile```.
 In this case, the result should be **PROD | BETA | DEV:Mail**
 
 
-### Interject Database Role
-
-**Name:** "db_Interject"
 
 ## Databases
 
@@ -45,7 +42,7 @@ cd .\PowershellDBToolsGui\PoShDbToolGUI\bin\Release\
 Create copy of the Interject reporting repos using the "Epicor" branch and generate a payload from git repo. 
 
 ```PowerShell
-git clone https://gitlab.com/Interject/Interject_Reporting.git -b epicor
+git clone https://gitlab.com/Interject/Interject_Reporting.git -b Epicor
 cd Interject_Reporting
 git ls-tree --full-tree -r --name-only HEAD > ..\payload.txt
 ```
@@ -71,6 +68,8 @@ EXECUTE [Custom].[EPR_InstallScript3_ReportingImport]
 
 EXECUTE [Custom].[EPR_InstallScript4_GroupingImport] 
 ```
+
+### Interject Database Role 
 
 ##### Execute **ReportingDB_Permissions.sql** in **[Interject_Reporting]** db to implement the following on the SQL Server:
 
