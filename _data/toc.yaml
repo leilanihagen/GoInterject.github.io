@@ -86,8 +86,6 @@ apps:
   - sectiontitle: Epicor - INTERJECT Financials
     path: /wApps/Interject-Financials.html
     section: 
-    - title: Requirements
-      path: /wApps/Requirements.html
     - title: "SQL Server Implementation"
       path: /wApps/SQL-Install.html
     - title: "FRx Migration"

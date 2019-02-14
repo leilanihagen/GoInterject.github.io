@@ -5,54 +5,72 @@ keywords: []
 description: 
 ---
 
-## Settings
+# Prequisites
 
-### SQL Server Version
+1. Verify SQL Server Version is > 2008
 
-MSSQL Server 2008 and newer is supported. To check your MSSQL version, run ```SELECT @@VERSION``` in a query window. 
+    *To check your MSSQL version, run ```SELECT @@VERSION``` in a query window.* 
 
-### SQL Database Mail Profile
-To check the Mail profile, run ```SELECT name FROM msdb.dbo.sysmail_profile```.
-
-In this case, the result should be **PROD | BETA | DEV:Mail**
-
+2. Obtain Git Labs Account and Permissions granted
+3. Obtain Git Application
+4. SQL Management Studio and Windows Powershell
 
 
-## Databases
+# Steps Required to Install
+
+### 1. Establish connection to Appropiate DB Server
+### 2. Verify SQL Database Mail Profile
+    To check the Mail profile, run ```SELECT name FROM msdb.dbo.sysmail_profile```.
+
+### 3. Create Interject Reporting Database Schema
 
 - CREATE [Interject_Reporting] database, if not already exist 
 
-![](/images/A-SQL-Installation/01.png)
+   ![](/images/A-SQL-Installation/01.png)
 
 
-### Deployment via using PoSH scripts
+### 4. Deploy DB Objects via PoSH scripting
 
-Requires git. 
+   *Requires git application and access to repository* 
 
-Download PoShDbToolGUI application by cloning the follow repo. 
+    a) Download PoShDbToolGUI application by cloning the follow repo using terminal (ie: Powershell): 
 
 ```PowerShell
 git clone https://gitlab.com/Open-Interject/PowershellDBToolsGui.git -b feature/payload_file
+
 cd .\PowershellDBToolsGui\PoShDbToolGUI\bin\Release\
 .\DbTools.exe
 ```
 
 [PoShDbToolGUI]:https://gitlab.com/Open-Interject/PowershellDBToolsGui/raw/feature/payload_file/PoShDbToolGUI/bin/Release/DbTools.exe?inline=false
 
-Create copy of the Interject reporting repos using the "Epicor" branch and generate a payload from git repo. 
+    b) Create copy of the Interject reporting repos using the "Epicor" branch and generate a payload from git repo. 
 
 ```PowerShell
 git clone https://gitlab.com/Interject/Interject_Reporting.git -b Epicor
+
 cd Interject_Reporting
+
 git ls-tree --full-tree -r --name-only HEAD > ..\payload.txt
 ```
-Open PoSh GUI 
+
+#### c)  Open PoSh GUI 
+
+1c.  Assign Repo Folder Location
+
+2c.  Assign Payload File Location
+
+3c.  Assign Server Name
+
+4c.  Assign Database Name
+
+5c.  Execute SQL changes
 
 ![](/images/A-SQL-Installation/03.png)
 
-### Deployment executing scripts
+### 5. Script DB to initialize Epicor Enterprise Data
 
-Execute below script db to initialize Epicor Enterprise data for Interject Financials for Spreadsheets.
+    Execute below scripts to initialize Epicor Enterprise data for Interject Financials for Spreadsheets Within using SQL Server on Interject Reporting database from step 2.
 
 ```SQL
 EXECUTE [Custom].[EPR_InstallScript1_DatabaseConfig]
@@ -69,9 +87,9 @@ EXECUTE [Custom].[EPR_InstallScript3_ReportingImport]
 EXECUTE [Custom].[EPR_InstallScript4_GroupingImport] 
 ```
 
-### Interject Database Role 
+### 6. Assign Interject Database Role and permissions
 
-##### Execute **ReportingDB_Permissions.sql** in **[Interject_Reporting]** db to implement the following on the SQL Server:
+    a) Execute **ReportingDB_Permissions.sql** in **[Interject_Reporting]** db to implement the following on the SQL Server:
 
 [download script][1] 
 
@@ -83,14 +101,15 @@ EXECUTE [Custom].[EPR_InstallScript4_GroupingImport]
     - **[Custom]** – EXECUTE
     - **[Report]** – EXECUTE
 
+    b) Execute **ReportingDB_AddSignaturePermissions.sql** in **[Interject_Reporting]** db to implement the following on the SQL Server:
 
-##### Execute **ReportingDB_AddSignaturePermissions.sql** in **[Interject_Reporting]** db to implement the following on the SQL Server:
+ [download script][2] 
 
-[download script][2] 
+    ![](/images/A-SQL-Installation/02.png)
 
-![](/images/A-SQL-Installation/02.png)
+### 7. Enable Security Certificates
 
-*** Edit the script to set an alternative password for the certificate ***
+    *Edit the script to set an alternative password for the certificate *
 
 -	CREATE CERTIFICATE **[InterjectCertificate]**
 -	CREATE CERTIFICATE USER **[InterjectCertificateUser]**
@@ -112,7 +131,8 @@ EXECUTE [Custom].[EPR_InstallScript4_GroupingImport]
     - [FSData] – SELECT
     - [ImportERP] – SELECT
 
-##### Edit and Execute each of the following scripts to install the SQL Server Agent Jobs that accompany the Interject Solution. 
+### 8. Install SQL Agent Jobs
+     Edit and Execute each of the following scripts to install the SQL Server Agent Jobs that accompany the Interject Solution. 
 
 ```SQL
 EXECUTE [Custom].[EPR_InstallScript5_SetupJobs]
@@ -129,3 +149,18 @@ The scripts include default schedules and assumes to be executed on same server 
 
 [1]:{{ site.url }}/images/A-SQL-Installation/ReportingDB_Permissions.sql
 [2]:{{ site.url }}/images/A-SQL-Installation/ReportingEpicor_AddSignature_Permission.sql
+
+### 9. Setup DB Connections in Interject Portal
+Setup database connection. [ Database Connection ](/wPortal/L-Database-Connection.html)
+
+**PROD:** Data Source = ""; Initial Catalog=""; Integrated Security=SSPI
+
+**BETA:** Data Source = ""; Initial Catalog=""; Integrated Security=SSPI 
+
+**DEV:** Data Source = ""; Initial Catalog=""; Integrated Security=SSPI
+
+**Other Connections:** 
+- "": Used for initial SYSDATA migration only in DEV.
+- "": Used to point to Laminin DEV Lab.
+
+### 10. Enable Subscriptions to Interject Financials
