@@ -86,10 +86,16 @@ apps:
   - sectiontitle: Epicor - INTERJECT Financials
     path: /wApps/Interject-Financials.html
     section: 
-    - title: "SQL Server Implementation"
+    - title: "Technical Install"
       path: /wApps/SQL-Install.html
+    - title: "Initial Data Load"
+      path: /wApps/InitialDataLoad.html
+    - title: "Interject Application Configurations"
+      path: /wApps/InterjectAppConfig.html
     - title: "FRx Migration"
       path: /wApps/FRx-Migration.html
+    - title: "Epicor Segment Assessment"
+      path: /wApps/EpicorSegment.html 
     - title: "Convert FRx Reports To Interject"
       path: /wApps/ConvertingReports.html
     
