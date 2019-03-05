@@ -5,36 +5,47 @@ keywords: []
 description: 
 ---
 
-# Prerequisites
+## Prerequisites
 
 1. Verify SQL Server Version is > 2008
 
     *To check your MSSQL version, run ```SELECT @@VERSION``` in a query window.* 
 
 2. SQL Management Studio 
-3. Download Initial Deploy Scripts from secured portal
+3. Download Initial Deploy Scripts using the following link [Initial.Interject_Reporting.sql](https://drive.google.com/a/gointerject.com/uc?authuser=0&id=1fdddeCsvwNwF5VqICLoAZU4KSkcZKSyx&export=download). If unable to download email [help@gointerject.com](help@gointerject.com) to get access to file.
 
-# Steps Required to Install
+## Steps Required to Install
 
-## 1. Establish connection to Appropiate DB Server
-## 2. Create Interject Reporting Database Schema
+### 1. Establish connection to Appropiate DB Server
+
+Using MSSMS connect to your Epicor server using sysadmin user. 
+
+### 2. Create Interject Reporting Database
 
 - CREATE [Interject_Reporting] database, if not already exist 
 
    ![](/images/A-SQL-Installation/01.png)
 
-## 3. Execute Initial Deploy Script on New Database
+### 3. Execute Initial Deploy Script on New Database
 
-### DB Object Creation
-### DB permissions and roles
+Open [Initial.Interject_Reporting.sql](https://drive.google.com/a/gointerject.com/uc?authuser=0&id=1fdddeCsvwNwF5VqICLoAZU4KSkcZKSyx&export=download) script. Executing script on the newly created database. This script creates all DB Object.
 
-The security model can be setup in a few ways, by location or other segment.  The security in epicor is by database, which normally has a group of location segments.
-Execute Read Only Access Setup Scripts
-Applies Certificates on Epicor DBs for select tables
+### 4. Create security objects and grand read only access to Eipor tables
+
+Pass the following 2 parameters to [Custom].[Interject_SetupScript1_Security]    
+* MasterEpicorDatabase - Specify the master Epicor Batabase
+* CertificatePassword - Create a certificate with a custom password. 
+
+**Example:**
+```SQL
+EXEC [Custom].[Interject_SetupScript1_Security]
+	  @MasterEpicorDatabase = '[DemoControl]'
+	 ,@CertificatePassword =  'myPassword1234'
+```
 
 
-## 4. Execute Read Only Access Setup Scripts
 
-Execute Read Only Access Setup Scripts
 
-   
+
+
+

@@ -21,5 +21,5 @@ This deployment guide assumes the migration of the FRx Sysdata has already taken
 | Setting                    | Value                                                                                                                                                                    |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Interject Release          | Version 2.2.8.68 \| Release: Production\4.0 32x86 \| Method: Cloud\Platform                                                                                              |
-| Interject Client           | Download and Install from: <br> https://install.gointerject.com/installs/Interject_Version_Installer.exe <br> https://portal.gointerject.com/kb/HowToUse/Installing.html |
-| Interject Database Scripts | \\\JAXM-FILES.intuition.com\laminin\interject\software\ 
+| Interject Client           | Download and Install from: <br> [Interject Installer](https://install.gointerject.com/installs/Interject_Version_Installer.exe) <br> [Install Instruction](http://docs.gointerject.com/wAbout/SingleUser.html) |
+| Interject Database Scripts | [Initial.Interject_Reporting.sql](https://drive.google.com/a/gointerject.com/uc?authuser=0&id=1fdddeCsvwNwF5VqICLoAZU4KSkcZKSyx&export=download) <br> If unable to download email [help@gointerject.com](help@gointerject.com) to get access to file.   |
