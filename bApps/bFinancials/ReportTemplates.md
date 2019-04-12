@@ -66,8 +66,15 @@ After hitting "Click to Add", a new sheet will open with the FRx row template re
 >
 > **Step 1:** Go back to the Configuration Manager Welcome screen and then click the link to "Setup/Review Report Templates"
 >
-> **Step 2:** 
+> **Step 2:** On the "Row Template" screen, click the "Company" parameter and choose a company. 
 >
+> **Step 3:** Click "Rollup Definition" and choose a definition
+>
+> **Step 4:** Name your Row Template. You will not be able to save without naming the Row Template
+>
+> **Step 5:** 
+>
+> **Step 6:** Using 
 >
 >
 >

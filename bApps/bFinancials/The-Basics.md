@@ -20,6 +20,16 @@ description: A quick guide to get users started navigating Interject for Financi
 > <span class="hotkey">Ctrl+Shift+L:</span> Opens the report library, where you can access your organization's published reports.
 >
 
+### Important Formulas
+
+> To Know
+>
+> **=JCombineSmart\(\):** Use this formula in the Detail Account Definitions of your Rollup Detail and Validation Definitions to concatenate the detail code definitions from an FRx Template Reference. Simply type the formula in the cell you want to populate with definitions, and select the range of cells you with to concatenate.
+>
+> **=EDate\(\):** Use this in your Financial Report Templates to dynamically reference the Fiscal Period. In subsequent columns to the left of your absolute column, type **=EDate\(\),-\[the column to the right\]**.
+>
+>
+
 
 ### Important Actions on the Interject Ribbon Menu 
 
