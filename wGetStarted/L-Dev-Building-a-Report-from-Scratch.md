@@ -2,28 +2,6 @@ Start with a blank Excel workbook:
 
 ![](/images/L-Dev-Report_from_Scratch/01.png)
 
-### Setting the Freeze Panes
-
-We will start off by setting the Freeze Panes at the correct location using jFreezePanes() [detailed here](https://docs.gointerject.com/wIndex/jFreezePanes.html#function-summary)
-
-**Step 1:** To start, type “=jFreezePanes” in cell **F10**:
-
-![](/images/L-Dev-Report_from_Scratch/02.png)
-
-Click on the function builder(?):
-
-![](/images/L-Dev-Report_from_Scratch/03.png)
-
-**Step 2:** There are two parameters of jFreezePanes(), FreezePanesCell and AnchorViewCell. AnchorViewCell specifies the very top row that will be visible when the panes are frozen. The cells above AnchorViewCell will be hidden when the panes are frozen. The cells between AnchorViewCell and FreezePanesCell is the block that is frozen at the top of the sheet as you scroll down the sheet.
-
-Set **FreezePanesCell = A26**  and **AnchorViewCell = A18**:
-
-![](/images/L-Dev-Report_from_Scratch/04.png)
-
-Now that we have our freeze pane set up, we can start with formatting the spreadsheet.
-
-INTERJECT uses the hidden area of the frozen pane to define INTERJECT report functions and to set up the formatting of the report.
-
 ### Formatting the Behind the Scenes Section
 
 We’ll start by setting up the titles of the sections that hold the different report functionality formulas. This formatting is standard to INTERJECT reports.
@@ -34,55 +12,97 @@ We’ll start by setting up the titles of the sections that hold the different r
 2. Click the paint bucket to fill the color.
 3. Choose the darkest blue (#1F4E78).
 
-![](/images/L-Dev-Report_from_Scratch/05.png)
+![](/images/L-Dev-Report_from_Scratch/02.png)
 
 For this report, we will need 5 different titled sections. Now that you have the color selected in your paint bucket, simply click on every other row and then click on the paint bucket until you have 5 dark blue rows:
 
-![](/images/L-Dev-Report_from_Scratch/06.png)
+![](/images/L-Dev-Report_from_Scratch/03.png)
 
 Now let’s name the title sections. We will need names: “Column Definitions,” “Formatting Range,” “Report Formulas,” “Hidden Parameters and Notes,” and “Report Area Below.”  We will enter “Column Definitions” and make it **white** and **bold** as follows:
 
-![](/images/L-Dev-Report_from_Scratch/07.png)
+![](/images/L-Dev-Report_from_Scratch/04.png)
 
 Now enter the names “Formatting Range,” “Report Formulas,” “Hidden Parameters and Notes,” and “Report Area Below” in the next 4 title rows. Don’t worry about the formatting of these 4 for now.
 
-![](/images/L-Dev-Report_from_Scratch/08.png)
+![](/images/L-Dev-Report_from_Scratch/05.png)
 
-Now, we can use the format painter to copy the formatting of the first title to the remaining 4:
+Now, we can use the format painter to copy the formatting of the first title to the remaining 4. 
 
-![](/images/L-Dev-Report_from_Scratch/09.png)
+1. Select **row 1**,
+2. click the **format painter**,
+3. click **row 3**.
+
+![](/images/L-Dev-Report_from_Scratch/06.png)
+
+Repeat for **rows 5, 7 and 9.**
 
 As you may have noticed, the jFreezePanes() is out of place. And our hidden freeze panes sections goes all the way down to row 17, so the space where our titles are laid out should occupy all of this space. Let’s insert some more empty rows under our titles to put more space for formula definitions and the like.
 
 Copy two empty rows from somewhere in the sheet:
 
-![](/images/L-Dev-Report_from_Scratch/10.png)
+![](/images/L-Dev-Report_from_Scratch/07.png)
 
 Paste them above row 2 by right clicking on row 2:
 
-![](/images/L-Dev-Report_from_Scratch/11.png)
+![](/images/L-Dev-Report_from_Scratch/08.png)
 
 Now copy and paste 2 more rows under each title so that your report looks like this:
 
-![](/images/L-Dev-Report_from_Scratch/12.png)
-
-We can now see that the size of our report definitions area matches the size we set for jFreezePanes(), ending at row 17. Let’s move our jFreezePanes() definition back to cell F10. Cut and paste cell F18 to cell F10:
-
-![](/images/L-Dev-Report_from_Scratch/13.png)
+![](/images/L-Dev-Report_from_Scratch/09.png)
 
 Now let’s add the standard light blue color to the titled sections:
 
-	1. Select the 3 rows under Column Definitions.
-	2. Click the paint bucket.
-	3. Select the lightest blue color (#DDEBF7).
+    1. Select the 3 rows under Column Definitions.
+    2. Click the paint bucket.
+    3. Select the lightest blue color (#DDEBF7).
+
+![](/images/L-Dev-Report_from_Scratch/10.png)
+
+Repeat this step for the three other report definition areas by **selecting each area** and **clicking the paint bucket** (it should already have your previously selected color in it.
+
+![](/images/L-Dev-Report_from_Scratch/11.png)
+
+
+
+
+
+
+
+### Setting the Freeze Panes
+
+We will start off by setting the Freeze Panes at the correct location using jFreezePanes() [detailed here](https://docs.gointerject.com/wIndex/jFreezePanes.html#function-summary)
+
+**Step 1:** To start, type “=jFreezePanes” in cell **F10**:
+
+![](/images/L-Dev-Report_from_Scratch/12.png)
+
+Click on the function builder(?):
+
+![](/images/L-Dev-Report_from_Scratch/13.png)
+
+**Step 2:** There are two parameters of jFreezePanes(), FreezePanesCell and AnchorViewCell. AnchorViewCell specifies the very top row that will be visible when the panes are frozen. The cells above AnchorViewCell will be hidden when the panes are frozen. The cells between AnchorViewCell and FreezePanesCell is the block that is frozen at the top of the sheet as you scroll down the sheet.
+
+Set **FreezePanesCell = A26**:
 
 ![](/images/L-Dev-Report_from_Scratch/14.png)
 
-Repeat this step for the three other report definition areas so that your report looks as follows:
+Then set **AnchorViewCell = A18**:
 
 ![](/images/L-Dev-Report_from_Scratch/15.png)
 
-Now let’s format the report area. We’ll start by putting a report title in cell **B19** “Customer Orders:”
+Now that we have our freeze pane set up, we can start with formatting the spreadsheet.
+
+INTERJECT uses the hidden area of the frozen pane to define INTERJECT report functions and to set up the formatting of the report.
+
+
+
+
+
+
+
+### Formatting the Report Area
+
+Now let’s format the report area. We’ll start by putting a report title in cell **B19** “Customer Orders” and formatting it to be **bold** and of text **size 14**.
 
 ![](/images/L-Dev-Report_from_Scratch/16.png)
 
@@ -90,7 +110,12 @@ Next, let’s name the report filters for this report. The report filters act as
 
 ![](/images/L-Dev-Report_from_Scratch/17.png)
 
-Now, let’s resize column A to be smaller, and extend column B by a bit:
+Now, let’s resize column A to be smaller, and extend column B and C by a bit.
+
+1. Drag column A back,
+2. drag column B forward,
+3. drag column C forward,
+4. select cells **B21, B22 and B23**.
 
 ![](/images/L-Dev-Report_from_Scratch/18.png)
 
@@ -98,13 +123,13 @@ Now let’s color the input fields for the report filters. Apply the lightest or
 
 ![](/images/L-Dev-Report_from_Scratch/19.png)
 
-Let’s expand column C a little bit to give the user more space for their input:
+Let’s right-align cells **B21, B22 and B23**:
 
 ![](/images/L-Dev-Report_from_Scratch/20.png)
 
 Now that we’ve titled and styled our report filters, let’s make the spreadsheet look better by removing the gridlines in Excel.
 
-Go to the **Files** tab in Excel:
+Go to the **File** tab in Excel:
 
 ![](/images/L-Dev-Report_from_Scratch/21.png)
 
@@ -112,17 +137,25 @@ Go to **Options**:
 
 ![](/images/L-Dev-Report_from_Scratch/22.png)
 
-	1. Go to the **Advanced** tab.
-	2. Scroll down until you see **“Display options for this worksheet”**.
-	3. **Uncheck** the **“Show gridlines”** checkbox.
+    1. Go to the **Advanced** tab.
+    2. Scroll down until you see **“Display options for this worksheet”**.
+    3. **Uncheck** the **“Show gridlines”** checkbox.
 
 ![](/images/L-Dev-Report_from_Scratch/23.png)
 
-Name the current worksheet **“CustomerOrderHistory”** and delete any other worksheets you have in the workbook:
+Now there should be no gridlines on the current worksheet.
+
+Let’s rename the current worksheet **CustomerOrderHistory** and delete any other worksheets you have in the workbook.
+
+Right-click on the first sheet’s title and select **Rename**.
 
 ![](/images/L-Dev-Report_from_Scratch/24.png)
 
+Type in **CustomerOrderHistory**.
+
 ![](/images/L-Dev-Report_from_Scratch/25.png)
+
+Right-click on any other sheets you have a select **Delete**.
 
 ![](/images/L-Dev-Report_from_Scratch/26.png)
 
@@ -159,7 +192,7 @@ Name you connection **NorthwindDB_MyName** (substitute for your name) and give i
 
 ![](/images/L-Dev-Report_from_Scratch/31.png)
 
-Select **”Database”** from the dropdown list for **Connection Type**.
+Select **Database** from the dropdown list for **Connection Type**.
 
 ![](/images/L-Dev-Report_from_Scratch/32.png)
 
@@ -187,7 +220,7 @@ Start by naming your Data Portal **”NorthwindCustomerOrders_YourName”** (sub
 
 ![](/images/L-Dev-Report_from_Scratch/36.png)
 
-For the **Connection**, we will use the Data Connection we created in the last section, **”NorthwindDB_YourName”**. It should appear in the dropdown list when clicked
+For the **Connection**, we will use the Data Connection we created in the last section, **NorthwindDB_YourName**. It should appear in the dropdown list when clicked
 
 ![](/images/L-Dev-Report_from_Scratch/37.png)
 
@@ -217,7 +250,7 @@ Enter **2:4** into the **ColDefRange** to tell ReportRange() that all of its col
 
 ![](/images/L-Dev-Report_from_Scratch/42.png)
 
-Now, we can specify the columns that we want to get back from our Data Portal via ReportRange in the Column Definitions section of our report.
+Now, we can specify the columns that we want to get back from our Data Portal via ReportRange() in the Column Definitions section of our report. Let’s fill these values in.
 
 Starting with row 2, type **CustomerID** into cell **B2**, **CompanyName** into cell **C2**, **ContactName** into cell **E2**, **OrderID** into cell **F2**, **OrderDate** into cell **G2**, **OrderAmount** into cell **H2**, **Freight** into cell **I2**, **TotalAmount** into cell **J2**.
 
@@ -231,7 +264,7 @@ Now, let’s add the other parameters. Open the function arguments for ReportRan
 
 ![](/images/L-Dev-Report_from_Scratch/45.png)
 
-ReportRange() works by inserting the result set returned from the Data Portal *in between* two or more rows. These rows are specified by the TargetDataRange argument. Input **27:28** for our **TargetDataRange**.
+ReportRange() works by inserting the result set returned from the Data Portal *in between* two or more rows. These rows are specified by the TargetDataRange argument. Input **27:28** for our **TargetDataRange** (down in the Report Area, below the filter parameters).
 
 ![](/images/L-Dev-Report_from_Scratch/46.png)
 
@@ -258,5 +291,3 @@ select code
 ### Setting up ReportDefaults()
 
 The ReportDefaults() function is used to capture values from one or a set of cells (or an independently specified value) and send the value/s to another cell or set of cells. Its execution is triggered based on another action/event happening in the report (for example a save or clear action. It is commonly used to clear the values in the filter list after results have been pulled in and then cleared, which is how it will be used herein. Read more about ReportDefaults() [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
-
-
