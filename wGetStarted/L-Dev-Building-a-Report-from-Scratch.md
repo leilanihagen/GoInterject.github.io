@@ -52,9 +52,9 @@ Now copy and paste 2 more rows under each title so that your report looks like t
 
 Now let’s add the standard light blue color to the titled sections:
 
-    1. Select the 3 rows under Column Definitions.
-    2. Click the paint bucket.
-    3. Select the lightest blue color (#DDEBF7).
+1. Select the 3 rows under Column Definitions.
+2. Click the paint bucket.
+3. Select the lightest blue color (#DDEBF7).
 
 ![](/images/L-Dev-Report_from_Scratch/10.png)
 
