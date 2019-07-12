@@ -62,6 +62,12 @@ Repeat this step for the three other report definition areas by **selecting each
 
 ![](/images/L-Dev-Report_from_Scratch/11.png)
 
+
+
+
+
+
+
 ### Setting the Freeze Panes
 
 Freeze panes are important for INTERJECT reports because they allow us to a) hide the report definitions section to ensure that we aren’t confusing our end users with details that they do not need to see and b) keep a header with column titles visible to the user as they scroll through report data.
@@ -92,44 +98,61 @@ Now that we have our freeze pane set up, we can start with formatting the spread
 
 INTERJECT uses the hidden area of the frozen pane to define INTERJECT report functions and to set up the formatting of the report.
 
+Let’s try freezing the panes to see how it works.
+
+1. Press and hold **CTRL + SHIFT + T** or click on **Quick Tools** to open the Quick Tools menu.
+2. Press **Enter** or click **Freeze/Unfreeze Panes (current tab)**.
+
+![]/images/L-Dev-Report_from_Scratch/16.png
+
+Your report should now look like the following. The sectioned off block from rows 18-25 is the frozen pane section that will stay at the top as you scroll down. This is where our header with the name of the report and filter parameters will go later. The cells above row 18, which contain our report definitions area, are hidden.
+
+![]/images/L-Dev-Report_from_Scratch/17.png
+
 ### Formatting the Report Area
 
 Now let’s format the report area. We’ll start by putting a report title in cell **B19** “Customer Orders” and formatting it to be **bold** and of text **size 14**.
 
-![](/images/L-Dev-Report_from_Scratch/16.png)
+![](/images/L-Dev-Report_from_Scratch/18.png)
 
 Next, let’s name the report filters for this report. The report filters act as a way to specify which data is being pulled into the report from the data portal by specifying a set of characters that the pulled in data must contain. In cells **B21, B22 and B23**, respectively, type in: **“Company Name:”**, **“Contact Name:”**, and **“Customer ID:”**
 
-![](/images/L-Dev-Report_from_Scratch/17.png)
+![](/images/L-Dev-Report_from_Scratch/19.png)
 
 Now, let’s resize column A to be smaller, and extend column B and C by a bit.
 
-1. Drag column A back,
-2. drag column B forward,
-3. drag column C forward,
-4. select cells **B21, B22 and B23**.
+1. Drag column A back.
+2. Drag column B forward.
+3. Drag column C forward.
 
-![](/images/L-Dev-Report_from_Scratch/18.png)
+![](/images/L-Dev-Report_from_Scratch/20.png)
 
 Now let’s color the input fields for the report filters. Apply the lightest orange color () to cells **C21, C22 and C23**:
 
-![](/images/L-Dev-Report_from_Scratch/19.png)
+![](/images/L-Dev-Report_from_Scratch/21.png)
+
+Now let’s right-align **cells C21-C23**,
+
+1. Select cells **C21-C23**.
+2. Select right-align.
+
+![]/images/L-Dev-Report_from_Scratch/22.png
 
 Now that we’ve titled and styled our report filters, let’s make the spreadsheet look better by removing the gridlines in Excel.
 
 Go to the **File** tab in Excel:
 
-![](/images/L-Dev-Report_from_Scratch/21.png)
+![](/images/L-Dev-Report_from_Scratch/23.png)
 
 Go to **Options**:
 
-![](/images/L-Dev-Report_from_Scratch/22.png)
+![](/images/L-Dev-Report_from_Scratch/24.png)
 
-1. Go to the **Advanced** tab.
-2. Scroll down until you see **“Display options for this worksheet”**.
-3. **Uncheck** the **“Show gridlines”** checkbox.
+    1. Go to the **Advanced** tab.
+    2. Scroll down until you see **“Display options for this worksheet”**.
+    3. **Uncheck** the **“Show gridlines”** checkbox.
 
-![](/images/L-Dev-Report_from_Scratch/23.png)
+![](/images/L-Dev-Report_from_Scratch/25.png)
 
 Now there should be no gridlines on the current worksheet.
 
@@ -137,37 +160,37 @@ Let’s rename the current worksheet **CustomerOrderHistory** and delete any oth
 
 Right-click on the first sheet’s title and select **Rename**.
 
-![](/images/L-Dev-Report_from_Scratch/24.png)
+![](/images/L-Dev-Report_from_Scratch/26.png)
 
 Type in **CustomerOrderHistory**.
 
-![](/images/L-Dev-Report_from_Scratch/25.png)
+![](/images/L-Dev-Report_from_Scratch/27.png)
 
 Right-click on any other sheets that you have in the workbook and select **Delete**.
 
-![](/images/L-Dev-Report_from_Scratch/26.png)
+![](/images/L-Dev-Report_from_Scratch/28.png)
 
 **Step #:** Let’s change the font on our entire worksheet to be **Century Gothic**.
 
 Select all the cells in the sheet by clicking the tab in the top left corner.
 
-![](/images/L-Dev-Report_from_Scratch/27.png)
+![](/images/L-Dev-Report_from_Scratch/29.png)
 
 Then type **Century Gothic** into the font selector in the **Home** tab at the top.
 
-![](/images/L-Dev-Report_from_Scratch/28.png)
+![](/images/L-Dev-Report_from_Scratch/30.png)
 
 You can reduce the scale on the worksheet to your monitors needs. Since the new font is a little bigger, we’ll reduce the demo worksheet to 90%.
 
-![]/images/L-Dev-Report_from_Scratch/29.png
+![]/images/L-Dev-Report_from_Scratch/31.png
 
 Now let’s expand column C and B a bit to accommodate the size of the new font.
 
-![]/images/L-Dev-Report_from_Scratch/30.png
+![]/images/L-Dev-Report_from_Scratch/32.png
 
 Let’s right-align cells **B21, B22 and B23**.
 
-![]/images/L-Dev-Report_from_Scratch/31.png
+![]/images/L-Dev-Report_from_Scratch/33.png
 
 ### Adding ReportRange() to the Report
 
@@ -175,11 +198,11 @@ Let’s right-align cells **B21, B22 and B23**.
 
 Type **=ReportRange()** in cell **C10** then click on the function builder icon.
 
-![]/images/L-Dev-Report_from_Scratch/32.png
+![]/images/L-Dev-Report_from_Scratch/34.png
 
 As you can see, DataPortal is the first parameter that will must provide ReportRange() so that it knows where to pull in the data from. Type **NorthwindCustomerOrders_MyName** into the DataPortal parameter box for now.
 
-![]/images/L-Dev-Report_from_Scratch/33.png
+![]/images/L-Dev-Report_from_Scratch/35.png
 
 We will now switch to configuring an INTERJECT Data Connection, and a Data Portal that we can pull from using ReportRange().
 
@@ -193,25 +216,25 @@ We’ll start with the Data Connection. INTERJECT Data Connections enable users 
 
 **Step 1: Logging in** Start by navigating to the INTERJECT portal site ([here](https://portal.gointerject.com/)) and logging in.
 
-![]/images/L-Dev-Report_from_Scratch/34.png
+![]/images/L-Dev-Report_from_Scratch/36.png
 
 **Step 2: Create the connection:** Create a new data connection by clicking the New Connection button.
 
-![]/images/L-Dev-Report_from_Scratch/35.png
+![]/images/L-Dev-Report_from_Scratch/37.png
 
 Name you connection **NorthwindDB_MyName** (substitute for your name) and give it a quick description.
 
-![]/images/L-Dev-Report_from_Scratch/36.png
+![]/images/L-Dev-Report_from_Scratch/38.png
 
 Select **Database** from the dropdown list for **Connection Type**.
 
-![]/images/L-Dev-Report_from_Scratch/37.png
+![]/images/L-Dev-Report_from_Scratch/39.png
 
 For the connection string, you will need to have your own sample Northwind database to use. You can download a Northwind sample database from Microsoft [here](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/downloading-sample-databases).
 
 Substitute in your server and database name in italicized parts of the following sample connection string: ”Server=*MyServerAddress*;Database=*MyDatabase*;Trusted_Connection=True;” Once you have your connection string entered, press Save to continue.
 
-![]/images/L-Dev-Report_from_Scratch/38.png
+![]/images/L-Dev-Report_from_Scratch/40.png
 
 ### Setting Up the Data Portal
 
@@ -221,31 +244,31 @@ Data Portals are provided as a way to connect to specific stored procedures with
 
 Navigate again to [the portal site](https://portal.gointerject.com/) and choose Data Portals.
 
-![]/images/L-Dev-Report_from_Scratch/39.png
+![]/images/L-Dev-Report_from_Scratch/41.png
 
 Create a new data portal.
 
-![]/images/L-Dev-Report_from_Scratch/40.png
+![]/images/L-Dev-Report_from_Scratch/42.png
 
 Start by naming your Data Portal **”NorthwindCustomerOrders_YourName”** (substitute in your name) and giving it a description.
 
-![]/images/L-Dev-Report_from_Scratch/41.png
+![]/images/L-Dev-Report_from_Scratch/43.png
 
 For the **Connection**, we will use the Data Connection we created in the last section, **NorthwindDB_YourName**. It should appear in the dropdown list when clicked
 
-![]/images/L-Dev-Report_from_Scratch/42.png
+![]/images/L-Dev-Report_from_Scratch/44.png
 
 Now we will specify the stored procedure that this data portal will be referencing. We will write the stored procedure itself shortly. Name your stored procedure **”[demo].[northwind_customer_orders_myname]”**.
 
-![]/images/L-Dev-Report_from_Scratch/43.png
+![]/images/L-Dev-Report_from_Scratch/45.png
 
 For the **Category**, enter **Demo** and for the **Command Type**, choose **Stored Procedure Name** from the dropdown list.
 
-![]/images/L-Dev-Report_from_Scratch/44.png
+![]/images/L-Dev-Report_from_Scratch/46.png
 
 Make sure **Data Portal Status** is set to **Enabled** and **Is Custom Command?** is set to **No**, then save the new Data Portal:
 
-![]/images/L-Dev-Report_from_Scratch/45.png
+![]/images/L-Dev-Report_from_Scratch/47.png
 
 Now we will add our formula parameters. If you look at the report, you will remember we have 3 filters on our report, **Company Name**, **Contact Name** and **Customer ID**. Our Data Portal and stored procedures need to know that we have these filter parameters to affect the data that they pull out.
 
@@ -253,45 +276,45 @@ It will be important later on, when writing the stored procedure, that the order
 
 Parameter order of filters in report:
 
-![]/images/L-Dev-Report_from_Scratch/46.png
+![]/images/L-Dev-Report_from_Scratch/48.png
 
 Click on the **Click here to add a Formula Parameter** link and enter the first parameter name **CompanyName**. This will directly reference a parameter that we will code into our stored procedure with the same name later on.
 
-![]/images/L-Dev-Report_from_Scratch/47.png
+![]/images/L-Dev-Report_from_Scratch/49.png
 
 Set the **TYPE** to **nvarchar** so that a character string can be entered by the user, and set the **DIRECTION** to **input** since this will be an input parameter and not an output.
 
-![]/images/L-Dev-Report_from_Scratch/48.png
+![]/images/L-Dev-Report_from_Scratch/50.png
 
 Press the save button so that it turns from red to green.
 
-![]/images/L-Dev-Report_from_Scratch/49.png
+![]/images/L-Dev-Report_from_Scratch/51.png
 
 Add the next Formula Parameter for **ContactName**.
 
-![]/images/L-Dev-Report_from_Scratch/50.png
+![]/images/L-Dev-Report_from_Scratch/52.png
 
 Add the last Formula Parameter for **CustomerID**.
 
-![]/images/L-Dev-Report_from_Scratch/51.png
+![]/images/L-Dev-Report_from_Scratch/53.png
 
 Now we’ll add the necessary System Parameters. System Parameters are used to pass information from the user’s system to the stored procedure/Data Portal. Here, we will be adding 2 System Parameters, **Interject_NTLogin**, which is used to capture the user’s Windows login, and **Interject_LocalTimeZoneOffset**, which is used to capture the difference from the user’s local time zone to the universal time. You can read more about System Parameters (and these specific ones) [here](https://docs.gointerject.com/wGetStarted/L-Dev-CustomerAging.html#system-parameters).
 
 Create a new System Parameter and choose **Interject_NTLogin** from the dropdown menu.
 
-![]/images/L-Dev-Report_from_Scratch/52.png
+![]/images/L-Dev-Report_from_Scratch/54.png
 
 Press the save button and wait until it turns green.
 
-![]/images/L-Dev-Report_from_Scratch/53.png
+![]/images/L-Dev-Report_from_Scratch/55.png
 
 Add a second System Parameter, choose **Interject_LocalTimeZoneOffset** from the dropdown menu and make sure you save the new parameter.
 
-![]/images/L-Dev-Report_from_Scratch/54.png
+![]/images/L-Dev-Report_from_Scratch/56.png
 
 Verify that you have all your parameter information correct and that you have saved them all before moving on. Your screen should look as follows.
 
-![]/images/L-Dev-Report_from_Scratch/55.png
+![]/images/L-Dev-Report_from_Scratch/57.png
 
 ### Setting up ReportRange() with the Data Portal
 
@@ -301,41 +324,41 @@ In order to show how the front-end Excel interface ties into the writing of the 
 
 **Step 1:** Go back to the report, click in cell **C10** and open the function builder.
 
-![]/images/L-Dev-Report_from_Scratch/56.png
+![]/images/L-Dev-Report_from_Scratch/58.png
 
 Enter **2:4** into the **ColDefRange** to tell ReportRange() that all of its column definitions can be found in this range of rows. You can read more about ColDefRange here.
 
-![]/images/L-Dev-Report_from_Scratch/57.png
+![]/images/L-Dev-Report_from_Scratch/59.png
 
 Now, we can specify the columns that we want to get back from our Data Portal via ReportRange() in the Column Definitions section of our report. Let’s fill these values in.
 
 Starting with row 2, type **CustomerID** into cell **B2**, **CompanyName** into cell **C2**, **ContactName** into cell **E2**, **OrderID** into cell **F2**, **OrderDate** into cell **G2**, **OrderAmount** into cell **H2**, **Freight** into cell **I2**, **TotalAmount** into cell **J2**.
 
-![]/images/L-Dev-Report_from_Scratch/58.png
+![]/images/L-Dev-Report_from_Scratch/60.png
 
 In row 3, we just need **ShipVia** in cell **C3** and **ShippedDate** in cell **E3**.
 
-![]/images/L-Dev-Report_from_Scratch/59.png
+![]/images/L-Dev-Report_from_Scratch/61.png
 
 Now, let’s add the other parameters. Open the function arguments for ReportRange() again.
 
-![]/images/L-Dev-Report_from_Scratch/60.png
+![]/images/L-Dev-Report_from_Scratch/62.png
 
 ReportRange() works by inserting the result set returned from the Data Portal *in between* two or more rows. These rows are specified by the TargetDataRange argument. Input **27:28** for our **TargetDataRange** (down in the Report Area, below the filter parameters).
 
-![]/images/L-Dev-Report_from_Scratch/61.png
+![]/images/L-Dev-Report_from_Scratch/63.png
 
 The Formatting Range is the part of the report definitions section that specifies how final output will be formatted when returned to the end user. Our formatting range occupies rows 6:8, so input **6:8** in **FormatRange**.
 
-![]/images/L-Dev-Report_from_Scratch/62.png
+![]/images/L-Dev-Report_from_Scratch/64.png
 
 The **Parameters** parameter specifies which cells will be the “filter” cells whose values are sent to the Data Portal to filter results to the user’s specifications. The Param() function ([read more here](https://docs.gointerject.com/wIndex/Param.html)) is used here to capture the cells. Type **Param(C21,C22,C23)** into **Parameters**.
 
-![]/images/L-Dev-Report_from_Scratch/63.png
+![]/images/L-Dev-Report_from_Scratch/65.png
 
 As a best practice, we recommend you set **UseEntireRow** to **TRUE** and **PutFieldNamesAtTop** to **FALSE**
 
-![]/images/L-Dev-Report_from_Scratch/64.png
+![]/images/L-Dev-Report_from_Scratch/66.png
 
 ### Testing ReportRange()
 
@@ -343,25 +366,25 @@ Now that we’ve set up ReportRange() with all of its arguments, let’s test it
 
 **Step 1:** Enter **market** into the Company Name filter parameter in cell **C21**. This will filter the result set in our SQL query that we wrote, only selecting the records whose CompanyName column contains the string ”market.” Providing a filter is helpful for 2 reasons: 1) it reduces the amount of data you are requesting back from the database which reduces the execution speed of the data pull, and 2) it helps test your query to see if it selected all of the expected data records.
 
-65                                  NAME CHANGE
+![]/images/L-Dev-Report_from_Scratch/67.png
 
 **Step 2:** Now run a data PULL on the report.
 
 1. Press **CTRL + SHIFT + J** together on your keyboard or click the **PULL Data** button.
 2. Press **Enter** or click **Pull Data**.
 
-![]/images/L-Dev-Report_from_Scratch/66.png
+![]/images/L-Dev-Report_from_Scratch/68.png
 
 **Step 3:** Unfreeze the panes to view the data how the end user would.
 
 1. Press **CTRL + SHIFT + T** together on your keyboard or click the **Quick Tools** button.
 2. Press **Enter** or click **Freeze/Unfreeze Panes (current tab)** in the menu.
 
-![]/images/L-Dev-Report_from_Scratch/67.png
+![]/images/L-Dev-Report_from_Scratch/69.png
 
 Your data should look like the following.
 
-![]/images/L-Dev-Report_from_Scratch/68.png
+![]/images/L-Dev-Report_from_Scratch/70.png
 
 Now that we know which pieces of data we need in our report, **we can design the stored procedure**.
 
@@ -373,13 +396,13 @@ Formatting Ranges work by letting you define the formatting you’d like to appl
 
 **Step 1:** Let’s start by making the cells in our Formatting Range white. Select **rows 6-8** and select **white** from the dropdown list of paint bucket colors.
 
-![]/images/L-Dev-Report_from_Scratch/69.png
+![]/images/L-Dev-Report_from_Scratch/71.png
 
 When designing Formatting Ranges, we use contrived sample data to illustrate how the real data will look in the TargetDataRange when it’s pulled in.
 
 **Step 2:** First, we’ll format how we want **CustomerID** to look in the output data. Enter the sample ID **GREAL** into cell **B6**.
 
-![]/images/L-Dev-Report_from_Scratch/70.png
+![]/images/L-Dev-Report_from_Scratch/72.png
 
 For **CompanyName**, enter **Great Lakes Food Market** into cell **C6** and make it bold.
 
@@ -387,11 +410,11 @@ For **CompanyName**, enter **Great Lakes Food Market** into cell **C6** and make
 2. Select the text in the cell.
 3. Apply bold to the selected text.
 
-![]/images/L-Dev-Report_from_Scratch/71.png
+![]/images/L-Dev-Report_from_Scratch/73.png
 
 For **ContactName**, enter **Howard Snyder** into cell **E6**.
 
-![]/images/L-Dev-Report_from_Scratch/72.png
+![]/images/L-Dev-Report_from_Scratch/74.png
 
 For **OrderID**:
 
@@ -401,49 +424,49 @@ For **OrderID**:
 4. Click the paint bucket.
 5. Select the lightest grey color.
 
-![]/images/L-Dev-Report_from_Scratch/73.png
+![]/images/L-Dev-Report_from_Scratch/75.png
 
 For **OrderDate**:
 
 1. Enter the sample date **4/30/98** in cell **G6**.
 2. Enter **Date** in the format options for the cell.
 
-![]/images/L-Dev-Report_from_Scratch/74.png
+![]/images/L-Dev-Report_from_Scratch/76.png
 
 For **OrderAmount**:
 
 1. Enter the sample data **510** in cell **H6**.
 2. Enter **Accounting** in the format options for the cell.
 
-![]/images/L-Dev-Report_from_Scratch/75.png
+![]/images/L-Dev-Report_from_Scratch/77.png
 
 For **Freight**, enter **14.01** into cell **I6** and change the format for the cell to **Accounting**.
 
-![]/images/L-Dev-Report_from_Scratch/76.png
+![]/images/L-Dev-Report_from_Scratch/78.png
 
 For **TotalAmount**, enter **524.01** into cell **J6**, make the text bold, and again change the format for the cell to **Accounting**.
 
-![]/images/L-Dev-Report_from_Scratch/77.png
+![]/images/L-Dev-Report_from_Scratch/79.png
 
 We now only have to format the cells for **ShipVia** and **ShippedDate**. We will make titles for these fields in the row to the left of them and leave the values themselves without formatting.
 
 Enter **Shipped Via:** in cell **B7** and **Ship Date:** in cell **D7**. Also expand column C by a bit.
 
-![]/images/L-Dev-Report_from_Scratch/78.png
+![]/images/L-Dev-Report_from_Scratch/80.png
 
 Now, we want to add a border under row 7 (at the top of row 8) to demarcate the end of each record set.
 
 Select cells **B8-J8**.
 
-![]/images/L-Dev-Report_from_Scratch/79.png
+![]/images/L-Dev-Report_from_Scratch/81.png
 
 Click on the **Borders** dropdown menu and choose **Top Border**.
 
-![]/images/L-Dev-Report_from_Scratch/80.png
+![]/images/L-Dev-Report_from_Scratch/82.png
 
 Lastly, we’ll reduce row 8 to provide a small padding under the border we just added.
 
-![]/images/L-Dev-Report_from_Scratch/81.png
+![]/images/L-Dev-Report_from_Scratch/83.png
 
 ### Writing the SQL Stored Procedure Behind ReportRange()
 
@@ -465,13 +488,13 @@ In this report, we will be using ReportDefaults to clear out the filter values i
 
 **Step 1:** Start by typing **=ReportDefaults()** into cell **C11** and opening the function builder.
 
-![]/images/L-Dev-Report_from_Scratch/82.png
+![]/images/L-Dev-Report_from_Scratch/84.png
 
 For the arguments OnPullSaveOrBoth and OnClearRunOrBoth, we want ”Pull” and ”Clear” respectively. This is because we want to execute “Trigger 2” explained in [the ReportDefaults() documentation](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list). With these arguments, the defaults will trigger when the user performs a Pull-Clear event-action sequence.
 
 Enter **”Pull”** into the **OnPullSaveOrBoth** field, and **”Clear”** into **OnClearRunOrBoth**.
 
-![]/images/L-Dev-Report_from_Scratch/83.png
+![]/images/L-Dev-Report_from_Scratch/85.png
 
 The TransferPairs argument is what decides the default values to place in the selected cells. We want to clear out our filter parameter cells, so we will pair each of these cells (C21-C23) with a blank value to pass in when a Pull-Clear occurs.
 
@@ -479,19 +502,19 @@ Each of these pairs (a cell with a blank string (“”)) needs its own Pair() f
 
 Input **PairGroup()** into **TransferPairs**, then press **Ok**.
 
-![]/images/L-Dev-Report_from_Scratch/84.png
+![]/images/L-Dev-Report_from_Scratch/86.png
 
 Now, to give arguments to the PairGroup() function, click inside the PairGroup() function within ReportDefaults() and open the function builder.
 
-![]/images/L-Dev-Report_from_Scratch/85.png
+![]/images/L-Dev-Report_from_Scratch/87.png
 
 Now type **Pair(””, C21)** into **Pair1**, **Pair(””, C22)** into **Pair2** and **Pair(””, C23)** into **Pair3**.
 
-![]/images/L-Dev-Report_from_Scratch/86.png
+![]/images/L-Dev-Report_from_Scratch/88.png
 
 Your ReportDefaults() function should now look like the following:
 
-![]/images/L-Dev-Report_from_Scratch/87.png
+![]/images/L-Dev-Report_from_Scratch/89.png
 
 ### Introducing the SalesOrder Report and Drilling Between Reports
 
@@ -507,23 +530,26 @@ In our case, SalesOrderHistory, the report we’ve been working on so far, is th
 
 Click the plus sign to add another worksheet.
 
-![]/images/L-Dev-Report_from_Scratch/88.png
+![]/images/L-Dev-Report_from_Scratch/90.png
 
 Right-click on the new worksheet and select **Rename**.
 
-![]/images/L-Dev-Report_from_Scratch/89.png
+![]/images/L-Dev-Report_from_Scratch/91.png
 
 Enter **SalesOrder** in the input field.
 
-![]/images/L-Dev-Report_from_Scratch/90.png
+![]/images/L-Dev-Report_from_Scratch/92.png
 
 **Step 2:** Let’s start by again turning off gridlines in this workbook.
 
-![]/images/L-Dev-Report_from_Scratch/91.png
-
-![]/images/L-Dev-Report_from_Scratch/92.png
-
 ![]/images/L-Dev-Report_from_Scratch/93.png
+
+![]/images/L-Dev-Report_from_Scratch/94.png
+
+![]/images/L-Dev-Report_from_Scratch/95.png
+
+
+
 
 
 
