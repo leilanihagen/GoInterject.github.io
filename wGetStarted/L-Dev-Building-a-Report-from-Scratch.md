@@ -180,7 +180,7 @@ Then type **Century Gothic** into the font selector in the **Home** tab at the t
 
 ![](/images/L-Dev-Report_from_Scratch/30.png)
 
-You can reduce the scale on the worksheet to your monitors needs. Since the new font is a little bigger, we’ll reduce the demo worksheet to 90%.
+You can reduce the scale of the worksheet to your monitors needs. Since the new font is a little bigger, we’ll reduce the demo worksheet to 90%.
 
 ![](/images/L-Dev-Report_from_Scratch/31.png)
 
@@ -360,114 +360,6 @@ As a best practice, we recommend you set **UseEntireRow** to **TRUE** and **PutF
 
 ![](/images/L-Dev-Report_from_Scratch/66.png)
 
-### Testing ReportRange()
-
-Now that we’ve set up ReportRange() with all of its arguments, let’s test it. It is always good practice to test each formula you add to the report you’re building once it’s done, before you move on to building the next part/formula on the report. This ensures that at the end when you’re ready to test the finished report, you know that all the constituent parts work by themselves.
-
-**Step 1:** Enter **market** into the Company Name filter parameter in cell **C21**. This will filter the result set in our SQL query that we wrote, only selecting the records whose CompanyName column contains the string ”market.” Providing a filter is helpful for 2 reasons: 1) it reduces the amount of data you are requesting back from the database which reduces the execution speed of the data pull, and 2) it helps test your query to see if it selected all of the expected data records.
-
-![](/images/L-Dev-Report_from_Scratch/67.png)
-
-**Step 2:** Now run a data PULL on the report.
-
-1. Press **CTRL + SHIFT + J** together on your keyboard or click the **PULL Data** button.
-2. Press **Enter** or click **Pull Data**.
-
-![](/images/L-Dev-Report_from_Scratch/68.png)
-
-**Step 3:** Unfreeze the panes to view the data how the end user would.
-
-1. Press **CTRL + SHIFT + T** together on your keyboard or click the **Quick Tools** button.
-2. Press **Enter** or click **Freeze/Unfreeze Panes (current tab)** in the menu.
-
-![](/images/L-Dev-Report_from_Scratch/69.png)
-
-Your data should look like the following.
-
-![](/images/L-Dev-Report_from_Scratch/70.png)
-
-Now that we know which pieces of data we need in our report, **we can design the stored procedure**.
-
-### Designing the Formatting Range
-
-Because we have multiple rows in our Column Definition for ReportRange(), we need a Formatting Range to specify how each of these fields will look in the output from the pull.
-
-Formatting Ranges work by letting you define the formatting you’d like to apply to your output data (specified in the Column Definition area); they let you do it concisely, in one place, such that the formatting can be copied down and repeated for each data record set pulled from the Data Portal. You don’t need to design a Formatting Range for every report you will write, but when you are using report formulas that trigger a pull action, you need a Formatting Range if you have more than one row in your column definition. If you have only one row, and you don’t specify a formatting range, the formatting of the first row in the TargetDataRange will be copied to the output rows.
-
-**Step 1:** Let’s start by making the cells in our Formatting Range white. Select **rows 6-8** and select **white** from the dropdown list of paint bucket colors.
-
-![](/images/L-Dev-Report_from_Scratch/71.png)
-
-When designing Formatting Ranges, we use contrived sample data to illustrate how the real data will look in the TargetDataRange when it’s pulled in.
-
-**Step 2:** First, we’ll format how we want **CustomerID** to look in the output data. Enter the sample ID **GREAL** into cell **B6**.
-
-![](/images/L-Dev-Report_from_Scratch/72.png)
-
-For **CompanyName**, enter **Great Lakes Food Market** into cell **C6** and make it bold.
-
-1. Enter **Great Lakes Food Market** into cell **C6**.
-2. Select the text in the cell.
-3. Apply bold to the selected text.
-
-![](/images/L-Dev-Report_from_Scratch/73.png)
-
-For **ContactName**, enter **Howard Snyder** into cell **E6**.
-
-![](/images/L-Dev-Report_from_Scratch/74.png)
-
-For **OrderID**:
-
-1. Enter **11061** into cell **F6**.
-2. Select the text and make it bold.
-3. Click the center-align text button.
-4. Click the paint bucket.
-5. Select the lightest grey color.
-
-![](/images/L-Dev-Report_from_Scratch/75.png)
-
-For **OrderDate**:
-
-1. Enter the sample date **4/30/98** in cell **G6**.
-2. Enter **Date** in the format options for the cell.
-
-![](/images/L-Dev-Report_from_Scratch/76.png)
-
-For **OrderAmount**:
-
-1. Enter the sample data **510** in cell **H6**.
-2. Enter **Accounting** in the format options for the cell.
-
-![](/images/L-Dev-Report_from_Scratch/77.png)
-
-For **Freight**, enter **14.01** into cell **I6** and change the format for the cell to **Accounting**.
-
-![](/images/L-Dev-Report_from_Scratch/78.png)
-
-For **TotalAmount**, enter **524.01** into cell **J6**, make the text bold, and again change the format for the cell to **Accounting**.
-
-![](/images/L-Dev-Report_from_Scratch/79.png)
-
-We now only have to format the cells for **ShipVia** and **ShippedDate**. We will make titles for these fields in the row to the left of them and leave the values themselves without formatting.
-
-Enter **Shipped Via:** in cell **B7** and **Ship Date:** in cell **D7**. Also expand column C by a bit.
-
-![](/images/L-Dev-Report_from_Scratch/80.png)
-
-Now, we want to add a border under row 7 (at the top of row 8) to demarcate the end of each record set.
-
-Select cells **B8-J8**.
-
-![](/images/L-Dev-Report_from_Scratch/81.png)
-
-Click on the **Borders** dropdown menu and choose **Top Border**.
-
-![](/images/L-Dev-Report_from_Scratch/82.png)
-
-Lastly, we’ll reduce row 8 to provide a small padding under the border we just added.
-
-![](/images/L-Dev-Report_from_Scratch/83.png)
-
 ### Writing the SQL Stored Procedure Behind ReportRange()
 
 Using a SQL editor like [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/sql-server-management-studio-ssms?view=sql-server-2017), copy and paste in the following code:
@@ -479,6 +371,114 @@ Here is the SELECT statement in the code. The columns returned from the SELECT s
 ## (screenshot including both SELECT and column definition area)
 
 Save your stored procedure, making sure that it’s name matches the name you specified for it in the Data Portal you created and that it is in the same database that you specified in the Data Connection you created.
+
+### Designing the Formatting Range
+
+Because we have multiple rows in our Column Definition for ReportRange(), we need a Formatting Range to specify how each of these fields will look in the output from the pull.
+
+Formatting Ranges work by letting you define the formatting you’d like to apply to your output data (specified in the Column Definition area); they let you do it concisely, in one place, such that the formatting can be copied down and repeated for each data record set pulled from the Data Portal. You don’t need to design a Formatting Range for every report you will write, but when you are using report formulas that trigger a pull action, you need a Formatting Range if you have more than one row in your column definition. If you have only one row, and you don’t specify a formatting range, the formatting of the first row in the TargetDataRange will be copied to the output rows.
+
+**Step 1:** Let’s start by making the cells in our Formatting Range white. Select **rows 6-8** and select **white** from the dropdown list of paint bucket colors.
+
+71 67
+
+When designing Formatting Ranges, we use contrived sample data to illustrate how the real data will look in the TargetDataRange when it’s pulled in.
+
+**Step 2:** First, we’ll format how we want **CustomerID** to look in the output data. Enter the sample ID **GREAL** into cell **B6**.
+
+72 68
+
+For **CompanyName**, enter **Great Lakes Food Market** into cell **C6** and make it bold.
+
+1. Enter **Great Lakes Food Market** into cell **C6**.
+2. Select the text in the cell.
+3. Apply bold to the selected text.
+
+73 69
+
+For **ContactName**, enter **Howard Snyder** into cell **E6**.
+
+74 70
+
+For **OrderID**:
+
+1. Enter **11061** into cell **F6**.
+2. Select the text and make it bold.
+3. Click the center-align text button.
+4. Click the paint bucket.
+5. Select the lightest grey color.
+
+75 71
+
+For **OrderDate**:
+
+1. Enter the sample date **4/30/98** in cell **G6**.
+2. Enter **Date** in the format options for the cell.
+
+76 72
+
+For **OrderAmount**:
+
+1. Enter the sample data **510** in cell **H6**.
+2. Enter **Accounting** in the format options for the cell.
+
+77 73
+
+For **Freight**, enter **14.01** into cell **I6** and change the format for the cell to **Accounting**.
+
+78 74
+
+For **TotalAmount**, enter **524.01** into cell **J6**, make the text bold, and again change the format for the cell to **Accounting**.
+
+79 75
+
+We now only have to format the cells for **ShipVia** and **ShippedDate**. We will make titles for these fields in the row to the left of them and leave the values themselves without formatting.
+
+Enter **Shipped Via:** in cell **B7** and **Ship Date:** in cell **D7**. Also expand column C by a bit.
+
+80 76
+
+Now, we want to add a border under row 7 (at the top of row 8) to demarcate the end of each record set.
+
+Select cells **B8-J8**.
+
+81 77
+
+Click on the **Borders** dropdown menu and choose **Top Border**.
+
+82 78
+
+Lastly, we’ll reduce row 8 to provide a small padding under the border we just added.
+
+83 79
+
+### Testing ReportRange()
+
+Now that we’ve set up ReportRange() with all of its arguments, let’s test it. It is always good practice to test each formula you add to the report you’re building once it’s done, before you move on to building the next part/formula on the report. This ensures that at the end when you’re ready to test the finished report, you know that all the constituent parts work by themselves.
+
+**Step 1:** Enter **market** into the Company Name filter parameter in cell **C21**. This will filter the result set in our SQL query that we wrote, only selecting the records whose CompanyName column contains the string ”market.” Providing a filter is helpful for 2 reasons: 1) it reduces the amount of data you are requesting back from the database which reduces the execution speed of the data pull, and 2) it helps test your query to see if it selected all of the expected data records.
+
+67 80
+
+**Step 2:** Now run a data PULL on the report.
+
+1. Press **CTRL + SHIFT + J** together on your keyboard or click the **PULL Data** button.
+2. Press **Enter** or click **Pull Data**.
+
+68 81
+
+**Step 3:** Unfreeze the panes to view the data how the end user would.
+
+1. Press **CTRL + SHIFT + T** together on your keyboard or click the **Quick Tools** button.
+2. Press **Enter** or click **Freeze/Unfreeze Panes (current tab)** in the menu.
+
+69 82
+
+Your data should look like the following.
+
+70 83
+
+Now that we know which pieces of data we need in our report, **we can design the stored procedure**.
 
 ### Setting up ReportDefaults()
 
