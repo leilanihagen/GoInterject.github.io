@@ -508,11 +508,34 @@ Your ReportDefaults() function should now look like the following:
 
 ![](/images/L-Dev-Report_from_Scratch/87.png)
 
+### Testing ReportDefaults()
+
+Now let’s test our ReportDefaults() function. It should clear any filter arguments from cells C21-C23 after a PULL-CLEAR.
+
+**Step 1:** Enter some filters into the filter fields. Enter **market** into cell **C21**, and **b** into cell **C22**.
+
+88 NAME CHANGE
+
+**Step 2:** PULL in the data.
+
+![](/images/L-Dev-Report_from_Scratch/89.png)
+
+**Step 3:** CLEAR the data.
+
+1. Press **CTRL + SHIFT + J** or click the **Quick Tools** menu button.
+2. Press **Down Arrow** then **Enter** or click **Clear**.
+
+![](/images/L-Dev-Report_from_Scratch/90.png)
+
+Now you should see that, as well as the data in the Target Data Range being cleared, the filter values in cells C21-C23 will also clear out.
+
+![](/images/L-Dev-Report_from_Scratch/91.png)
+
 ### Introducing the SalesOrder Report and Drilling Between Reports
 
 We will create a second report so that we can *drill* from the CustomerOrderHistory report to the SaleOrder report.
 
-Drilling is a way to connect and pass values between different worksheets or workbooks. A typical use case is when you have a general report that summarizes some data, you may want to allow the user to get more detail on certain data, and this can be accomplished by setting up a drill into a more detailed report. You can then pass some piece of data from the general/summary report into the more detailed report so that the detailed report can automatically pull in data that the user was drilling on. You can read more about ReportDrill() [here]().
+Drilling is a way to connect and pass values between different worksheets or workbooks. A typical use case is when you have a general report that summarizes some data, you may want to allow the user to get more detail on certain data, and this can be accomplished by setting up a drill into a more detailed report. You can then pass some piece of data from the general/summary report into a cell in the more detailed report so that the detailed report can automatically pull in and filter data based on the cell the user drilled on. You can read more about ReportDrill() [here]().
 
 In our case, SalesOrderHistory, the report we’ve been working on so far, is the general/summary report, while SaleOrder is the more detailed report that we will drill into from SalesOrderHistory.
 
@@ -522,23 +545,23 @@ In our case, SalesOrderHistory, the report we’ve been working on so far, is th
 
 Click the plus sign to add another worksheet.
 
-![](/images/L-Dev-Report_from_Scratch/88.png)
+![](/images/L-Dev-Report_from_Scratch/92.png)
 
 Right-click on the new worksheet and select **Rename**.
 
-![](/images/L-Dev-Report_from_Scratch/89.png)
+![](/images/L-Dev-Report_from_Scratch/93.png)
 
 Enter **SalesOrder** in the input field.
 
-![](/images/L-Dev-Report_from_Scratch/90.png)
+![](/images/L-Dev-Report_from_Scratch/94.png)
 
 **Step 2:** Let’s start by again turning off gridlines in this workbook.
 
-![](/images/L-Dev-Report_from_Scratch/91.png)
+![](/images/L-Dev-Report_from_Scratch/95.png)
 
-![](/images/L-Dev-Report_from_Scratch/92.png)
+![](/images/L-Dev-Report_from_Scratch/96.png)
 
-![](/images/L-Dev-Report_from_Scratch/93.png)
+![](/images/L-Dev-Report_from_Scratch/97.png)
 
 
 
