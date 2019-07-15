@@ -62,12 +62,6 @@ Repeat this step for the three other report definition areas by **selecting each
 
 ![](/images/L-Dev-Report_from_Scratch/11.png)
 
-
-
-
-
-
-
 ### Setting the Freeze Panes
 
 Freeze panes are important for INTERJECT reports because they allow us to a) hide the report definitions section to ensure that we aren’t confusing our end users with details that they do not need to see and b) keep a header with column titles visible to the user as they scroll through report data.
@@ -474,9 +468,9 @@ Now that we know which pieces of data we need in our report, **we can design the
 
 ### Setting up ReportDefaults()
 
-The ReportDefaults() function is used to capture values from one or a set of cells (or an independently specified value) and send the value/s to another cell or set of cells. Its execution is triggered based on another action/event happening in the report (for example a save or clear action. It is commonly used to clear the values in the filter list after results have been pulled in and then cleared, which is how it will be used herein. Read more about ReportDefaults() [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
+The ReportDefaults() function is used to capture values from one or a set of cells (or an independently specified value) and send the value/s to another cell or set of cells. Its execution is triggered based on an action or event (read the distinction between and INTERJECT action/event [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) happening in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used in our report. Read more about ReportDefaults() [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
 
-In this report, we will be using ReportDefaults to clear out the filter values in cells B21-B23 after a CLEAR is run on the report. Clear does not do this by default, because it’s scope is only the results of the data pull (it is only allowed to modify the data that a PULL action brings in, because CLEAR reverses the PULL).
+In this report, we will be using ReportDefaults to clear out the filter values in cells C21-C23 after a CLEAR is run on the report. CLEAR does not do this by default, because it’s scope of control over the report is limited to the *results* of the data pull (CLEAR is only allowed to modify the data that a PULL action brings in, because a CLEAR reverses a PULL).
 
 **Step 1:** Start by typing **=ReportDefaults()** into cell **C11** and opening the function builder.
 
@@ -490,7 +484,7 @@ Enter **”Pull”** into the **OnPullSaveOrBoth** field, and **”Clear”** in
 
 The TransferPairs argument is what decides the default values to place in the selected cells. We want to clear out our filter parameter cells, so we will pair each of these cells (C21-C23) with a blank value to pass in when a Pull-Clear occurs.
 
-Each of these pairs (a cell with a blank string (“”)) needs its own Pair() function inside the overarching PairGroup() function that ReportDefaults() takes as a parameter. Learn more about PairGroup() and Pair() in [here]().
+Each of these pairs (a cell with a blank string (“”)) needs its own Pair() function inside the overarching PairGroup() function that ReportDefaults() takes as a parameter. Learn more about PairGroup() and Pair()  [here]().
 
 Input **PairGroup()** into **TransferPairs**, then press **Ok**.
 
@@ -498,9 +492,15 @@ Input **PairGroup()** into **TransferPairs**, then press **Ok**.
 
 Now, to give arguments to the PairGroup() function, click inside the PairGroup() function within ReportDefaults() and open the function builder.
 
+1. Click in cell C11.
+2. In the **Formula Bar**, place the cursor somewhere in the function name text “PairGroup().”
+3. Click the function builder icon.
+
 ![](/images/L-Dev-Report_from_Scratch/85.png)
 
-Now type **Pair(””, C21)** into **Pair1**, **Pair(””, C22)** into **Pair2** and **Pair(””, C23)** into **Pair3**.
+The parameters to Pair() are **From, Target**, or, if you do not have a “From” cell, as in our case, they can be thought of as **SourceValue, Target**. Our “Source Value” is “” (an empty string) and our Targets are cells C21-C23
+
+Type **Pair(””, C21)** into **Pair1**, **Pair(””, C22)** into **Pair2** and **Pair(””, C23)** into **Pair3**.
 
 ![](/images/L-Dev-Report_from_Scratch/86.png)
 
@@ -533,11 +533,11 @@ Now you should see that, as well as the data in the Target Data Range being clea
 
 ### Introducing the SalesOrder Report and Drilling Between Reports
 
-We will create a second report so that we can *drill* from the CustomerOrderHistory report to the SaleOrder report.
+We will create a second report so that we can demonstrate *drilling* between reports.
 
-Drilling is a way to connect and pass values between different worksheets or workbooks. A typical use case is when you have a general report that summarizes some data, you may want to allow the user to get more detail on certain data, and this can be accomplished by setting up a drill into a more detailed report. You can then pass some piece of data from the general/summary report into a cell in the more detailed report so that the detailed report can automatically pull in and filter data based on the cell the user drilled on. You can read more about ReportDrill() [here]().
+Drilling is a way to connect and pass values between separate worksheets or workbooks. A typical use case is when you have a general report that provides a summary of some data, you may want to allow the user to get more detail on certain data, and this can be accomplished by setting up a drill into a more detailed report. You can then pass some piece of data from the general/summary report into a cell in the detailed report so that the detailed report can automatically pull in and filter data based on the cell the user drilled on. You can read more about ReportDrill() [here]().
 
-In our case, SalesOrderHistory, the report we’ve been working on so far, is the general/summary report, while SaleOrder is the more detailed report that we will drill into from SalesOrderHistory.
+In our case, SalesOrderHistory, the report we’ve been working on so far, is the general/summary report. We will create a new report, SaleOrder, which will be the detailed report that we will drill into from SalesOrderHistory.
 
 ### Creating the SalesOrder Report
 
@@ -557,9 +557,17 @@ Enter **SalesOrder** in the input field.
 
 **Step 2:** Let’s start by again turning off gridlines in this workbook.
 
+Click into the **File** tab above the Excel ribbon.
+
 ![](/images/L-Dev-Report_from_Scratch/95.png)
 
+Click **Options**
+
 ![](/images/L-Dev-Report_from_Scratch/96.png)
+
+1. In the window that pops up, click the **Advanced** tab.
+2. Scroll down until you see the header **Display options for this worksheet**.
+3. **Uncheck** the **Show gridlines** box.
 
 ![](/images/L-Dev-Report_from_Scratch/97.png)
 
