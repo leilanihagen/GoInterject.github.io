@@ -1,3 +1,27 @@
+### Introduction
+
+This is a comprehensive, detailed walkthrough lab that will teach you how to create a complete, functional INTERJECT report starting with a blank Excel sheet and building each component from the ground up.
+
+In this lab, you will learn how to:
+* format a report to INTERJECT standards,
+* write some common INTERJECT report formulas and learn about how they work,
+* set up backend Data Connections and Data Portals in the INTERJECT portal website,
+* write the SQL that underlies a data PULL.
+
+This lab is geared toward beginners, and expects you to have little to no prior experience with both INTERJECT and Excel. The only expectation is a basic understanding of SQL Server stored procedures and SELECT statements, but if you do not have this knowledge, resources will be provided that you can use to educate yourself before delving into the SQL portion of the lab.
+
+The goal of this lab is that a beginner can come in with no prior knowledge and leave having built a functional INTERJECT report, and with a general understanding of how all the major components work together to create an INTERJECT report.
+
+There are some portions of this lab that can be skipped, such as stylistic formatting of the report, that will not change the functionality of your end report if you skip them. These parts are included to show that, for example, report formatting can be changed and customized based on user/client preference.
+
+You will learn how to use the following INTERJECT report formulas in this lab:
+
+* [ReportRange()]().
+* [ReportDrill]().
+* [ReportDefaults]().
+
+### Introducing the CustomerOrderHistory Report
+
 Start with a blank Excel workbook:
 
 ![](/images/L-Dev-Report_from_Scratch/01.png)
