@@ -533,11 +533,37 @@ Now you should see that, as well as the data in the Target Data Range being clea
 
 ### Introducing the SalesOrder Report and Drilling Between Reports
 
-We will create a second report so that we can demonstrate *drilling* between reports.
+We will now switch to creating a second report so that we can demonstrate *drilling* between reports.
 
-Drilling is a way to connect and pass values between separate worksheets or workbooks. A typical use case is when you have a general report that provides a summary of some data, you may want to allow the user to get more detail on certain data, and this can be accomplished by setting up a drill into a more detailed report. You can then pass some piece of data from the general/summary report into a cell in the detailed report so that the detailed report can automatically pull in and filter data based on the cell the user drilled on. You can read more about ReportDrill() [here]().
+Drilling is a way to connect and pass values between separate worksheets or workbooks. In a drill, you always have a *source* report and a *destination* report, where the source report is the report that the user would start on and perform the drill on, and the destination report is the report that the user ends up on after the drill. A typical use case for a drill arises when you have a general report that provides a summary of some high-level data, and you want to allow the user to get more detail on some of the data in that report, but don’t have enough room to display this detail on the report. This can be resolved by creating a second report for that more detailed data and setting up a drill into the more detailed report from the summary one. You can then pass some piece of data from the general/summary report into a cell in the detailed report so that the detailed report can automatically pull in and filter data based on the cell the user drilled on in the source report. You can read more about ReportDrill() [here]().
 
 In our case, SalesOrderHistory, the report we’ve been working on so far, is the general/summary report. We will create a new report, SaleOrder, which will be the detailed report that we will drill into from SalesOrderHistory.
+
+### SalesOrder Report Preview
+
+First, let’s take a look at the finished product of the SalesOrder report and define our goals for what we want the report to do.
+
+Our SalesOrder report will provide detailed information about a single order. It shows: 1) information about the customer who placed the order, 2) information about the order itself (date placed, shipper information, etc.), as well as 3) information about the products contained in the order. We will build the report to have 3 separate sections which will group and display together these 3 different categories of data. The categories are broken up as follows:
+
+**1. Customer Information:** This section includes information about the customer who placed the order that is being drilled on.
+
+**2. Order Information:** This section contains information about the order and shipping logistics.
+
+**3. Product/Order Contents Information:** This section contains information about the products in the order.
+
+![](/images/L-Dev-Report_from_Scratch/92.png)
+
+The SalesOrder report is designed to be drilled to from a report that lists **OrderID**s (such as our SalesOrderHistory report), so that the user can choose one OrderID to drill on, then it will open the SalesOrder report for that OrderID. This allows the user to focus in on one order in SalesOrder while still giving them the flexibility to also view all previous orders from a comprehensive list in SalesOrderHistory.
+
+The following screenshot shows the steps for how one would perform a DRILL on an OrderID from the SalesOrderHistory report. Do not repeat these steps yet, because it will not work for you until you’ve built your SalesOrder report with a ReportDrill().
+
+![](/images/L-Dev-Report_from_Scratch/93.png)
+
+This sends the OrderID = 11027 to the SalesOrder report, where SalesOrder will run a ReportRange() (a PULL action) using OrderID = 11027 as a filter for the results it pulls in.
+
+As you can see below, the PULL action brings you to the SalesOrder worksheet and pulls data for the OrderID = 11027.
+
+![](/images/L-Dev-Report_from_Scratch/94.png)
 
 ### Creating the SalesOrder Report
 
@@ -545,37 +571,148 @@ In our case, SalesOrderHistory, the report we’ve been working on so far, is th
 
 Click the plus sign to add another worksheet.
 
-![](/images/L-Dev-Report_from_Scratch/92.png)
+![](/images/L-Dev-Report_from_Scratch/95.png)
 
 Right-click on the new worksheet and select **Rename**.
 
-![](/images/L-Dev-Report_from_Scratch/93.png)
+![](/images/L-Dev-Report_from_Scratch/96.png)
 
 Enter **SalesOrder** in the input field.
 
-![](/images/L-Dev-Report_from_Scratch/94.png)
+![](/images/L-Dev-Report_from_Scratch/97.png)
 
-**Step 2:** Let’s start by again turning off gridlines in this workbook.
+**Step 3:** Let’s start by formatting our report definitions area. Our report definitions area for this report will have very similar formatting to the one used in SalesOrderHistory, except that some of the areas will have fewer rows. We can thus start by copying and pasting the report definitions area from CustomerOrderHistory to the SalesOrder worksheet.
+
+Switch workbooks back to CustomerOrderHistory.
+
+![](/images/L-Dev-Report_from_Scratch/98.png)
+
+Copy **rows 1-17**.
+
+1. Select **rows 1-17**.
+2. Right-click on the selected rows and select **Copy**.
+
+![](/images/L-Dev-Report_from_Scratch/99.png)
+
+Go back to the SalesOrder tab.
+
+![](/images/L-Dev-Report_from_Scratch/100.png)
+
+Select **row 1** of the report and right click it, then select the first **Paste** option.
+
+![](/images/L-Dev-Report_from_Scratch/101.png)
+
+Our SalesOrder report doesn’t need a Formatting range, so we can delete the Formatting Range altogether.
+
+Select **rows 5-8**, right click on them, then select **Delete**.
+
+![](/images/L-Dev-Report_from_Scratch/102.png)
+
+Our Column Definitions area only needs to have one row, so we’ll delete the other 2.
+
+Delete the rows with text in them, rows 2 and 3. Select **rows 2 and 3**, right-click on them, then select **Delete**.
+
+![](/images/L-Dev-Report_from_Scratch/103.png)
+
+Our Hidden Parameters and Notes section only needs 2 rows, so let’s delete one of them.
+
+![](/images/L-Dev-Report_from_Scratch/104.png)
+
+Now that all of our sections are the right size, let’s get rid of the excess text.
+
+Right-click on one of the light blue rows that has no text and select **Copy**.
+
+![](/images/L-Dev-Report_from_Scratch/105.png)
+
+Select **rows 4 and 5**, and select the first **Paste** option.
+
+![](/images/L-Dev-Report_from_Scratch/106.png)
+
+**Step 4:** Now, let’s add our Column Definition values. Also change the sizes of the columns to roughly match the ones in the screenshot.
+
+1. Enter **CategoryName** into cell **B2**.
+2. Enter **ProductID** into cell **C2**.
+3. Enter **ProductName** into cell **D2**.
+4. Enter **Discount** into cell **E2**.
+5. Enter **Quantity** into cell **F2**.
+6. Enter **UnitPrice** into cell **G2**.
+7. Enter **ExtendedPrice** into cell **H2**.
+
+![](/images/L-Dev-Report_from_Scratch/107.png)
+
+1. Enter **OrderID** into cell **J2**.
+2. Enter **ProductID** into cell **K2**.
+3. Enter **CategoryID** into cell **L2**.
+
+![](/images/L-Dev-Report_from_Scratch/108.png)
+
+We will collapse columns J-M because they are not going to be displayed in the report area directly under the column definitions section like most of the column definition values are. We will do this just to ensure that we don’t confuse our users.
+
+Select **columns J-M**.
+
+![](/images/L-Dev-Report_from_Scratch/109.png)
+
+Click the edge of column M while columns J-M are selected, and drag the edge all the way into the start of column J until the columns are collapsed and hidden as shown below.
+
+![](/images/L-Dev-Report_from_Scratch/110.png)
+
+### SalesOrder - Setting the Freeze Panes
+
+In the Report Formulas section in **cell G4**, type **=jFreezePanes(A24, A11)** to set the cells between A11-A24 as our frozen section at the top of the report, and cells above A11 as the hidden section when panes are frozen.
+
+![](/images/L-Dev-Report_from_Scratch/111.png)
+
+### SalesOrder - Formatting the Report Area
+
+**Step 1:** Let’s start by turning off gridlines in this workbook.
 
 Click into the **File** tab above the Excel ribbon.
 
-![](/images/L-Dev-Report_from_Scratch/95.png)
+![](/images/L-Dev-Report_from_Scratch/112.png)
 
 Click **Options**
 
-![](/images/L-Dev-Report_from_Scratch/96.png)
+![](/images/L-Dev-Report_from_Scratch/113.png)
 
 1. In the window that pops up, click the **Advanced** tab.
 2. Scroll down until you see the header **Display options for this worksheet**.
 3. **Uncheck** the **Show gridlines** box.
 
-![](/images/L-Dev-Report_from_Scratch/97.png)
+![](/images/L-Dev-Report_from_Scratch/114.png)
 
+**Step 2: Title** Now let’s add a title to our report area.
 
+1. Type **SALES ORDER** into cell **B12**  then **select the text**.
+2. Type **Arial Black** into the **Font** selection box.
+3. Type **20** into the **Font Size** selection box.
+4. Click on the **Bold** option.
+5. Click on the **Text Color** selector.
+6. Select the second from last blue color (#4B758B).
 
+![](/images/L-Dev-Report_from_Scratch/115.png)
 
+Now, drag **row 12** down to be about **42 pixels** tall.
 
+![](/images/L-Dev-Report_from_Scratch/116.png)
 
+**Step 2: Customer Information Section** Now we will format the first section of our report area, the customer information section.
+
+First, let’s add a title to the section.
+
+1. In cell **B14**, enter **CUSTOMER:** then **select the text**.
+2. Enter **Arial** in the **Font** selection box.
+3. Enter **10** in the **Font Size** box.
+4. Select **Bold**.
+
+![](/images/L-Dev-Report_from_Scratch/117.png)
+
+Now we will apply a background color to our customer information section.
+
+1. Select the block of cells **B15-D19**.
+2. Click the paint bucket to open the fill color selector.
+3. Select the lightest blue color (#D9E1F2).
+
+![](/images/L-Dev-Report_from_Scratch/118.png)
 
 
 
