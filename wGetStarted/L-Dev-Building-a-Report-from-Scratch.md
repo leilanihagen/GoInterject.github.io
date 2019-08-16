@@ -38,7 +38,7 @@ An INTERJECT report is a spreadsheet or a collection of spreadsheets that displa
 
 Reports are more than just an Excel spreadsheet, however. Excel is the front-end interface that INTERJECT uses to allow end users to interact with their data in a familiar, intuitive environment. Behind Excel, the INTERJECT formulas on a given report connect to **Data Portals** which serve as the definition for how you wish to interact with your database (what data you want to retrieve and/or store). Data Portals then connect to Data Connections, which serve as a way for INTERJECT to remember how to connect to your data source, and in turn, connect to a database on a physical server or to a data API (the data source itself).
 
-### Introducing the CustomerOrderHistory Report	
+### Introducing the CustomerOrderHistory Report
 
 In this lab, we will create 2 reports. The first, CustomerOrderHistory, will be used to demonstrate creating a summary report that shows a list of summaries of past customer orders, i.e. a historical record of customer orders. CustomerOrderHistory demonstrates how to display large data sets in a concise, summarized, well formatted report.
 
@@ -118,7 +118,7 @@ Now enter the names **Formatting Range** in cell **A3**, **Report Formulas** in 
 
 ![](/images/L-Dev-Report_from_Scratch/11.png)
 
-Next, use the format painter to copy the formatting of the first title to the remaining 4. 
+Next, use the format painter to copy the formatting of the first title to the remaining 4.
 
 1. Select **row 1**.
 2. Click the **format painter** paintbrush icon.
@@ -208,7 +208,7 @@ Begin by putting a report title in cell **B19** “Customer Orders” and format
 
 1. Type **Customer Orders** into cell **B19** then **select the text** you just entered.
 2. Select the **Bold** option.
-3. Type **14** into the 
+3. Type **14** into the
 
 ![](/images/L-Dev-Report_from_Scratch/24.png)
 
@@ -545,7 +545,7 @@ Lastly, reduce row 8 to provide a small padding under the border we just added.
 
 It is always good practice to test each formula you add to the report you’re building once it’s done, before you move on to building the next part/formula on the report. This ensures that at the end when you’re ready to test the finished report, you know that all the constituent parts work by themselves.
 
-**Step 1:** Enter **market** into the Company Name filter parameter in cell **C21**. This will filter the result set in our SQL query that we wrote, only selecting the records whose CompanyName column contains the string ”market.” Providing a filter is helpful for 2 reasons: 
+**Step 1:** Enter **market** into the Company Name filter parameter in cell **C21**. This will filter the result set in our SQL query that we wrote, only selecting the records whose CompanyName column contains the string ”market.” Providing a filter is helpful for 2 reasons:
 1) It reduces the amount of data you are requesting back from the database which reduces the execution speed of the data pull.
 2) It helps test your query to see if it selected all of the expected data records.
 
@@ -648,9 +648,9 @@ In our case, CustomerOrderHistory, the report we’ve been working on so far, is
 
 First, take a look at the finished product of the SalesOrder report and define our goals for what the report should do.
 
-The SalesOrder report will provide detailed information about a single order. It shows: 
-1. Information about the customer who placed the order, 
-2. Information about the order itself (date placed, shipper information, etc.), as well as 3) information about the products contained in the order. 
+The SalesOrder report will provide detailed information about a single order. It shows:
+1. Information about the customer who placed the order,
+2. Information about the order itself (date placed, shipper information, etc.), as well as 3) information about the products contained in the order.
 
 You will build the report to have 3 separate sections which group and display together these 3 different categories of data. The categories are broken up as follows:
 
@@ -822,6 +822,3 @@ Apply a background color to our customer information section.
 3. Select the lightest blue color (#D9E1F2).
 
 ![](/images/L-Dev-Report_from_Scratch/124.png)
-
-
-
