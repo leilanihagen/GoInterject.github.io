@@ -1,16 +1,16 @@
 ### Introduction
 
-This is a comprehensive, detailed walkthrough lab that will teach you how to create a complete, functional INTERJECT report starting with a blank Excel sheet and building each component from the ground up.
+This is a detailed walkthrough lab that will teach you how to start from a blank Excel sheet and create a complete, functional INTERJECT report, building each component from the ground up, the way you might in some specific business use-cases.
 
 In this lab, you will learn how to:
-* Format a report to INTERJECT standards.
+<!-- * Format a report to INTERJECT standards. -->
 * Write some common INTERJECT report formulas and learn about how they work.
 * Set up backend Data Connections and Data Portals in the INTERJECT portal website.
 * Write the SQL that is the backbone for a data pull.
 
-This lab is geared toward beginners, and expects that you have little to no prior experience with both INTERJECT and Excel. The only expectation is a basic understanding of SQL Server stored procedures and SELECT statements, but if you do not have this knowledge, resources will be provided that you can use to educate yourself before delving into the SQL portion of the lab. The goal of the lab is for you to build a functional INTERJECT report and leave with a feeling of understanding of how all the major components work together to create an INTERJECT report as the final product.
+This lab is geared toward beginners, and expects that you have little to no prior experience with both INTERJECT and Excel. The only expectation is a basic understanding of SQL Server stored procedures and SELECT statements, but if you do not have this knowledge, resources will be provided that you can use to educate yourself before delving into the SQL portion of the lab. The goal of the lab is for you to quickly build your first functional INTERJECT report from scratch so that you can see how all the major components work together to create an INTERJECT report.
 
-There are some portions of this lab that can be skipped or modified, such as stylistic formatting of the report, that will not change the functionality of your end report if you skip them. Specific style decisions in this lab such as text font or background color of sections on the report are made based on INTERJECT styling guides, but can be changed to match your style preferences or company colors, for example. These optional parts are included in the lab to show that, for example, report formatting can be changed and customized based on user/client preference.
+There is a more comprehensive version of this lab available [here](), which includes much more spreadsheet formatting and more detailed explanations of the INTERJECT formulas used, Data Connections and Portals, and etc. The comprehensive version is longer and better for one to sit down and study if they would like to understand the process of creating a report in-depth, while this version is slimmer, quicker, and may be easier to follow if you only want to know *how* to do everything necessary.
 
 You will learn how to use the following INTERJECT report formulas in this lab:
 
@@ -20,22 +20,45 @@ You will learn how to use the following INTERJECT report formulas in this lab:
 * [jFreezePanes]()
 * [jFocus]()
 
-### What is an INTERJECT Report?
+### SQL Server resources
+
+While it will be helpful for you to have a basic understanding of SQL for this lab, it is not strictly required, and you can skip these most of these articles (you must follow the steps to create a Northwind database, however) and just copy-paste the SQL stored procedure that will be used in this lab. However, you will get the most out of this lab if you at least understand what SQL SELECT statements and stored procedures do.
+
+**What is SQL Server?** - [Here](http://www.sqlservertutorial.net/getting-started/what-is-sql-server/) is an article from sqlservertutorial.net explaining what SQL Server is, how is works, what it is built on, and a little bit of its history.
+
+The two fundamental concepts that you will need for this walkthrough are SQL SELECT statements and SQL stored procedures.
+
+**The SQL SELECT statement**
+1. [Here](http://www.sqlservertutorial.net/sql-server-basics/sql-server-select/) is an example from sqlservertutorial.net explaining the structure of the SELECT statement and how it is executed by SQL. It also shows examples of how to write common SELECT statements.
+2. [Here](https://www.techonthenet.com/sql_server/select.php) is an article from techonthenet.com explaining the SELECT statement and how to use is, including all additional clauses that can be added to SELECT.
+
+**SQL stored procedures**
+1. [Here](https://www.essentialsql.com/what-is-a-stored-procedure/) is an article from essentialsql.com on what a stored procedure is, why they are used, and how they can be used. It is a higher-level overview.
+2. [Here](http://www.sqlservertutorial.net/sql-server-stored-procedures/basic-sql-server-stored-procedures/) is a tutorial from sqlservertutorial.net showing how to write basic stored procedures, explaining the structure and syntax of stored procedure creation and how to execute stored procedures.
+
+**Create a Northwind sample database (you will write a stored procedure in this database later on)** -
+To create a Northwind sample database in an existing database instance (this can just be your local computer), follow these steps:
+1. [Download SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).
+2. [Download SQL Server Management Studio (SSMS)](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017) or another SQL editor.
+3. [Connect to SQL Server in SSMS](http://www.sqlservertutorial.net/connect-to-the-sql-server/).
+4. Duplicate the Northwind database in your database by clicking on [the Github link](http://www.sqlservertutorial.net/sql-server-stored-procedures/basic-sql-server-stored-procedures/), clicking on "View raw," then copying pasting the entire CREATE DATABASE script into a new query window in SSMS. Run the query, and you should have your own Northwind database.
+
+
+<!-- ### What is an INTERJECT Report?
 
 The first thing to work on in this lab is building the front-facing INTERJECT report in Excel, but first, let’s define what an INTERJECT *report* is.
 
-<!-- Expand this definition to explain how multiple Excel worksheets/workbooks play into the definition of a single report. -->
 An INTERJECT report is a spreadsheet-based interface to data, designed for analysis, exploration, or manipulation of metrics in almost any form or arrangement.
 
 Reports are more than just a spreadsheet, however. The spreadsheet is the front-end interface that INTERJECT uses to allow end users to interact with their data in a familiar, intuitive environment. Behind the spreadsheet, the INTERJECT formulas on a given report connect to **Data Portals** which serve as the definition of how you wish to interact with your database (what data you want to retrieve and/or store). Data Portals then connect to **Data Connections**, which serve as a way for INTERJECT to remember how to connect to your data source, and using this information, INTERJECT can then connect to the database data API itself.
 
 
 
-Reports are more than just an Excel spreadsheet, however. Excel is the front-end interface that INTERJECT uses to allow end users to interact with their data in a familiar, intuitive environment. Behind Excel, the INTERJECT formulas on a given report connect to **Data Portals** which serve as the definition for how you wish to interact with your database (what data you want to retrieve and/or store). Data Portals then connect to Data Connections, which serve as a way for INTERJECT to remember how to connect to your data source, and in turn, connect to a database on a physical server or to a data API (the data source itself).
+Reports are more than just an Excel spreadsheet, however. Excel is the front-end interface that INTERJECT uses to allow end users to interact with their data in a familiar, intuitive environment. Behind Excel, the INTERJECT formulas on a given report connect to **Data Portals** which serve as the definition for how you wish to interact with your database (what data you want to retrieve and/or store). Data Portals then connect to Data Connections, which serve as a way for INTERJECT to remember how to connect to your data source, and in turn, connect to a database on a physical server or to a data API (the data source itself). -->
 
 ### Introducing the CustomerOrderHistory Report
 
-In this lab, we will create 2 reports. The first, CustomerOrderHistory, will be used to demonstrate creating a summary report that shows a list of summaries of past customer orders, i.e. a historical record of customer orders.
+In this lab, we will create 2 reports. The first, CustomerOrderHistory, will be used to demonstrate creating a summary report that shows a list of summarized information about past customer orders, i.e. a historical record of customer orders.
 
 Here is how the final CustomerOrderHistory report will look to the end user, populated with data.
 
@@ -43,8 +66,9 @@ Here is how the final CustomerOrderHistory report will look to the end user, pop
 
 As you can see, in cells **C21-C23**, the user has the option to enter **Filter** arguments. We entered “market” into the **Company Name** filter, which limits the result set that is returned to records which contain the partial string “market” in their CompanyName attribute.
 
-<!-- Since you are talking about SQL here, you may want to provide resources to where the reader can actually learn SQL before you get to this point, otherwise the reader may be lost at this point -->
-Filters can be useful in many different types of reports to search and extract specific data from the data set that you’re connecting to. Filters work in INTERJECT reports by using a SQL Server LIKE operator inside the WHERE clause of the query that the report data is being sourced from.
+<!-- Filters can be useful in many different types of reports to search and extract specific data from the data set that you’re connecting to. -->
+
+Filters work in INTERJECT reports by using a SQL Server LIKE operator inside the WHERE clause of the query that the report data is being sourced from.
 
 We will start the lab by creating and doing some of the basic formatting for the CustomerOrderHistory report.
 
@@ -54,19 +78,24 @@ INTERJECT reports have a sort of “behind the scenes” section at the top of e
 
 ![](/images/L-Dev-Report_from_Scratch/02.png)
 
-The worksheet definitions section is broken up into the subsections titled and colored dark blue at the top of the report, as shown above. The last title names the Report Area, which is simply the final product report, which end users will see. The subsections are each defined as follows:
+#### INTERJECT Report Formulas
+Report formulas are INTERJECTs way of providing fine-grain control to report creators. Report formulas work the same way as general Excel formulas, but they are specific to INTERJECT report actions. Report formulas do everything from controlling the look of the Excel sheet by allowing formatting to be programmed to populating data into the spreadsheet and extracting it from the spreadsheet back to the database.
 
-<!-- May want to reorder this to talk about report formulas first, since they are really the driving force behind the column definitions and the formatting range -->
+Many INTERJECT report formulas use the Worksheet Definitions Section to find the information that they need in order to perform their actions. For example, report formulas that populate data in the spreadsheet use an area of the Worksheet Definitions Section called the Column Definitions in order to tell which data to to place in which column of the spreadsheet.
 
-**Column Definitions:** This section defines the names of the columns, or attributes, that you wish to access from the data source, and also defines where those attributes should be placed in the report. The columns where attributes are placed in the Column Definitions section will match where they get placed in the worksheet. A report formula uses the Column Definitions section layout for each record that it retrieves from the data source when displaying the data inside a target data range. The target data range is defined by a formula, and refers to a range of cells inside of the Report Area.
+The worksheet definitions section is broken up into the subsections titled and colored dark blue at the top of the report, as shown above. The last title at the bottom names the Report Area, which is the final product report that end users will see. The subsections are each defined as follows:
+
+**Column Definitions:** This section defines the names of the columns, or attributes, that the data source will return, and also defines where those attributes should be placed in the report. The columns where attributes are placed in the Column Definitions section will match where they get placed in the worksheet.
 
 ![](/images/L-Dev-Report_from_Scratch/03.png)
 
-**Formatting Range:** The Formatting Range is a feature that allows you to define the formatting of the data in your Report Area in one place without repetition. It works similarly to how the Column Definitions section works, by copying the formatting applied to its cells down to the Report Area for each record that is pulled in from the data source. You can define your formatting by simply formatting the cells in the formatting range, then this formatting will be applied to the attributes in the Column Definitions, when they are pulled into the report. A Formatting Range is only necessary for INTERJECT reports wherein you are pulling multi-row data records into your report, but we will speak more on this later. Note that our Formatting Range here has sample data that matches the data type of the attribute in its Column Definition above.
+**Formatting Range:** The Formatting Range is a feature that allows you to define the formatting of the data in your Report Area in one place without repetition. It works similarly to how the Column Definitions section works, by copying the formatting applied to its cells down to the Report Area for each record that is pulled in from the data source.
+
+<!-- You can define your formatting by simply formatting the cells in the formatting range, then this formatting will be applied to the attributes in the Column Definitions, when they are pulled into the report. A Formatting Range is only necessary for INTERJECT reports wherein you are pulling multi-row data records into your report, but we will speak more on this later. Note that our Formatting Range here has sample data that matches the data type of the attribute in its Column Definition above. -->
 
 ![](/images/L-Dev-Report_from_Scratch/04.png)
 
-**Report Formulas:** This section is used to define the INTERJECT report formulas that will be in action to make your report behave the way you are aiming for. Unlike in the first two sections, the placement of report formulas in the Report Formula section has no impact on their functionality. To add a report formula, simply start typing = and the name of the formula. Labels can be added in cells adjacent to cells containing report formulas to help describe what each formula is doing, as shown below.
+**Report Formulas:** This section is used to define the INTERJECT report formulas that will be in action to make your report behave the way you are aiming for. To add a report formula, simply start typing = and the name of the formula. Labels can be added in cells adjacent to cells containing report formulas to help describe what each formula is doing, as shown below.
 
 ![](/images/L-Dev-Report_from_Scratch/05.png)
 
@@ -74,11 +103,11 @@ The worksheet definitions section is broken up into the subsections titled and c
 
 ![](/images/L-Dev-Report_from_Scratch/06.png)
 
-We will now go through how to create this report from scratch, starting with creating the worksheet definitions section.
-
 ### CustomerOrderHistory - Creating the Worksheet Definitions Area
 
-**Step 1: Open a New Worksheet** Open a blank Excel workbook.
+This section shows how to create the report definitions area.
+
+**Step 1: Open a New Workbook** Open a blank Excel workbook.
 
 ![](/images/L-Dev-Report_from_Scratch/07.png)
 
@@ -101,7 +130,7 @@ Repeat these 2 steps for rows 3-9.
 
 ![](/images/L-Dev-Report_from_Scratch/09.png)
 
-Now let’s name the title sections.
+Now, name the title sections.
 
 1. Enter **Column Definitions** in cell **A1**.
 2. Select **White** from the **Font Color** selector.
@@ -160,7 +189,8 @@ Freeze panes are important for INTERJECT reports because they allow us to:
 * Keep a header with column titles visible to the user as they scroll through report data.
 
 jFreezePanes() is an INTERJECT formatting function that takes advantage of the Excel native Freeze/Unfreeze panes option, and it can be executed in the Quick Tools menu. The jFreezePanes() function allows us to specify:
-* Which worksheets in a workbook will be frozen (whichever worksheets have the jFreezePanes() function in their Report Formulas section) * *Where* to freeze the panes in the workbook (which cells will be frozen at the top of the sheet and which will be hidden when panes are frozen). [Read more about jFreezePanes() here](https://docs.gointerject.com/wIndex/jFreezePanes.html).
+* Which worksheets in a workbook will be frozen (whichever worksheets have the jFreezePanes() function in their Report Formulas section)
+* *Where* to freeze the panes in the workbook (which cells will be frozen at the top of the sheet and which will be hidden when panes are frozen). [Read more about jFreezePanes() here](https://docs.gointerject.com/wIndex/jFreezePanes.html).
 
 Start off by setting the Freeze Panes at the correct location.
 
@@ -203,7 +233,7 @@ Begin by putting a report title in cell **B19** “Customer Orders” and format
 
 1. Type **Customer Orders** into cell **B19** then **select the text** you just entered.
 2. Select the **Bold** option.
-3. Type **14** into the
+3. Type **14** into the test size input field.
 
 ![](/images/L-Dev-Report_from_Scratch/24.png)
 
