@@ -8,7 +8,7 @@ In this lab, you will learn how to:
 * Set up backend Data Connections and Data Portals in the INTERJECT portal website.
 * Write the SQL that is the backbone for a data pull.
 
-This lab is geared toward beginners, and expects that you have little to no prior experience with both INTERJECT and Excel. The only expectation is a basic understanding of SQL Server stored procedures and SELECT statements, but if you do not have this knowledge, resources will be provided that you can use to educate yourself before delving into the SQL portion of the lab.
+This lab is geared toward beginners, and expects that you have little to no prior experience with both INTERJECT and Excel. The only expectation is a basic understanding of SQL Server stored procedures and SELECT statements, but if you do not have this knowledge, resources will be provided that you can use to educate yourself before delving into the SQL portion of the lab. The goal of the lab is for you to build a functional INTERJECT report and leave with a feeling of understanding of how all the major components work together to create an INTERJECT report as the final product.
 
 There are some portions of this lab that can be skipped or modified, such as stylistic formatting of the report, that will not change the functionality of your end report if you skip them. Specific style decisions in this lab such as text font or background color of sections on the report are made based on INTERJECT styling guides, but can be changed to match your style preferences or company colors, for example. These optional parts are included in the lab to show that, for example, report formatting can be changed and customized based on user/client preference.
 
@@ -22,18 +22,13 @@ You will learn how to use the following INTERJECT report formulas in this lab:
 
 ### What is an INTERJECT Report?
 
-Intro:
-The first thing we will work on in this lab is building the front-facing INTERJECT report in Excel, but before we get started, let’s define what we mean by *report*.
+The first thing to work on in this lab is building the front-facing INTERJECT report in Excel, but first, let’s define what an INTERJECT *report* is.
 
-From Bill:
+<!-- Expand this definition to explain how multiple Excel worksheets/workbooks play into the definition of a single report. -->
 An INTERJECT report is a spreadsheet-based interface to data, designed for analysis, exploration, or manipulation of metrics in almost any form or arrangement.
 
-Me:
-An INTERJECT report is a single Excel worksheet dedicated to displaying a defined set of data that answers a specific question such as “what is the general data about every sales order we’ve ever completed at company X?”
+Reports are more than just a spreadsheet, however. The spreadsheet is the front-end interface that INTERJECT uses to allow end users to interact with their data in a familiar, intuitive environment. Behind the spreadsheet, the INTERJECT formulas on a given report connect to **Data Portals** which serve as the definition of how you wish to interact with your database (what data you want to retrieve and/or store). Data Portals then connect to **Data Connections**, which serve as a way for INTERJECT to remember how to connect to your data source, and using this information, INTERJECT can then connect to the database data API itself.
 
-OR
-
-An INTERJECT report is a spreadsheet or a collection of spreadsheets that displays data related to a similar topic or question. A single report can encompass multiple Excel spreadsheets in the same workbook if the sheets are dependent on each other due to a DRILL from one sheet into another, or otherwise closely related in the data that they present. Drilling between reports will be demonstrated and talked about in detail later in this lab.
 
 
 Reports are more than just an Excel spreadsheet, however. Excel is the front-end interface that INTERJECT uses to allow end users to interact with their data in a familiar, intuitive environment. Behind Excel, the INTERJECT formulas on a given report connect to **Data Portals** which serve as the definition for how you wish to interact with your database (what data you want to retrieve and/or store). Data Portals then connect to Data Connections, which serve as a way for INTERJECT to remember how to connect to your data source, and in turn, connect to a database on a physical server or to a data API (the data source itself).
