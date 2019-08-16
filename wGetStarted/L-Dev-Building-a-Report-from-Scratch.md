@@ -538,11 +538,11 @@ Lastly, reduce row 8 to provide a small padding under the border we just added.
 
 ### Testing ReportRange()
 
-It is always good practice to test each formula you add to the report you’re building once it’s done, before you move on to building the next part/formula on the report. This ensures that at the end when you’re ready to test the finished report, you know that all the constituent parts work by themselves.
+It is always good practice to test each individual formula you add to the report you’re building once it’s done, before you move on to building the next part/formula on the report. This ensures that at the end when you’re ready to test the finished report, you know that all the constituent parts work by themselves.
 
 **Step 1:** Enter **market** into the Company Name filter parameter in cell **C21**. This will filter the result set in our SQL query that we wrote, only selecting the records whose CompanyName column contains the string ”market.” Providing a filter is helpful for 2 reasons:
-1) It reduces the amount of data you are requesting back from the database which reduces the execution speed of the data pull.
-2) It helps test your query to see if it selected all of the expected data records.
+1. It reduces the amount of data you are requesting back from the database which reduces the execution speed of the data pull.
+2. It helps test your query to see if it selected all of the expected data records.
 
 ![](/images/L-Dev-Report_from_Scratch/84.png)
 
@@ -568,7 +568,7 @@ Now that you know which pieces of data are needed in the report, **you can desig
 
 ### Setting up ReportDefaults()
 
-The ReportDefaults() function is used to capture values from one or a set of cells (or an independently specified value) and send the value/s to another cell or set of cells. Its execution is triggered based on an action or event (read the distinction between and INTERJECT action/event [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) happening in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used in our report. Read more about ReportDefaults() [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
+The ReportDefaults() function is used to capture values from one or a set of cells (or a hard-coded value) then send the value/s to another cell or set of cells. Its execution is triggered based on an action or event (read the distinction between an INTERJECT action/event [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) occurring in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used in our report. Read more about ReportDefaults() [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
 
 In this report, you will be using ReportDefaults to clear out the filter values in cells C21-C23 after a CLEAR is run on the report. CLEAR does not do this by default, because it’s scope of control over the report is limited to the *results* of the data pull (CLEAR is only allowed to modify the data that a PULL action brings in, because a CLEAR reverses a PULL).
 
@@ -576,7 +576,7 @@ In this report, you will be using ReportDefaults to clear out the filter values 
 
 ![](/images/L-Dev-Report_from_Scratch/88.png)
 
-For the arguments OnPullSaveOrBoth and OnClearRunOrBoth, you want ”Pull” and ”Clear” respectively. This is because you want to execute “Trigger 2” explained in [the ReportDefaults() documentation](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list). With these arguments, the defaults will trigger when the user performs a Pull-Clear event-action sequence.
+For the arguments OnPullSaveOrBoth and OnClearRunOrBoth, you want ”Pull” and ”Clear” respectively. This is because you want to execute “Trigger 2” explained in [the ReportDefaults() documentation](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list). With these arguments, ReportDefaults() will trigger when the user performs a Pull-Clear event-action sequence.
 
 Enter **”Pull”** into the **OnPullSaveOrBoth** field, and **”Clear”** into **OnClearRunOrBoth**.
 
@@ -637,17 +637,13 @@ We will now switch to creating a second report so that we can demonstrate *drill
 
 Drilling is a way to connect and pass values between separate worksheets or workbooks. In a drill, you always have a *source* report and a *destination* report, where the source report is the report that the user would start on and perform the drill on, and the destination report is the report that the user ends up on after the drill. A typical use case for a drill arises when you have a general report that provides a summary of some high-level data, and you want to allow the user to get more detail on some of the data in that report, but don’t have enough room to display this detail on the report. This can be resolved by creating a second report for that more detailed data and setting up a drill into the more detailed report from the summary one. You can then pass some piece of data from the general/summary report into a cell in the detailed report so that the detailed report can automatically pull in and filter data based on the cell the user drilled on in the source report. You can read more about ReportDrill() [here]().
 
-In our case, CustomerOrderHistory, the report we’ve been working on so far, is the general/summary report. We will create a new report, SaleOrder, which will be the detailed report that we will drill into from CustomerOrderHistory.
+In this case, CustomerOrderHistory is the general/summary report. You will create a new report, SaleOrder, which will be the detailed report that can be drilled into from CustomerOrderHistory.
 
 ### SalesOrder Report Preview
 
-First, take a look at the finished product of the SalesOrder report and define our goals for what the report should do.
+The goal for the second report, SalesOrder, is to have a DRILL from CustomerOrderHistory that carries over the OrderID of the record being drilled on to SalesOrder, where a detailed report on a single order will be displayed.
 
-The SalesOrder report will provide detailed information about a single order. It shows:
-1. Information about the customer who placed the order,
-2. Information about the order itself (date placed, shipper information, etc.), as well as 3) information about the products contained in the order.
-
-You will build the report to have 3 separate sections which group and display together these 3 different categories of data. The categories are broken up as follows:
+The SalesOrder report will provide information for a given order, broken up into the following 3 categories:
 
 **1. Customer Information:** This section includes information about the customer who placed the order that is being drilled on.
 
@@ -655,9 +651,11 @@ You will build the report to have 3 separate sections which group and display to
 
 **3. Product/Order Contents Information:** This section contains information about the products in the order.
 
+The final report with the above categories is shown below.
+
 ![](/images/L-Dev-Report_from_Scratch/98.png)
 
-The SalesOrder report is designed to be drilled to from a report that lists **OrderID**s (such as our CustomerOrderHistory report), so that the user can choose one OrderID to drill on, then it will open the SalesOrder report for that OrderID. This allows the user to focus in on one order in SalesOrder while still giving them the flexibility to also view all previous orders from a comprehensive list in CustomerOrderHistory.
+The SalesOrder report is designed to be drilled to from a report that lists **OrderIDs** (such as the CustomerOrderHistory report), so that the user can choose one OrderID to drill on, then SalesOrder will open and display a report for that specific OrderID. This allows the user to focus in on one order in SalesOrder while still giving them the flexibility to also view all previous orders from a comprehensive list in CustomerOrderHistory.
 
 The following screenshot shows the steps for how one would perform a DRILL on an OrderID from the CustomerOrderHistory report. Do not repeat these steps yet, because it will not work for you until you’ve built your SalesOrder report with a ReportDrill().
 
@@ -685,7 +683,7 @@ Enter **SalesOrder** in the input field.
 
 ![](/images/L-Dev-Report_from_Scratch/103.png)
 
-**Step 3:** Let’s start by formatting our report definitions area. Our report definitions area for this report will have very similar formatting to the one used in CustomerOrderHistory, except that some of the areas will have fewer rows. We can thus start by copying and pasting the report definitions area from CustomerOrderHistory to the SalesOrder worksheet.
+**Step 3:** Formatting the report definitions area. The report definitions area for this report will have very similar formatting to the one used in CustomerOrderHistory, except that some of the areas will have fewer rows. You can thus start by copying and pasting the report definitions area from CustomerOrderHistory to the SalesOrder worksheet.
 
 Switch workbooks back to CustomerOrderHistory.
 
@@ -712,7 +710,7 @@ Select **rows 5-8**, right click on them, then select **Delete**.
 
 ![](/images/L-Dev-Report_from_Scratch/108.png)
 
-The Column Definitions area only needs to have one row, so you can delete the other 2.
+The Column Definitions area only needs one row, so delete the other 2.
 
 Delete the rows with text in them, rows 2 and 3. Select **rows 2 and 3**, right-click on them, then select **Delete**.
 
@@ -732,7 +730,7 @@ Select **rows 4 and 5**, and select the first **Paste** option.
 
 ![](/images/L-Dev-Report_from_Scratch/112.png)
 
-**Step 4:** Now, add the Column Definition values. Also change the sizes of the columns to roughly match the ones in the screenshot.
+**Step 4:** Now, add the Column Definition values. Also, change the sizes of the columns to roughly match the ones in the screenshot.
 
 1. Enter **CategoryName** into cell **B2**.
 2. Enter **ProductID** into cell **C2**.
@@ -784,7 +782,7 @@ Click **Options**
 
 ![](/images/L-Dev-Report_from_Scratch/120.png)
 
-**Step 2: Title** Now let’s add a title to our report area.
+**Step 2: Title** Add a title to the report area.
 
 1. Type **SALES ORDER** into cell **B12**  then **select the text**.
 2. Type **Arial Black** into the **Font** selection box.
