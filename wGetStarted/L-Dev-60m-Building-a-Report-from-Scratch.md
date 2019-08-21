@@ -107,15 +107,17 @@ The worksheet definitions section is broken up into the subsections titled and c
 
 This section shows how to create the report definitions area.
 
-**Step 1: Open a New Workbook** Open a blank Excel workbook.
+**Step 1:** Open a New Workbook Open a blank Excel workbook.
+
+<!-- Add steps -->
 
 ![](/images/L-Dev-Report_from_Scratch/07.png)
 
-Begin by setting up the titles of the sections that hold the different report functionality formulas. This formatting is standard across most INTERJECT reports.
+**Step 2:** Add titles to the worksheet definitions subsections.
 
-**Step 2: Title Sections** Select row 1 and color it dark blue (#1F4E78). This is the color that INTERJECT uses for titles of report definition sections.
+Select row 1 and color it dark blue (#1F4E78). This is a common cell color that INTERJECT uses for report definition subsection titles, but you can customize it as you wish.
 
-1. First, click on the “1” that denotes row 1 to highlight the entire row.
+1. Click on the “1” that denotes row 1 to highlight the entire row.
 2. Click the paint bucket to fill the color.
 3. Choose the darkest blue in the first blue column (#1F4E78).
 
@@ -123,14 +125,13 @@ Begin by setting up the titles of the sections that hold the different report fu
 
 For this report, we will need 5 different titled sections. Now that you have the color selected in your paint bucket, simply click on every other row and then click on the paint bucket until you have 5 dark blue rows with blank white rows in between them.
 
-1. Click on a row (3, 5, 7, or 9) to highlight it.
+1. Click on **row 3, 5, 7, or 9** to highlight it.
 2. Click on the paint bucket.
-
-Repeat these 2 steps for rows 3-9.
+3. Repeat steps 1-2 for **rows 3, 5, 7, and 9**.
 
 ![](/images/L-Dev-Report_from_Scratch/09.png)
 
-Now, name the title sections.
+Now, add the titles.
 
 1. Enter **Column Definitions** in cell **A1**.
 2. Select **White** from the **Font Color** selector.
@@ -146,19 +147,24 @@ Next, use the format painter to copy the formatting of the first title to the re
 
 1. Select **row 1**.
 2. Click the **format painter** paintbrush icon.
-3. Click **row 3**.
-
-Repeat for **rows 5, 7 and 9.**
+3. Click **row 3, 5, 7, or 9**.
+4. Repeat steps 1-3 for **rows 3, 5, 7 and 9.**
 
 ![](/images/L-Dev-Report_from_Scratch/12.png)
 
-Copy two empty rows from somewhere in the sheet by clicking on the first row number (here, 12), holding down CTRL, clicking the second row number (here, 13), then pressing CTRL + C to copy both rows.
+**Step 3:** Format the subsections.
+
+Start by adding more space under each section. Copy two empty rows from somewhere in the sheet.
+
+1. Click on the first row out of the two you will copy (here, **row 12**).
+2. Hold down CTRL and click the row under the first one you selected (here, **row 13**)
+3. Press CTRL + C to copy both rows.
 
 ![](/images/L-Dev-Report_from_Scratch/13.png)
 
 Paste them above row 2.
 
-1. Right click on row 2.
+1. Right-click on row 2.
 2. Select **Insert Copied Cells**.
 
 ![](/images/L-Dev-Report_from_Scratch/14.png)
@@ -167,7 +173,7 @@ Repeat the above 2 steps by copy-pasting 2 more rows under each title so that yo
 
 ![](/images/L-Dev-Report_from_Scratch/15.png)
 
-Add the standard light blue color to the titled sections.
+Apply light blue color under each titled section.
 
 1. Select the 3 rows under Column Definitions.
 2. Click the paint bucket.
@@ -175,34 +181,40 @@ Add the standard light blue color to the titled sections.
 
 ![](/images/L-Dev-Report_from_Scratch/16.png)
 
-Repeat this step for the three other report definition areas by **selecting each area** and **clicking the paint bucket** (it should already have your previously selected color in it).
+<!-- is this sufficient instruction?  : -->
+Now, you can use the Excel format painter feature to apply the same light blue color applied to the first title section to the remaining 4.
 
-1. Select **cells 6-8**.
-2. Click on the paint bucket icon (do not click the dropdown list part of the button).
+1. Select **cell 6-8, 10-12, or 14-16**.
+2. Click on the paint bucket icon (do not click the dropdown list part of the button) to copy the color previously used into the block of cells.
+3. Repeat steps 1-2 for **cells 6-8, 10-12, and 14-16**.
+
+<!-- add the finished result of adding light blue to all these columns -->
 
 ![](/images/L-Dev-Report_from_Scratch/17.png)
 
 ### Setting the Freeze Panes
 
-Freeze panes are important for INTERJECT reports because they allow us to:
-* Hide the report definitions section to ensure that we aren’t confusing our end users with details that they do not need to see.     
-* Keep a header with column titles visible to the user as they scroll through report data.
-
 jFreezePanes() is an INTERJECT formatting function that takes advantage of the Excel native Freeze/Unfreeze panes option, and it can be executed in the Quick Tools menu. The jFreezePanes() function allows us to specify:
-* Which worksheets in a workbook will be frozen (whichever worksheets have the jFreezePanes() function in their Report Formulas section)
+* Which worksheets in a workbook will be frozen (whichever worksheets have the jFreezePanes() function in their Report Formulas section) when "Freeze/unfreeze panes" is run in Excel.
 * *Where* to freeze the panes in the workbook (which cells will be frozen at the top of the sheet and which will be hidden when panes are frozen). [Read more about jFreezePanes() here](https://docs.gointerject.com/wIndex/jFreezePanes.html).
 
-Start off by setting the Freeze Panes at the correct location.
+INTERJECT uses freeze panes on its reports to:
+* Contain and hide the **report definitions section**. It is hidden to ensure that end users are not confused with details that they do not need to see.
+* Keep a header with column titles and a report title visible to the user as they scroll through report data.
 
-**Step 1:** To start, type “=jFreezePanes” in cell **F10**.
+**Step 1:** Add the formula to the sheet.
+
+Type “=jFreezePanes()” in cell **F10**.
 
 ![](/images/L-Dev-Report_from_Scratch/18.png)
 
-Click on the function builder.
+**Step 2:** Set the freeze panes at the correct location.
+
+There are two formula arguments for jFreezePanes(), **FreezePanesCell** and **AnchorViewCell**. AnchorViewCell specifies the very top row that will be visible when the panes are frozen. The cells above AnchorViewCell will be hidden when the panes are frozen. The cells between AnchorViewCell and FreezePanesCell will become a frozen block of cells that are anchored to the top of the sheet as the user scrolls down through the report.
+
+Click on the function builder icon to open it.
 
 ![](/images/L-Dev-Report_from_Scratch/19.png)
-
-**Step 2:** There are two formula arguments for jFreezePanes(), FreezePanesCell and AnchorViewCell. AnchorViewCell specifies the very top row that will be visible when the panes are frozen. The cells above AnchorViewCell will be hidden when the panes are frozen. The cells between AnchorViewCell and FreezePanesCell is the block that is frozen at the top of the sheet as you scroll down the sheet.
 
 Set **FreezePanesCell = A26**.
 
@@ -219,23 +231,23 @@ Then set **AnchorViewCell = A18**.
 
 ![](/images/L-Dev-Report_from_Scratch/22.png)
 
-Your report should now look like the following. The sectioned off block from rows 18-25 (ends at highlighted line) is the frozen pane section that will stay at the top as you scroll down. This is where our header with the name of the report and filter parameters will go later. The cells above row 18, which contain the report definitions area, are hidden.
+Your report should now look like the following. The sectioned off block from rows 18-25 (ends at highlighted line) is the frozen pane section that will stay at the top as you scroll down. This is where the header with the name of the report and filter parameters will go later. The cells above row 18, which contain the report definitions area, are hidden.
 
 ![](/images/L-Dev-Report_from_Scratch/23.png)
 
-Now that the freeze panes is set up, formatting the spreadsheet is the next step in writing this report.
-
-INTERJECT uses the hidden area of the frozen pane to define INTERJECT report functions and to set up the automatic formatting of the report data.
+Now that the freeze panes is set up, formatting the spreadsheet is the next step in creating the CustomerOrderHistory report.
 
 ### Formatting the Report Area
 
-Begin by putting a report title in cell **B19** “Customer Orders” and formatting it to be **bold** and of text **size 14**.
+**Step 1:** Add the report title.
 
 1. Type **Customer Orders** into cell **B19** then **select the text** you just entered.
 2. Select the **Bold** option.
-3. Type **14** into the test size input field.
+3. Type **14** into the text size input field.
 
 ![](/images/L-Dev-Report_from_Scratch/24.png)
+
+**Step 2:** Add input fields for the filter parameters.
 
 The report filters act as a way to specify which data is being pulled into the report from the data portal by specifying a set of characters that the pulled in data must contain. Labeling the filters is important so that the user understands where they can type in the report and have it impact what data is returned. So, in cells **B21, B22 and B23**, respectively, type in: **“Company Name:”**, **“Contact Name:”**, and **“Customer ID:”**
 
