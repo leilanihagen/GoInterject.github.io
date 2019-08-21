@@ -107,7 +107,7 @@ The worksheet definitions section is broken up into the subsections titled and c
 
 This section shows how to create the report definitions area.
 
-**Step 1:** Open a New Workbook Open a blank Excel workbook.
+**Step 1:** Open a blank Excel workbook.
 
 <!-- Add steps -->
 
@@ -541,6 +541,8 @@ As a best practice, it is recommended that you set **UseEntireRow** to **TRUE** 
 
 ### Writing the SQL Stored Procedure Behind ReportRange()
 
+<!-- Add steps showing how to navigate SSMS to copy paste the code -->
+
 Using a SQL editor like [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/sql-server-management-studio-ssms?view=sql-server-2017), copy and paste in the following code:
 ```
 code
@@ -553,67 +555,82 @@ Save your stored procedure, making sure that its name matches the name you speci
 
 ### Designing the Formatting Range
 
-Because the report will have multiple rows in our Column Definition for ReportRange(), you need a Formatting Range to specify how each of these fields will look in the output from the pull.
+Formatting Ranges work by letting you define the formatting that you wish to apply to your output data (specified in the Column Definition area); they let you do it concisely, in one place, such that the formatting can be copied down and repeated for each data record set pulled from the Data Portal. You don’t need to design a Formatting Range for every report you will write, but when you are using report formulas that trigger a pull action, you need a Formatting Range if you have more than one row in your column definition. If you have only one row, and you don’t specify a formatting range, the formatting of the first row in the TargetDataRange will be copied to the output rows.
 
-Formatting Ranges work by letting you define the formatting you’d like to apply to your output data (specified in the Column Definition area); they let you do it concisely, in one place, such that the formatting can be copied down and repeated for each data record set pulled from the Data Portal. You don’t need to design a Formatting Range for every report you will write, but when you are using report formulas that trigger a pull action, you need a Formatting Range if you have more than one row in your column definition. If you have only one row, and you don’t specify a formatting range, the formatting of the first row in the TargetDataRange will be copied to the output rows.
+**Step 1:** Apply a white background to cells in the Formatting Range.
 
-**Step 1:** Makr the cells in the Formatting Range white. Select **rows 6-8** and select **white** from the dropdown list of paint bucket colors.
+1. Select **rows 6-8**.
+2. Click on the dropdown list next to the paint bucket icon.
+3. Select **white** from the dropdown list of paint bucket colors.
 
 ![](/images/L-Dev-Report_from_Scratch/71.png)
 
-When designing Formatting Ranges, use contrived sample data to illustrate how the real data will look in the TargetDataRange when it’s pulled in.
+**Step 2:** Apply desired formatting to sample data in the formatting range.
 
-**Step 2:** First, format how you want **CustomerID** to look in the output data. Enter the sample ID **GREAL** into cell **B6**.
+When designing Formatting Ranges, it is useful to use contrived sample data in the formatting range and apply the formatting to it. This helps illustrate how the real data will look in the TargetDataRange once it’s pulled in.
+
+To format how you want **CustomerID** to look in the output data, enter the sample ID **GREAL** into cell **B6**.
 
 ![](/images/L-Dev-Report_from_Scratch/72.png)
 
-For **CompanyName**, enter **Great Lakes Food Market** into cell **C6** and make it bold.
+ Notice how cell **B6** is located in the same row as the field we are applying formatting to, **CustomerID**. This is how the report knows which field to format.
+
+Enter the formatting for **CompanyName** as follows:
 
 1. Enter **Great Lakes Food Market** into cell **C6**.
-2. Select the text in the cell.
-3. Apply bold to the selected text.
+2. Select all the text.
+3. Toggle the **bold** option.
 
 ![](/images/L-Dev-Report_from_Scratch/73.png)
 
-For **ContactName**, enter **Howard Snyder** into cell **E6**.
+For **ContactName**, enter **Howard Snyder** into cell **E6**. This field doesn't need any special formatting, so we are simply entering sample data to show that it will not be specially formatted.
 
 ![](/images/L-Dev-Report_from_Scratch/74.png)
 
-For **OrderID**:
+Enter the formatting for **OrderID** as follows:
 
 1. Enter **11061** into cell **F6**.
-2. Select the text and make it bold.
+2. Select all text in the cell and make it bold.
 3. Click the center-align text button.
 4. Click the paint bucket.
 5. Select the lightest grey color.
 
 ![](/images/L-Dev-Report_from_Scratch/75.png)
 
-For **OrderDate**:
+Enter the formatting for **OrderDate** as follows:
 
 1. Enter the sample date **4/30/98** in cell **G6**.
 2. Enter **Date** in the format options for the cell.
 
 ![](/images/L-Dev-Report_from_Scratch/76.png)
 
-For **OrderAmount**:
+Enter the formatting for **OrderAmount** as follows:
 
 1. Enter the sample data **510** in cell **H6**.
-2. Enter **Accounting** in the format options for the cell.
+2. Choose **Accounting** for the format options for the cell.
 
 ![](/images/L-Dev-Report_from_Scratch/77.png)
 
-For **Freight**, enter **14.01** into cell **I6** and change the format for the cell to **Accounting**.
+Enter the formatting for **Freight** as follows:
+
+1. Enter **14.01** into cell **I6**.
+2. Choose **Accounting** for the format options for the cell.
 
 ![](/images/L-Dev-Report_from_Scratch/78.png)
 
-For **TotalAmount**, enter **524.01** into cell **J6**, make the text bold, and again change the format for the cell to **Accounting**.
+Enter the formatting for **TotalAmount** as follows:
+
+1. Enter **524.01** into cell **J6**.
+2. Toggle the **bold** option for the text.
+3. Choose **Accounting** for the format options for the cell.
 
 ![](/images/L-Dev-Report_from_Scratch/79.png)
 
-You now only have to format the cells for **ShipVia** and **ShippedDate**. Make the titles for these fields in the row to the left of them and leave the values themselves without formatting.
+You now only have to format the cells for **ShipVia** and **ShippedDate**. You will add titles for these fields in the row to the left of them and leave the values themselves without any formatting.
 
-Enter **Shipped Via:** in cell **B7** and **Ship Date:** in cell **D7**. Also expand column C by a bit.
+1. Enter **Shipped Via:** in cell **B7**.
+2. Enter **Ship Date:** in cell **D7**.
+3. Expand column C a bit.
 
 ![](/images/L-Dev-Report_from_Scratch/80.png)
 
@@ -623,21 +640,29 @@ Select cells **B8-J8**.
 
 ![](/images/L-Dev-Report_from_Scratch/81.png)
 
-Click on the **Borders** dropdown menu and choose **Top Border**.
+1. Click on the **Borders** dropdown menu.
+2. Choose **Top Border**.
 
 ![](/images/L-Dev-Report_from_Scratch/82.png)
 
-Lastly, reduce row 8 to provide a small padding under the border we just added.
+Lastly, reduce **row 8** to provide a small padding under the border we just added.
 
 ![](/images/L-Dev-Report_from_Scratch/83.png)
 
-### Testing ReportRange()
+### Testing ReportRange() with a Data PULL
 
 It is always good practice to test each individual formula you add to the report you’re building once it’s done, before you move on to building the next part/formula on the report. This ensures that at the end when you’re ready to test the finished report, you know that all the constituent parts work by themselves.
 
-**Step 1:** Enter **market** into the Company Name filter parameter in cell **C21**. This will filter the result set in our SQL query that we wrote, only selecting the records whose CompanyName column contains the string ”market.” Providing a filter is helpful for 2 reasons:
+**Step 1:** Enter some sample filter text into the one of the filter parameter input fields.
+
+<!-- Move this? -->
+It is a good idea to test the filter functionality while you test the data pull.
+
+Providing a filter when pulling data is helpful for 2 reasons:
 1. It reduces the amount of data you are requesting back from the database which reduces the execution speed of the data pull.
 2. It helps test your query to see if it selected all of the expected data records.
+
+Enter **market** into the Company Name filter parameter in cell **C21**.
 
 ![](/images/L-Dev-Report_from_Scratch/84.png)
 
@@ -651,25 +676,30 @@ It is always good practice to test each individual formula you add to the report
 **Step 3:** Unfreeze the panes to view the data how the end user would.
 
 1. Press **CTRL + SHIFT + T** together on your keyboard or click the **Quick Tools** button.
-2. Press **Enter** or click **Freeze/Unfreeze Panes (current tab)** in the menu.
+2. Press **Enter** or click on **Freeze/Unfreeze Panes (current tab)** in the menu.
 
 ![](/images/L-Dev-Report_from_Scratch/86.png)
 
-Your data should look like the following.
+Your data should look like the following screenshot:
 
 ![](/images/L-Dev-Report_from_Scratch/87.png)
 
-Now that you know which pieces of data are needed in the report, **you can design the stored procedure**.
+Now that you know which pieces of data are needed in the report, you can design the stored procedure.
 
 ### Setting up ReportDefaults()
 
-The ReportDefaults() function is used to capture values from one or a set of cells (or a hard-coded value) then send the value/s to another cell or set of cells. Its execution is triggered based on an action or event (read the distinction between an INTERJECT action/event [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) occurring in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used in our report. Read more about ReportDefaults() [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
+The ReportDefaults() function is used to capture values from one or a set of cells (or a hard-coded value) then send the value/s to another cell or set of cells. Its execution is triggered based on an action or event (read the distinction between an INTERJECT action/event [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) occurring in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used here. Read more about ReportDefaults() [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
 
 In this report, you will be using ReportDefaults to clear out the filter values in cells C21-C23 after a CLEAR is run on the report. CLEAR does not do this by default, because it’s scope of control over the report is limited to the *results* of the data pull (CLEAR is only allowed to modify the data that a PULL action brings in, because a CLEAR reverses a PULL).
 
-**Step 1:** Start by typing **=ReportDefaults()** into cell **C11** and opening the function builder.
+**Step 1:** Add the formula to the report.
+
+1. Type **=ReportDefaults()** into cell **C11**.
+2. Open the function builder.
 
 ![](/images/L-Dev-Report_from_Scratch/88.png)
+
+**Step 2:** Fill in the formula arguments.
 
 For the arguments OnPullSaveOrBoth and OnClearRunOrBoth, you want ”Pull” and ”Clear” respectively. This is because you want to execute “Trigger 2” explained in [the ReportDefaults() documentation](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list). With these arguments, ReportDefaults() will trigger when the user performs a Pull-Clear event-action sequence.
 
@@ -677,9 +707,9 @@ Enter **”Pull”** into the **OnPullSaveOrBoth** field, and **”Clear”** in
 
 ![](/images/L-Dev-Report_from_Scratch/89.png)
 
-The TransferPairs argument is what decides the default values to place in the selected cells. We want to clear out our filter parameter cells, so we will pair each of these cells (C21-C23) with a blank value to pass in when a Pull-Clear occurs.
+The TransferPairs argument is what decides the default values to place in the selected cells. We want to clear out our filter parameter cells, so we will pair each of these cells (C21-C23) with a blank string ("") to pass in when a Pull-Clear occurs.
 
-Each of these pairs (a cell with a blank string (“”)) needs its own Pair() function inside the overarching PairGroup() function that ReportDefaults() takes as a parameter. Learn more about PairGroup() and Pair()  [here]().
+Each of these pairs (a cell and a blank string (“”)) needs its own Pair() function inside the overarching PairGroup() function that ReportDefaults() takes as a parameter. Learn more about PairGroup() and Pair()  [here]().
 
 Input **PairGroup()** into **TransferPairs**, then press **Ok**.
 
@@ -693,7 +723,7 @@ Now, to give arguments to the PairGroup() function, click inside the PairGroup()
 
 ![](/images/L-Dev-Report_from_Scratch/91.png)
 
-The parameters to Pair() are **From, Target**, or, if you do not have a “From” cell, as in our case, they can be thought of as **SourceValue, Target**. Our “Source Value” is “” (an empty string) and our Targets are cells C21-C23
+The parameters to Pair() are **From, Target**, or, if you do not have a “From” cell, as in our case, they can be thought of as "SourceValue", and "Target". Our “Source Value” is “” (an empty string) and our Targets are cells C21-C23
 
 Type **Pair(””, C21)** into **Pair1**, **Pair(””, C22)** into **Pair2** and **Pair(””, C23)** into **Pair3**.
 
@@ -707,18 +737,23 @@ Your ReportDefaults() function should now look like the following:
 
 Now test our ReportDefaults() function. It should clear any filter arguments from cells C21-C23 after a PULL-CLEAR.
 
-**Step 1:** Enter some filters into the filter fields. Enter **market** into cell **C21**, and **b** into cell **C22**.
+**Step 1:** Enter some filters into the filter fields.
+
+Enter **market** into cell **C21**, and **b** into cell **C22**.
 
 ![](/images/L-Dev-Report_from_Scratch/94.png)
 
 **Step 2:** PULL in the data.
 
+1. Press **CTRL + SHIFT + J** OR click the **PULL Data** menu button.
+2. Press **Enter** OR click **Pull Data**.
+
 ![](/images/L-Dev-Report_from_Scratch/95.png)
 
 **Step 3:** CLEAR the data.
 
-1. Press **CTRL + SHIFT + J** or click the **Quick Tools** menu button.
-2. Press **Down Arrow** then **Enter** or click **Clear**.
+1. Press **CTRL + SHIFT + T** or click the **Quick Tools** menu button.
+2. Press **Down Arrow** once then **Enter** OR click **Clear**.
 
 ![](/images/L-Dev-Report_from_Scratch/96.png)
 
@@ -752,7 +787,7 @@ The final report with the above categories is shown below.
 
 The SalesOrder report is designed to be drilled to from a report that lists **OrderIDs** (such as the CustomerOrderHistory report), so that the user can choose one OrderID to drill on, then SalesOrder will open and display a report for that specific OrderID. This allows the user to focus in on one order in SalesOrder while still giving them the flexibility to also view all previous orders from a comprehensive list in CustomerOrderHistory.
 
-The following screenshot shows the steps for how one would perform a DRILL on an OrderID from the CustomerOrderHistory report. Do not repeat these steps yet, because it will not work for you until you’ve built your SalesOrder report with a ReportDrill().
+The following screenshot shows the steps for how one would perform a DRILL on an OrderID from the CustomerOrderHistory report. Do not repeat these steps yet, because it will not work for you until you’ve built your SalesOrder report with a ReportDrill(). It is provided to show how SalesOrder the report is accessed from the CustomerOrderHistory report.
 
 ![](/images/L-Dev-Report_from_Scratch/99.png)
 
@@ -764,13 +799,14 @@ As you can see below, the PULL action brings you to the SalesOrder worksheet and
 
 ### Creating the SalesOrder Report
 
-**Step 1:** First, create another worksheet in our workbook and name it SalesOrder.
+**Step 1:** Create another worksheet in the workbook and name it SalesOrder.
 
 Click the plus sign to add another worksheet.
 
 ![](/images/L-Dev-Report_from_Scratch/101.png)
 
-Right-click on the new worksheet and select **Rename**.
+1. Right-click on the new worksheet.
+2. Select **Rename** from the list that appears.
 
 ![](/images/L-Dev-Report_from_Scratch/102.png)
 
@@ -778,7 +814,9 @@ Enter **SalesOrder** in the input field.
 
 ![](/images/L-Dev-Report_from_Scratch/103.png)
 
-**Step 3:** Formatting the report definitions area. The report definitions area for this report will have very similar formatting to the one used in CustomerOrderHistory, except that some of the areas will have fewer rows. You can thus start by copying and pasting the report definitions area from CustomerOrderHistory to the SalesOrder worksheet.
+**Step 3:** Format the report definitions area.
+
+The report definitions area for this report will have very similar formatting to the one used in CustomerOrderHistory. You can thus start by copying and pasting the report definitions area from CustomerOrderHistory to the SalesOrder worksheet.
 
 Switch workbooks back to CustomerOrderHistory.
 
@@ -795,37 +833,45 @@ Go back to the SalesOrder tab.
 
 ![](/images/L-Dev-Report_from_Scratch/106.png)
 
-Select **row 1** of the report and right click it, then select the first **Paste** option.
+1. Right-click on **row 1** of the report.
+2. Select the first **Paste** option form the list on icons.
 
 ![](/images/L-Dev-Report_from_Scratch/107.png)
 
 The SalesOrder report doesn’t need a Formatting range, so you can delete the Formatting Range altogether.
 
-Select **rows 5-8**, right click on them, then select **Delete**.
+1. Select **rows 5-8** and right click on them.
+2. Select **Delete**.
 
 ![](/images/L-Dev-Report_from_Scratch/108.png)
 
 The Column Definitions area only needs one row, so delete the other 2.
 
-Delete the rows with text in them, rows 2 and 3. Select **rows 2 and 3**, right-click on them, then select **Delete**.
+1. Select **rows 2 and 3** (the rows with unneeded text in them) and right-click on them.
+2. Select **Delete**.
 
 ![](/images/L-Dev-Report_from_Scratch/109.png)
 
 The Hidden Parameters and Notes section only needs 2 rows, so, delete one of them.
 
+1. Select **row 8** and right-click on it.
+2. Select **Delete**.
+
 ![](/images/L-Dev-Report_from_Scratch/110.png)
 
 Now that all of the sections are the right size, remove the excess text.
 
-Right-click on one of the light blue rows that has no text and select **Copy**.
+1. Right-click on one of the light blue rows that has no text in it.
+2. Select **Copy**.
 
 ![](/images/L-Dev-Report_from_Scratch/111.png)
 
-Select **rows 4 and 5**, and select the first **Paste** option.
+1. Select **rows 4 and 5** and right-click on them.
+2. Select the first **Paste** option from the list of icons.
 
 ![](/images/L-Dev-Report_from_Scratch/112.png)
 
-**Step 4:** Now, add the Column Definition values. Also, change the sizes of the columns to roughly match the ones in the screenshot.
+**Step 4:** Now, add the Column Definition values. You can optionally change the sizes of the columns to roughly match the ones in the screenshot as you go along.
 
 1. Enter **CategoryName** into cell **B2**.
 2. Enter **ProductID** into cell **C2**.
@@ -877,7 +923,7 @@ Click **Options**
 
 ![](/images/L-Dev-Report_from_Scratch/120.png)
 
-**Step 2: Title** Add a title to the report area.
+**Step 2:** Add a title to the report area.
 
 1. Type **SALES ORDER** into cell **B12**  then **select the text**.
 2. Type **Arial Black** into the **Font** selection box.
