@@ -216,17 +216,17 @@ Click on the function builder icon to open it.
 
 ![](/images/L-Dev-Report_from_Scratch/19.png)
 
-Set **FreezePanesCell = A26**.
+In the input box for **FreezePanesCell**, type **A26**.
 
 ![](/images/L-Dev-Report_from_Scratch/20.png)
 
-Then set **AnchorViewCell = A18**.
+For **AnchorViewCell**, type **A18**.
 
 ![](/images/L-Dev-Report_from_Scratch/21.png)
 
 **Step 3:** Try freezing the panes to see how it works.
 
-1. Press and hold **CTRL + SHIFT + T** or click on the **Quick Tools** option in the INTERJECT ribbon to open the Quick Tools menu.
+1. Press and hold **CTRL + SHIFT + T** OR click on the **Quick Tools** option in the INTERJECT ribbon to open the Quick Tools menu.
 2. Select **Freeze/Unfreeze Panes (current tab)** and press **Enter**, or click **Freeze/Unfreeze Panes (current tab)**.
 
 ![](/images/L-Dev-Report_from_Scratch/22.png)
@@ -249,7 +249,9 @@ Now that the freeze panes is set up, formatting the spreadsheet is the next step
 
 **Step 2:** Add input fields for the filter parameters.
 
-The report filters act as a way to specify which data is being pulled into the report from the data portal by specifying a set of characters that the pulled in data must contain. Labeling the filters is important so that the user understands where they can type in the report and have it impact what data is returned. So, in cells **B21, B22 and B23**, respectively, type in: **“Company Name:”**, **“Contact Name:”**, and **“Customer ID:”**
+The report filters act as a way to specify which data is being pulled into the report from the data portal by specifying a set of characters that the pulled in data must contain. Labeling the filters is important so that the user understands where they can type in the report and have it impact what data is returned.
+
+In cells **B21, B22 and B23**, respectively, type in: **“Company Name:”**, **“Contact Name:”**, and **“Customer ID:”**
 
 ![](/images/L-Dev-Report_from_Scratch/25.png)
 
