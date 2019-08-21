@@ -300,99 +300,150 @@ Right-click on any other sheets that you have in the workbook and select **Delet
 
 ![](/images/L-Dev-Report_from_Scratch/34.png)
 
-![](/images/L-Dev-Report_from_Scratch/37.png)
-
+<!-- This whole section needs to be moved -->
 ### Adding ReportRange() to the Report
 
-**Step 1:** Add this INTERJECT report formula to the report. Start with a **ReportRange()**. ReportRange() is a report formula used to PULL data into a defined *range* of a report from the Data Portal. ReportRange() can be used with formatting to format the data returned from the Data Portal into the spreadsheet. Read more about ReportRange() [here](https://docs.gointerject.com/wIndex/ReportRange.html#function-summary).
+ReportRange() is a report formula used to PULL data into a defined *range* of a report from a Data Portal. ReportRange() can be used with formatting to format the data returned from the Data Portal into the spreadsheet. Read more about ReportRange() [here](https://docs.gointerject.com/wIndex/ReportRange.html#function-summary).
 
-Type **=ReportRange()** in cell **C10** then click on the function builder icon.
+**Step 1:** Add the formula to the report.
+
+1. Type **=ReportRange()** in cell **C10**.
+2. Click on the function builder icon.
 
 ![](/images/L-Dev-Report_from_Scratch/38.png)
 
-As you can see, DataPortal is the first parameter that we must provide to ReportRange() so that it knows where to pull in the data from. Type **NorthwindCustomerOrders_MyName** into the DataPortal parameter box for now.
+**Step 2:** Specify the Data Portal that ReportRange() will pull data from.
+
+As you can see, **DataPortal** is the first parameter that you must provide to ReportRange() so that it knows where to pull in the data from.
+
+Type **NorthwindCustomerOrders_MyName** into the DataPortal parameter box for now.
 
 ![](/images/L-Dev-Report_from_Scratch/39.png)
 
-You will now switch to configuring an INTERJECT Data Connection, and a Data Portal that you can pull from using ReportRange().
+You will now switch to configuring an INTERJECT Data Connection, and a Data Portal that will together make up the datasource for ReportRange().
 
-You will fill in the rest of the ReportRange() parameters once the Data Portal and Connection are set up.
+You will fill in the rest of the ReportRange() parameters once the Data Portal and Connection are both set up.
 
 ### Setting Up the Data Connection
 
+<!-- Edit these sections after moving "### Adding ReportRange()" -->
 In order to continue, you need to set up the back-end Data Portal that ReportRange() will be using. For now, pause working on the front-end Excel report to configure the Data Portal and Data Connection that ReportRange() will use in the report.
 
 Start by creating the Data Connection. INTERJECT Data Connections enable users to connect to a database in order to pull data out of that database based on criteria specified in stored procedures which are set up in the database and accessed with Data Portals. An overview of Data Connections and Data Portals can be found [here](https://docs.gointerject.com/wPortal/The-INTERJECT-Website-Portal.html#overview).
 
-**Step 1: Logging in** Start by navigating to the INTERJECT portal site ([here](https://portal.gointerject.com/)) and logging in.
+**Step 1:** Log in to the INTERJECT portal site.
+
+Navigate to the portal site [here](https://portal.gointerject.com/).
+
+1. Type in your email.
+2. Type in your password.
+3. Press the **LOGIN** button.
 
 ![](/images/L-Dev-Report_from_Scratch/40.png)
 
-**Step 2: Create the connection:** Create a new data connection by clicking the New Connection button.
+**Step 2:** Create a new INTERJECT Data Connection.
+
+Click on the **New Connection** button.
 
 ![](/images/L-Dev-Report_from_Scratch/41.png)
 
-Name your connection **NorthwindDB_MyName** (substitute for your name) and give it a quick description.
+**Step 3:** Fill in the connection details.
+
+1. Type the name of your connection (**NorthwindDB_MyName** with your name substituted for "MyName" is recommended) into the **Name** field.
+2.  Add a short description in the **Description** field.
 
 ![](/images/L-Dev-Report_from_Scratch/42.png)
 
-Select **Database** from the dropdown list for **Connection Type**.
+Select database as your connection type.
+
+1. Under **Connection Type**, click the small triable to show the options.
+2. Select **Database** from the dropdown list for **Connection Type**.
 
 ![](/images/L-Dev-Report_from_Scratch/43.png)
 
-For the connection string, you will need to have your own sample Northwind database to use. You can download a Northwind sample database from Microsoft [here](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/downloading-sample-databases).
+Enter the connection string for your Northwind database.
 
-Substitute in your server and database name in italicized parts of the following sample connection string: ”Server=*MyServerAddress*;Database=*MyDatabase*;Trusted_Connection=True;” Once you have your connection string entered, press Save to continue.
+<!-- Change this to a ref link to the top of the page where sql resources are listed? -->
+For the connection string, you must already have your own sample Northwind database to use. You can download a Northwind sample database from Microsoft [here](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/downloading-sample-databases).
+
+1. Substitute in your server and database name in italicized parts (*MyServerAddress* and *MyDatabaseName*) of the following sample connection string:
+
+  **”Server=*MyServerAddress*;Database=*MyDatabaseName*;Trusted_Connection=True;”**
+
+2. Once you have your connection string entered, press Save to continue.
 
 ![](/images/L-Dev-Report_from_Scratch/44.png)
 
 ### Setting Up the Data Portal
 
-**Step 1: Create the Data Portal** Now, create the Data Portal that allows us to actually pull data from the Data Connection that you made above.
+<!-- Move this description to the intro? -->
+Data Portals are provided as a way to connect to specific stored procedures within an already existing Data Connection which connects directly to the database. Data Portals provide a finer-grain level of control, and connect to a single stored procedure on the database. You can have multiple Data Portals connected to one Data Connection, but not vice-versa. For more, see [the website portal documentation](https://docs.gointerject.com/wPortal/The-INTERJECT-Website-Portal.html#-data-connections-).
 
-Data Portals are provided as a way to connect to specific stored procedures within the Data Connection to an existing database. It is a finer-grain level of control, and connects to a single stored procedure on the database you connect to through the provided Data Connection. You can have multiple Data Portals connected to one Data Connection, but not vice-versa. For more, see [the website portal documentation](https://docs.gointerject.com/wPortal/The-INTERJECT-Website-Portal.html#-data-connections-).
+**Step 1:** Create the Data Portal.
 
 Navigate again to [the portal site](https://portal.gointerject.com/) and choose Data Portals.
 
 ![](/images/L-Dev-Report_from_Scratch/45.png)
 
-Create a new data portal.
+Create a new data portal by clicking the **NEW DATA PORTAL** button.
 
 ![](/images/L-Dev-Report_from_Scratch/46.png)
 
-Start by naming your Data Portal **”NorthwindCustomerOrders_YourName”** (substitute in your name) then give it a description.
+**Step 2:** Edit the data portal details.
+
+1. Enter a name for your Data Portal (**”NorthwindCustomerOrders_MyName”** with your name substituted in for MyName) in the **Name** field.
+2. Enter a brief description in the **Description** field.
 
 ![](/images/L-Dev-Report_from_Scratch/47.png)
 
-For the **Connection**, use the Data Connection you created in the last section, **NorthwindDB_YourName**. It should appear in the dropdown list when clicked
+<!-- This will need to change -->
+For the **Connection**, use the Data Connection you created in the last section, **NorthwindDB_YourName**. It should appear in the dropdown list when clicked.
+
+1. Expand the dropdown menu under **Connection**.
+2. Select your database, **NorthwindDB_YourName**.
 
 ![](/images/L-Dev-Report_from_Scratch/48.png)
 
-Now specify the stored procedure that this data portal will be referencing. You will write the stored procedure itself shortly. Name your stored procedure **”[demo].[northwind_customer_orders_myname]”**.
+Now specify the stored procedure that this data portal will be referencing. You will write the stored procedure itself shortly.
+
+Under **Stored Procedure / Command**, type in **”[demo].[northwind_customer_orders_myname]”**.
 
 ![](/images/L-Dev-Report_from_Scratch/49.png)
 
-For the **Category**, enter **Demo** and for the **Command Type**, choose **Stored Procedure Name** from the dropdown list.
+1. Under **Category**, enter **Demo**.
+2. Expand the dropdown list under **Command Type**.
+3. Choose **Stored Procedure Name** from the dropdown list.
 
 ![](/images/L-Dev-Report_from_Scratch/50.png)
 
-Make sure **Data Portal Status** is set to **Enabled** and **Is Custom Command?** is set to **No**, then save the new Data Portal:
+1. For **Data Portal Status**, choose **Enabled**.
+2. For **Is Custom Command?**, choose **No**
+3. Save your new data portal by clicking **CREATE NEW DATA PORTAL**.
 
 ![](/images/L-Dev-Report_from_Scratch/51.png)
 
-If you look at the report, you will remember we have 3 filters on our report, **Company Name**, **Contact Name** and **Customer ID**. The Data Portal and stored procedures need to know that these filter parameters exist in order to affect the data that they pull out.
+**Step 3:** Add the formula parameters to the data portal.
 
-It will be important later on, when writing the stored procedure, that the order the parameters are listed in the Data Portal is the same as their order listed in the stored procedure. Because of this, it is required to keep the order consistent between all three platforms, the report, the Data Portal and the stored procedure.
+<!-- Proofread this. this is long... -->
+Formula parameters are a way for the stored procedure designer to tell the data portal about any custom parameters that they add to the data portals corresponding stored procedure. Here, custom parameters mean additional parameters that are coded into the stored procedure for a specific purpose, in this case, to serve filter parameters. There are other parameters, System Parameters, that are not considered "custom" because they are hardcoded and pass a specific piece of information from the system to whichever stored procedure they are used in. System Parameters will be discussed more in the following section.
+
+If you look at the report, you will remember we have 3 filters on our report, **Company Name**, **Contact Name** and **Customer ID**. The Data Portal and stored procedures need to know that these filter parameters exist in order for the parameters to affect the data that they pull out.
+
+It will be important later on, when writing the stored procedure, that the order the parameters are listed in the data portal and in the report is the same as their order listed in the stored procedure. Since you have already entered the filter parameters in the report, we will use the order chosen there as a template for the order in the data portal and the stored procedure.
 
 Parameter order of filters in report:
 
 ![](/images/L-Dev-Report_from_Scratch/52.png)
 
-Click on the **Click here to add a Formula Parameter** link and enter the first parameter name **CompanyName**. This will directly reference a parameter that will coded into the stored procedure with the same name later on.
+You will now add the filter parameters into the data portal as Formula Parameters, in the same order as their input titles are displayed the report.
+
+1. Click on the **Click here to add a Formula Parameter** link.
+2. Enter the first parameter name, **CompanyName**, in the **NAME** field.
 
 ![](/images/L-Dev-Report_from_Scratch/53.png)
 
-Set the **TYPE** to **nvarchar** so that a character string can be entered by the user, and set the **DIRECTION** to **input** since this will be an input parameter and not an output.
+1. Set the **TYPE** to **nvarchar** so that a character string can be entered by the user.
+2. Set the **DIRECTION** to **input** since this will be an input parameter to the stored procedure.
 
 ![](/images/L-Dev-Report_from_Scratch/54.png)
 
@@ -402,15 +453,24 @@ Press the save button so that it turns from red to green.
 
 Add the next Formula Parameter for **ContactName**.
 
+1. Click on the **Click here to add a Formula Parameter** link again.
+2. Enter **ContactName** in the **NAME** field.
+3. Select **nvarchar** in the **TYPE** field.
+4. Select **input** in the **DIRECTION** field.
+5. Click the save icon and wait until it turns green as in the picture.
+
 ![](/images/L-Dev-Report_from_Scratch/56.png)
 
-Add the last Formula Parameter for **CustomerID**.
+Repeat the last set of steps, changing only the **NAME** field to **CustomerID**.
 
 ![](/images/L-Dev-Report_from_Scratch/57.png)
 
+**Step 4:** Add the system parameters to the report.
+
 System Parameters are used to pass information from the user’s system to the stored procedure via Data Portal. Here you will be adding 2 System Parameters, **Interject_NTLogin**, which is used to capture the user’s Windows login, and **Interject_LocalTimeZoneOffset**, which is used to capture the difference from the user’s local time zone to the universal time. You can read more about System Parameters (and these specific ones) [here](https://docs.gointerject.com/wGetStarted/L-Dev-CustomerAging.html#system-parameters).
 
-Create a new System Parameter and choose **Interject_NTLogin** from the dropdown menu.
+1. Create a new system parameter by pressing **Click here to add a System Parameter**.
+2. Choose **Interject_NTLogin** from the dropdown menu.
 
 ![](/images/L-Dev-Report_from_Scratch/58.png)
 
@@ -418,14 +478,23 @@ Press the save button and wait until it turns green.
 
 ![](/images/L-Dev-Report_from_Scratch/59.png)
 
-Add a second System Parameter, choose **Interject_LocalTimeZoneOffset** from the dropdown menu and make sure you save the new parameter.
+Add a second System Parameter.
+
+1. Create a new system parameter by pressing **Click here to add a System Parameter**.
+2. Choose **Interject_LocalTimeZoneOffset** from the dropdown menu.
+3. Press the save icon to save the new parameter.
 
 ![](/images/L-Dev-Report_from_Scratch/60.png)
 
-Verify that you have all your parameter information correct and that you have saved them all before moving on. Your screen should look as follows.
+**Step 5:** Verify all parameters are correct.
+
+Verify that you have all your parameter information correct and that you have saved them all before moving on.
+
+Your screen should look as follows.
 
 ![](/images/L-Dev-Report_from_Scratch/61.png)
 
+<!-- Move this entire section -->
 ### Setting up ReportRange() with the Data Portal
 
 Now, you have a Data Connection to a database, and a Data Portal which specifies a stored procedure to provide data to it; but you still need to write the stored procedure in order to actually get anything back from our ReportRange() call in the report.
