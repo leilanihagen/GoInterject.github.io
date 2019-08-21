@@ -249,13 +249,13 @@ Now that the freeze panes is set up, formatting the spreadsheet is the next step
 
 **Step 2:** Add input fields for the filter parameters.
 
-The report filters act as a way to specify which data is being pulled into the report from the data portal by specifying a set of characters that the pulled in data must contain. Labeling the filters is important so that the user understands where they can type in the report and have it impact what data is returned.
+Report filter parameters are a way for the report user to restrict the dataset being pulled into the report from the data portal by specifying a set of characters that the pulled in data records must contain. You will start by labeling the filter input areas, where the user can input their filter text. Labeling the filters is important so that the user understands where they can type in the report and have it impact what data is returned.
 
 In cells **B21, B22 and B23**, respectively, type in: **“Company Name:”**, **“Contact Name:”**, and **“Customer ID:”**
 
 ![](/images/L-Dev-Report_from_Scratch/25.png)
 
-Now, resize column A to be smaller, and extend column B and C by a bit.
+Now, resize column A to be smaller, and extend column B and C by a bit. This will give the user more space to enter their input text.
 
 1. Drag column A back.
 2. Drag column B forward.
@@ -267,14 +267,8 @@ Color the input fields for the report filters. Apply the lightest orange color (
 
 ![](/images/L-Dev-Report_from_Scratch/27.png)
 
-Right-align **cells C21-C23**,
-
-1. Select cells **C21-C23**.
-2. Select right-align.
-
-![](/images/L-Dev-Report_from_Scratch/28.png)
-
-Once the report filters are titled and styled, make the spreadsheet look better by removing the gridlines in Excel.
+<!-- Should this be included? -->
+**Step 3:** Make the spreadsheet look better by removing the gridlines in Excel.
 
 Go to the **File** tab in Excel:
 
@@ -284,15 +278,15 @@ Go to **Options**:
 
 ![](/images/L-Dev-Report_from_Scratch/30.png)
 
-    1. Go to the **Advanced** tab.
-    2. Scroll down until you see **“Display options for this worksheet”**.
-    3. **Uncheck** the **“Show gridlines”** checkbox.
+1. Go to the **Advanced** tab.
+2. Scroll down until you see **“Display options for this worksheet”**.
+3. **Uncheck** the **“Show gridlines”** checkbox.
 
 ![](/images/L-Dev-Report_from_Scratch/31.png)
 
 Now there should be no gridlines on the current worksheet.
 
-Rename the current worksheet **CustomerOrderHistory** and delete any other worksheets you have in the workbook.
+**Step 4:** Give the worksheet a name and delete any other worksheets you may have in the current workbook.
 
 Right-click on the first sheet’s title and select **Rename**.
 
@@ -305,18 +299,6 @@ Type in **CustomerOrderHistory**.
 Right-click on any other sheets that you have in the workbook and select **Delete**.
 
 ![](/images/L-Dev-Report_from_Scratch/34.png)
-
-**Step #:** Change the font on our entire worksheet to be **Century Gothic**. This is an optional step, and can be done with a different font if desired.
-
-Select all the cells in the sheet by clicking the tab in the top left corner.
-
-![](/images/L-Dev-Report_from_Scratch/35.png)
-
-Then type **Century Gothic** into the font selector in the **Home** tab at the top.
-
-![](/images/L-Dev-Report_from_Scratch/36.png)
-
-You can reduce the scale of the worksheet to your monitors needs. Since the new font is a little bigger, reduce the demo worksheet to 90%.
 
 ![](/images/L-Dev-Report_from_Scratch/37.png)
 
