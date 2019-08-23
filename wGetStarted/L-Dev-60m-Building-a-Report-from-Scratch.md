@@ -22,51 +22,87 @@ You will learn how to use the following INTERJECT report formulas in this lab:
 
 # Table of Contents
 
-This lab will be broken up into sections that each achieve a smaller goal on their own, but when put together create the entire report as a whole. If you are here to find something specific, the table of contents may help you locate that. This lab can be used as a reference when you are just learning INTERJECT and you need to learn how to do something specific, such as how to create a Data Portal in the INTERJECT Portal site, but don't need to work through the entire lab. This can be accomplished by looking up the appropriate section in the table of contents and skipping to it.
+This lab will be broken up into sections that each achieve a small goal of their own, and when put together, create the entire report as a whole. If you are here to find something specific, the table of contents may help you locate that. This lab can be used as a reference when you are just learning INTERJECT and you need to learn how to do something specific, such as how to create a Data Portal in the INTERJECT Portal site, but don't need to work through the entire lab. This can be accomplished by looking up the appropriate section here and skipping to it.
 
 Section 1: Download required software and sample database
 
-Section 2 - Learn SQL Server
+Section 2: Learn SQL Server Basics
 
-Section 3 - Introduce Important INTERJECT Terminology and Definitions
+Section 3: Important INTERJECT Terminology and Definitions
 
-Section 4: Create the Data Connection in the INTERJECT Portal Site
+Section 4: Write the SQL Stored Procedure for a Data PULL Action
 
-Section 5 - Write the SQL Stored Procedure for a Data PULL Action
+Section 5: Create the Data Connection in the INTERJECT Portal Site
 
-Section 6 - Create the Data Portal in the INTERJECT Portal Site
+Section 6: Create the Data Portal in the INTERJECT Portal Site
 
-Section 7 - Introduce the INTERJECT Report that You Will Create
+Section 7: Introduce the INTERJECT Report that You Will Create
 
-Section 8 - Build the First Excel Spreadsheet in the Report
+Section 8: Build the First Excel Spreadsheet in the Report
 
-Section 9 - Build the Second Excel Spreadsheet in the Report
+Section 9: Build the Second Excel Spreadsheet in the Report
 
 ## Section 1: Download required software and sample database
 
-You will need SQL Server downloaded on your computer to complete this lab, and you will also need an editor for SQL Server that allows you to connect to a database and write a stored procedure to it.
+You will need SQL Server installed on your computer to complete this lab, and you will also need an editor for SQL Server that allows you to connect to a database and write a stored procedure to it.
 
-**Step 1:** Download SQL server
+**Step 1:** Download SQL server.
+
+Skip this step if you already have a working version of SQL Server on your computer.
+
+Navigate to [Microsoft's SQL Server downloads page](https://www.microsoft.com/en-us/sql-server/sql-server-downloads), download the correct version for your computer, then run the install wizard and follow the steps to install SQL Server on your computer.
+
+**Step 2:** Download SQL Server Management Studio.
+
+Skip this step if you already have a SQL editor that you are familiar with. If not, we recommend installing and using SQL Server Management Studio (SSMS), as it is the industry standard editor for SQL Server on Windows.
+
+Navigate to [Microsoft's SSMS download page](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017), download the correct version for your computer, then run the install wizard and follow the steps to install SSMS on your computer.
+
+**Step 3:** Create a Northwind sample database on your computer.
+
+This lab requires that you have access to a Northwind sample database that can be queried by the stored procedure that you will write. Northwind is a Microsoft sample database that is used in many SQL Server tutorials and demos. If you do not already have a Northwind database, follow this step to get one on your SQL database instance.
 
 
+<!-- Create full steps with pictures for how to create the DB in SSMS -->
+Complete the following steps to obtain the CREATE DATABASE script for the Northwind database from GitHub:
+* Click on the [Github link to the CREATE DATABASE script for the Northwind database](https://github.com/microsoft/sql-server-samples/blob/master/samples/databases/northwind-pubs/instnwnd.sql).
+* Click on "View raw" on the github page.
+* Copy the entire script (CTRL + A then CTRL + C on the page)..
 
-**Create a Northwind sample database (you will write a stored procedure in this database later on)** -
-To create a Northwind sample database in an existing database instance (this can just be your local computer), follow these steps:
-1. [Download SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).
-2. [Download SQL Server Management Studio (SSMS)](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017) or another SQL editor.
-3. [Connect to SQL Server in SSMS](http://www.sqlservertutorial.net/connect-to-the-sql-server/).
-4. Duplicate the Northwind database in your database by clicking on [the Github link](http://www.sqlservertutorial.net/sql-server-stored-procedures/basic-sql-server-stored-procedures/), clicking on "View raw," then copying pasting the entire CREATE DATABASE script into a new query window in SSMS. Run the query, and you should have your own Northwind database.
+Now follow the steps to duplicate the Northwind databse on your own database instance:
 
-## SQL Server resources
+Open SSMS.
 
-While it will be helpful for you to have a basic understanding of SQL for this lab, it is not strictly required, and you can skip these most of these articles (you must follow the steps to create a Northwind database, however) and just copy-paste the SQL stored procedure that will be used in this lab. However, you will get the most out of this lab if you at least understand what SQL SELECT statements and stored procedures do.
+1. Click on the Windows key or icon on the bottom-left corner of the desktop.
+2. Type in "SSMS".
+3. Press **ENTER** OR click on the SSMS icon that shows up in the list.
 
-**What is SQL Server?** - [Here](http://www.sqlservertutorial.net/getting-started/what-is-sql-server/) is an article from sqlservertutorial.net explaining what SQL Server is, how is works, what it is built on, and a little bit of its history.
+![](../images/L-Dev-60m-Report-From-Scratch/section-2/01.png)
 
-The two fundamental concepts that you will need for this walkthrough are SQL SELECT statements and SQL stored procedures.
+Click on the **New Query** button in SSMS.
+
+![](../images/L-Dev-60m-Report-From-Scratch/section-2/02.png)
+
+Paste in the code copied from GitHub.
+
+![](../images/L-Dev-60m-Report-From-Scratch/section-2/03.png)
+
+Click the **Execute** button in SSMS.
+
+![](../images/L-Dev-60m-Report-From-Scratch/section-2/04.png)
+
+## Section 2: Learn SQL Server Basics
+
+You will get the most out of this lab if you understand what SQL server is, SQL SELECT statements and SQL stored procedures. However, this understanding is not strictly required and you can skip these articles and just copy-paste the SQL stored procedure that will be used in this lab.
+
+Use the following links as learning resources for SQL Server.
+
+**What is SQL Server?**
+
+Here is [an article from sqlservertutorial.net](http://www.sqlservertutorial.net/getting-started/what-is-sql-server/) explaining what SQL Server is, how it works, what it is built on, and a little bit of its history.
 
 **The SQL SELECT statement**
-1. [Here](http://www.sqlservertutorial.net/sql-server-basics/sql-server-select/) is an example from sqlservertutorial.net explaining the structure of the SELECT statement and how it is executed by SQL. It also shows examples of how to write common SELECT statements.
+1. [Here](http://www.sqlservertutorial.net/sql-server-basics/sql-server-select/) is an article from sqlservertutorial.net explaining the structure of the SELECT statement and how it is executed by SQL. It also shows examples of how to write common SELECT statements.
 2. [Here](https://www.techonthenet.com/sql_server/select.php) is an article from techonthenet.com explaining the SELECT statement and how to use is, including all additional clauses that can be added to SELECT.
 
 **SQL stored procedures**
@@ -74,17 +110,50 @@ The two fundamental concepts that you will need for this walkthrough are SQL SEL
 2. [Here](http://www.sqlservertutorial.net/sql-server-stored-procedures/basic-sql-server-stored-procedures/) is a tutorial from sqlservertutorial.net showing how to write basic stored procedures, explaining the structure and syntax of stored procedure creation and how to execute stored procedures.
 
 
-<!-- ### What is an INTERJECT Report?
-
-The first thing to work on in this lab is building the front-facing INTERJECT report in Excel, but first, let’s define what an INTERJECT *report* is.
-
-An INTERJECT report is a spreadsheet-based interface to data, designed for analysis, exploration, or manipulation of metrics in almost any form or arrangement.
-
-Reports are more than just a spreadsheet, however. The spreadsheet is the front-end interface that INTERJECT uses to allow end users to interact with their data in a familiar, intuitive environment. Behind the spreadsheet, the INTERJECT formulas on a given report connect to **Data Portals** which serve as the definition of how you wish to interact with your database (what data you want to retrieve and/or store). Data Portals then connect to **Data Connections**, which serve as a way for INTERJECT to remember how to connect to your data source, and using this information, INTERJECT can then connect to the database data API itself.
-
-
+<!--
 
 Reports are more than just an Excel spreadsheet, however. Excel is the front-end interface that INTERJECT uses to allow end users to interact with their data in a familiar, intuitive environment. Behind Excel, the INTERJECT formulas on a given report connect to **Data Portals** which serve as the definition for how you wish to interact with your database (what data you want to retrieve and/or store). Data Portals then connect to Data Connections, which serve as a way for INTERJECT to remember how to connect to your data source, and in turn, connect to a database on a physical server or to a data API (the data source itself). -->
+
+## Section 3: Important INTERJECT Terminology and Definitions
+
+### What is an INTERJECT Report?
+
+An INTERJECT report is a spreadsheet-based interface to data, designed for analysis, exploration, or manipulation of metrics in almost any form or arrangement. Reports are tools that are highly customizable and, with sufficient knowledge of INTERJECTs report formulas and features, can be designed for a multitude of different and specific business, scientific or exploratory purposes.
+
+A report can span multiple Excel workbooks or worksheets, as more than one workbook/worksheet may be needed to best achieve the purpose of the report. Multi-sheet reports typically arise when doing a DRILL between worksheets, which allows the user to choose a data record from a summary-type sheet and take a closer look at it by opening a detailed sheet for that record via the DRILL. This use-case will be demonstrated in this lab.
+
+There is more to a report than just the spreadsheet interface, however. Behind the spreadsheet, which is simply the interface for the data, the INTERJECT formulas on a report connect to **Data Portals** which serve as the definition of how you wish to interact with your database (what data you want to retrieve and/or store, defined in a SQL stored procedure). Data Portals in-turn connect to **Data Connections**, which allow INTERJECT to remember how to connect to your data source, and using this information, INTERJECT can then connect to the database or data API itself.
+
+<!-- move -->
+Reports use **report forumlas** to manipulate the data that you see on the spreadsheet. Report formulas are similar to regular Excel formulas; you type them in inside Excel cells using an equals sign and you can use the function builder to give them arguments. Report formulas can PULL data into the report, SAVE data entered into the report back to the database, as well as DRILL from one spreadsheet in a report to another.
+
+### Anatomy of an INTERJECT Report
+
+To show you how INTERJECT reports are structured, the final spreadsheet that you will create in this lab will be used as an example.
+
+#### Report Area
+The report area 
+
+![](../images/L-Dev-60m-Report-From-Scratch/section-3/01.png)
+
+Each section on the report serves a specific purpose.
+
+**1 - Title of the current sheet of the report**
+
+**2 - Filter parameter input area**
+
+As you can see, in cells **C21-C23**, the user has the option to enter **Filter** arguments. We entered “market” into the **Company Name** filter, which limits the result set that is returned to records which contain the partial string “market” in their CompanyName attribute.
+
+<!-- Filters can be useful in many different types of reports to search and extract specific data from the data set that you’re connecting to. -->
+
+Filters work in INTERJECT reports by using a SQL Server LIKE operator inside the WHERE clause of the query that the report data is being sourced from.
+
+
+The filter parameter input area allows the report user to enter search criteria that will limit the data set returned CONT
+
+3 - Column title section. This section generally occupies 1 row and simply displays the titles of the data that appears below in each column.
+
+4 - Target Data Range
 
 ### Introducing the CustomerOrderHistory Report
 
