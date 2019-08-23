@@ -1,16 +1,16 @@
-### Introduction
+# Introduction
 
 This is a detailed walkthrough lab that will teach you how to start from a blank Excel sheet and create a complete, functional INTERJECT report, building each component from the ground up, the way you might in some specific business use-cases.
 
 In this lab, you will learn how to:
 <!-- * Format a report to INTERJECT standards. -->
-* Write some common INTERJECT report formulas and learn about how they work.
+* Write some common INTERJECT report formulas.
 * Set up backend Data Connections and Data Portals in the INTERJECT portal website.
 * Write the SQL that is the backbone for a data pull.
 
 This lab is geared toward beginners, and expects that you have little to no prior experience with both INTERJECT and Excel. The only expectation is a basic understanding of SQL Server stored procedures and SELECT statements, but if you do not have this knowledge, resources will be provided that you can use to educate yourself before delving into the SQL portion of the lab. The goal of the lab is for you to quickly build your first functional INTERJECT report from scratch so that you can see how all the major components work together to create an INTERJECT report.
 
-There is a more comprehensive version of this lab available [here](), which includes much more spreadsheet formatting and more detailed explanations of the INTERJECT formulas used, Data Connections and Portals, and etc. The comprehensive version is longer and better for one to sit down and study if they would like to understand the process of creating a report in-depth, while this version is slimmer, quicker, and may be easier to follow if you only want to know *how* to do everything necessary.
+<!-- There is a more comprehensive version of this lab available [here](), which includes much more spreadsheet formatting and more detailed explanations of the INTERJECT formulas used, Data Connections and Portals, and etc. The comprehensive version is longer and better for one to sit down and study if they would like to understand the process of creating a report in-depth, while this version is slimmer, quicker, and may be easier to follow if you only want to know *how* to do everything necessary. -->
 
 You will learn how to use the following INTERJECT report formulas in this lab:
 
@@ -20,7 +20,44 @@ You will learn how to use the following INTERJECT report formulas in this lab:
 * [jFreezePanes]()
 * [jFocus]()
 
-### SQL Server resources
+# Table of Contents
+
+This lab will be broken up into sections that each achieve a smaller goal on their own, but when put together create the entire report as a whole. If you are here to find something specific, the table of contents may help you locate that. This lab can be used as a reference when you are just learning INTERJECT and you need to learn how to do something specific, such as how to create a Data Portal in the INTERJECT Portal site, but don't need to work through the entire lab. This can be accomplished by looking up the appropriate section in the table of contents and skipping to it.
+
+Section 1: Download required software and sample database
+
+Section 2 - Learn SQL Server
+
+Section 3 - Introduce Important INTERJECT Terminology and Definitions
+
+Section 4: Create the Data Connection in the INTERJECT Portal Site
+
+Section 5 - Write the SQL Stored Procedure for a Data PULL Action
+
+Section 6 - Create the Data Portal in the INTERJECT Portal Site
+
+Section 7 - Introduce the INTERJECT Report that You Will Create
+
+Section 8 - Build the First Excel Spreadsheet in the Report
+
+Section 9 - Build the Second Excel Spreadsheet in the Report
+
+## Section 1: Download required software and sample database
+
+You will need SQL Server downloaded on your computer to complete this lab, and you will also need an editor for SQL Server that allows you to connect to a database and write a stored procedure to it.
+
+**Step 1:** Download SQL server
+
+
+
+**Create a Northwind sample database (you will write a stored procedure in this database later on)** -
+To create a Northwind sample database in an existing database instance (this can just be your local computer), follow these steps:
+1. [Download SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).
+2. [Download SQL Server Management Studio (SSMS)](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017) or another SQL editor.
+3. [Connect to SQL Server in SSMS](http://www.sqlservertutorial.net/connect-to-the-sql-server/).
+4. Duplicate the Northwind database in your database by clicking on [the Github link](http://www.sqlservertutorial.net/sql-server-stored-procedures/basic-sql-server-stored-procedures/), clicking on "View raw," then copying pasting the entire CREATE DATABASE script into a new query window in SSMS. Run the query, and you should have your own Northwind database.
+
+## SQL Server resources
 
 While it will be helpful for you to have a basic understanding of SQL for this lab, it is not strictly required, and you can skip these most of these articles (you must follow the steps to create a Northwind database, however) and just copy-paste the SQL stored procedure that will be used in this lab. However, you will get the most out of this lab if you at least understand what SQL SELECT statements and stored procedures do.
 
@@ -35,13 +72,6 @@ The two fundamental concepts that you will need for this walkthrough are SQL SEL
 **SQL stored procedures**
 1. [Here](https://www.essentialsql.com/what-is-a-stored-procedure/) is an article from essentialsql.com on what a stored procedure is, why they are used, and how they can be used. It is a higher-level overview.
 2. [Here](http://www.sqlservertutorial.net/sql-server-stored-procedures/basic-sql-server-stored-procedures/) is a tutorial from sqlservertutorial.net showing how to write basic stored procedures, explaining the structure and syntax of stored procedure creation and how to execute stored procedures.
-
-**Create a Northwind sample database (you will write a stored procedure in this database later on)** -
-To create a Northwind sample database in an existing database instance (this can just be your local computer), follow these steps:
-1. [Download SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).
-2. [Download SQL Server Management Studio (SSMS)](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017) or another SQL editor.
-3. [Connect to SQL Server in SSMS](http://www.sqlservertutorial.net/connect-to-the-sql-server/).
-4. Duplicate the Northwind database in your database by clicking on [the Github link](http://www.sqlservertutorial.net/sql-server-stored-procedures/basic-sql-server-stored-procedures/), clicking on "View raw," then copying pasting the entire CREATE DATABASE script into a new query window in SSMS. Run the query, and you should have your own Northwind database.
 
 
 <!-- ### What is an INTERJECT Report?
@@ -947,7 +977,9 @@ Now, drag **row 12** down to be about **42 pixels** tall.
 
 ![](../images/L-Dev-60m-Report-From-Scratch/120.png)
 
-**Step 2: Customer Information Section** Now you will format the first section of the report area, the customer information section.
+**Step 3:** Format the customer information section.
+
+Now you will format the first section of the report area, the customer information section.
 
 First, add a title to the section.
 
@@ -965,3 +997,26 @@ Apply a background color to our customer information section.
 3. Select the lightest blue color (#D9E1F2).
 
 ![](../images/L-Dev-60m-Report-From-Scratch/122.png)
+
+**Step 4:** Format the order information section.
+
+Add the cell titles for the different pieces of order information that will be displayed.
+
+Type **ORDER DATE:** into cell **G14**, **ORDER NUMBER:** into cell **G15**, **REQUIRED DATE:** into cell **G16**, **SHIPPED DATE:** into cell **G17**, and **SHIPPED VIA:** into cell **G18**.
+
+![](../images/L-Dev-60m-Report-From-Scratch/123.png)
+
+Right-align the title cells so that they don't overlap the cells to the right, where the data will be displayed.
+
+1. Select **cells G14-G18**.
+2. Toggle the right-align option.
+
+![](../images/L-Dev-60m-Report-From-Scratch/124.png)
+
+Add a background highlight color to the order number display cell so that users can see this important piece of information clearly.
+
+1. Select cell **H15**.
+2. Click the paint bucket.
+3. Select the lighest orange color ().
+
+![](../images/L-Dev-60m-Report-From-Scratch/125.png)
