@@ -132,28 +132,33 @@ Reports use **report forumlas** to manipulate the data that you see on the sprea
 To show you how INTERJECT reports are structured, the final spreadsheet that you will create in this lab will be used as an example.
 
 #### Report Area
-The report area 
+The report area is the part of the report that displays the data. It has all the report formulas and configuration details hidden, showing only the final product.
+
+The report can be broken up into the following sections:
 
 ![](../images/L-Dev-60m-Report-From-Scratch/section-3/01.png)
 
-Each section on the report serves a specific purpose.
+##### 1 - Title of the current sheet in the report
+It is standard to place a title somewhere on each spreadsheet, to tell the users the topic of the current sheet.
 
-**1 - Title of the current sheet of the report**
+##### 2 - Filter parameter input area
+Here users can enter filter text for specific columns. The report formula which pulls in the data is programmed to look at these cells and only return data records whose columns specified in the filter parameters (for example, CompanyName) contain the filter text provided by the user (for example "market").
 
-**2 - Filter parameter input area**
+##### 3 - Column names section
+This section generally occupies 1 row and simply displays the titles of the data that appears below in each column.
 
-As you can see, in cells **C21-C23**, the user has the option to enter **Filter** arguments. We entered “market” into the **Company Name** filter, which limits the result set that is returned to records which contain the partial string “market” in their CompanyName attribute.
+##### 4 - Target data range
+The target data range is the area of the sheet where report formulas are allowed to insert or extract data to/from the report. The data contained within this area is the final result data after operations performed in the SQL stored procedure, report formulas and after passing through filters on the report.
 
-<!-- Filters can be useful in many different types of reports to search and extract specific data from the data set that you’re connecting to. -->
+#### Filter Parameters
+
+Filter parameters are used in reports that pull data in, and are used to restrict the result set to only records which match the filter parameter arguments given on the report.
+
+Filter parameters can be used to search the dataset for specific records.
+
+As you can see in the screenshot above, “market” was entered into the **Company Name** filter, which limits the result set that is returned to records which *contain* the partial string “market” in their CompanyName attribute.
 
 Filters work in INTERJECT reports by using a SQL Server LIKE operator inside the WHERE clause of the query that the report data is being sourced from.
-
-
-The filter parameter input area allows the report user to enter search criteria that will limit the data set returned CONT
-
-3 - Column title section. This section generally occupies 1 row and simply displays the titles of the data that appears below in each column.
-
-4 - Target Data Range
 
 ### Introducing the CustomerOrderHistory Report
 
