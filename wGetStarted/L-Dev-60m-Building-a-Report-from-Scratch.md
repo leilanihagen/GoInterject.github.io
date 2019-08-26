@@ -12,6 +12,10 @@ This lab is geared toward beginners, and expects that you have little to no prio
 
 <!-- There is a more comprehensive version of this lab available [here](), which includes much more spreadsheet formatting and more detailed explanations of the INTERJECT formulas used, Data Connections and Portals, and etc. The comprehensive version is longer and better for one to sit down and study if they would like to understand the process of creating a report in-depth, while this version is slimmer, quicker, and may be easier to follow if you only want to know *how* to do everything necessary. -->
 
+You will accomplish the following in this lab:
+
+* Create a full 2-spreadsheet INTERJECT report
+
 You will learn how to use the following INTERJECT report formulas in this lab:
 
 * [ReportRange()]()
@@ -20,29 +24,42 @@ You will learn how to use the following INTERJECT report formulas in this lab:
 * [jFreezePanes]()
 * [jFocus]()
 
+View the following [Table of Contents](#table-of-contents) to see what you will learn and accomplish by completing this lab.
+
 # Table of Contents
 
 This lab will be broken up into sections that each achieve a small goal of their own, and when put together, create the entire report as a whole. If you are here to find something specific, the table of contents may help you locate that. This lab can be used as a reference when you are just learning INTERJECT and you need to learn how to do something specific, such as how to create a Data Portal in the INTERJECT Portal site, but don't need to work through the entire lab. This can be accomplished by looking up the appropriate section here and skipping to it.
 
-Section 1: Download required software and sample database
+Click on any of the section headings listed here to jump to them.
 
-Section 2: Learn SQL Server Basics
+##### [Section 1: Download required software and sample database]()
+The first section simply ensures that you have the correct software and sample data installed on your computer. After completing Section 1, you will have SQL Server installed on your computer as well as an editor to create and run SQL code, and you will have a sample SQL database on your local machine that you can run SQL on.
 
-Section 3: Important INTERJECT Terminology and Definitions
+##### [Section 2: Learn SQL Server Basics]()
+This section provides you with resources for learning the basics of SQL Server. Those familiar with SQL server SELECT statements can skip this section entirely. You can also skip this section if you are only interested in learning the INTERJECT parts of creating a report.
 
-Section 4: Write the SQL Stored Procedure for a Data PULL Action
+##### [Section 3: Important INTERJECT Terminology and Definitions]()
+This section provides you with the necessary understanding of INTERJECT terminology and definitions. It explains all the key components that make up an INTERJECT report and how they work together. It is *recommended* that you read this section before completing the lab. This section can also be used as a reference to look up a terms that you do not know.
+<!-- [Section 6](#section-5:-create-the-data connection-in-the-interject-portal-site) -->
+##### [Section 4: Write a SQL Stored Procedure for a Data PULL Action]()
+This section will walk you through writing a stored procedure that will perform an INTERJECT Data PULL action (inserts data from database tables into an Excel report). The stored procedure is the the first thing that you will create in this lab because it is the fundamental piece that needs to be working properly for the INTERJECT Data Portal and the report itself to work as well.
 
-Section 5: Create the Data Connection in the INTERJECT Portal Site
+##### [Section 5: Create the Data Connection in the INTERJECT Portal Site]()
+This section walks you through creating a Data Connection in the INTERJECT Portal Site. The Data Connection you create will store connection details for your sample database. You create the Data Connection before the Data Portal because the Data Portal requires uses the Data Connection to access your database.
 
-Section 6: Create the Data Portal in the INTERJECT Portal Site
+##### [Section 6: Create the Data Portal in the INTERJECT Portal Site]()
+This section walks you through creating a Data Portal in the INTERJECT Portal Site. Data Portals store the name of a specific stored procedure as well as the name of an existing Data Connection. It locates a database using the database connection information stored in the Data Connection, then locates the stored procedure within that database.
 
-Section 7: Introduce the INTERJECT Report that You Will Create
+##### [Section 7: Introduce the INTERJECT Report]()
+This section introduces the final INTERJECT report that you will create in Sections 8 and 9. It explains the different sections of the report and their purposes.
 
-Section 8: Build the First Excel Spreadsheet in the Report
+##### [Section 8: Build the CustomerOrderHistory Spreadsheet for the Report]()
+after completing this section, you will have created the first of two spreadsheets that will together make up the report. CustomerOrderHistory will be a summary sheet of historical customer order data.
 
-Section 9: Build the Second Excel Spreadsheet in the Report
+##### [Section 9: Build the SalesOrder Spreadsheet for the Report]()
+After this section, you will have created the second of two spreadsheets in the report. SalesOrder will be a detailed look at a single customer order.
 
-## Section 1: Download required software and sample database
+## Section 1: Download required software and sample database()
 
 You will need SQL Server installed on your computer to complete this lab, and you will also need an editor for SQL Server that allows you to connect to a database and write a stored procedure to it.
 
@@ -103,7 +120,7 @@ Here is [an article from sqlservertutorial.net](http://www.sqlservertutorial.net
 
 **The SQL SELECT statement**
 1. [Here](http://www.sqlservertutorial.net/sql-server-basics/sql-server-select/) is an article from sqlservertutorial.net explaining the structure of the SELECT statement and how it is executed by SQL. It also shows examples of how to write common SELECT statements.
-2. [Here](https://www.techonthenet.com/sql_server/select.php) is an article from techonthenet.com explaining the SELECT statement and how to use is, including all additional clauses that can be added to SELECT.
+2. [Here](https://www.techonthenet.com/sql_server/select.php) is an article from techonthenet.com explaining the SELECT statement and how to use it, including all additional clauses that can be added to SELECT.
 
 **SQL stored procedures**
 1. [Here](https://www.essentialsql.com/what-is-a-stored-procedure/) is an article from essentialsql.com on what a stored procedure is, why they are used, and how they can be used. It is a higher-level overview.
@@ -118,14 +135,25 @@ Reports are more than just an Excel spreadsheet, however. Excel is the front-end
 
 ### What is an INTERJECT Report?
 
+##### INTERJECT Report
 An INTERJECT report is a spreadsheet-based interface to data, designed for analysis, exploration, or manipulation of metrics in almost any form or arrangement. Reports are tools that are highly customizable and, with sufficient knowledge of INTERJECTs report formulas and features, can be designed for a multitude of different and specific business, scientific or exploratory purposes.
 
-A report can span multiple Excel workbooks or worksheets, as more than one workbook/worksheet may be needed to best achieve the purpose of the report. Multi-sheet reports typically arise when doing a DRILL between worksheets, which allows the user to choose a data record from a summary-type sheet and take a closer look at it by opening a detailed sheet for that record via the DRILL. This use-case will be demonstrated in this lab.
+##### Multi-Worksheet/Workbook Reports
+A report can span multiple Excel workbooks or worksheets, as more than one workbook/worksheet may need to be used to achieve the purpose of the report. For example, one can use an INTERJECT DRILL to connect two worksheets or workbooks together. DRILLs work by letting the user choose a value from one sheet to "drill on", then this value is carried to another sheet where data processing can be done with the transferred value as input to the data operations. This allows the two sheets to work on the same data sets but perform different data processing on them. Using multiple sheets is a good approach to building complex INTERJECT reports because it allows you to show the data in different levels of detail for different purposes, while still having the data connected and centralized in one report. You will create a 2-spreadsheet report with a DRILL from a summary report to a detailed report in this lab.
 
-There is more to a report than just the spreadsheet interface, however. Behind the spreadsheet, which is simply the interface for the data, the INTERJECT formulas on a report connect to **Data Portals** which serve as the definition of how you wish to interact with your database (what data you want to retrieve and/or store, defined in a SQL stored procedure). Data Portals in-turn connect to **Data Connections**, which allow INTERJECT to remember how to connect to your data source, and using this information, INTERJECT can then connect to the database or data API itself.
+##### How INTERJECT Reports Work Behind the Scenes
+There is more to a report than just the spreadsheet, however. The Excel spreadsheet, or set of spreadsheets, is just the interface for the end user to the data being manipulated. Behind this, we have **Report Formulas**, **Data Portals**, **Data Connections**, and **the data source** all working together to bring the end report to the user.
+<!-- capitalize Report Formulas? -->
+**Report Formulas** control everything that happens at the report level, which includes, but is not limited to, specifying conditional formatting of the report, customizing the appearance of the report, and specifying the individual data operations that the report will perform. The most important Report Formulas to understand here are the Data Functions. Data Functions are the class of Report Formulas that manipulate the data that is displayed on or extracted from the sheet. Data Functions inetract with Data Portals in order to bring the 
+
+**Data Portals** exist outside of the report, in the INTERJECT Portal Site. They serve as a way to define specific data operations that can be done to extract or retrieve data from your data source.
+
+Data Portals define specific data transfer operations that can occur between the report and the data source. The data operation defined in the Data Portal is not executed until an action on the report triggers a Report Formula to be called, then this report formula in turn tells the Data Poral to execute it's defined operation. Think of the Data Portal as holding a set of instuctions for how to interact with the data source. Only when the Data Portal is called on by the
+
+The Report Formulas that control data operations on your report will connect to a Data Portal and use it as their definition of how you wish to interact with your database (what data you want to retrieve and/or store). Data Portals in-turn connect to **Data Connections**, which allow INTERJECT to remember how to connect to your data source, and using this information, INTERJECT can then connect to the data source (a database or data API) itself.
 
 <!-- move -->
-Reports use **report forumlas** to manipulate the data that you see on the spreadsheet. Report formulas are similar to regular Excel formulas; you type them in inside Excel cells using an equals sign and you can use the function builder to give them arguments. Report formulas can PULL data into the report, SAVE data entered into the report back to the database, as well as DRILL from one spreadsheet in a report to another.
+Reports use **report formulas** to manipulate the data that you see on the spreadsheet. Report formulas are similar to regular Excel formulas; you type them in inside Excel cells using an equals sign and you can use the function builder to give them arguments. Report formulas can PULL data into the report, SAVE data entered into the report back to the database, as well as DRILL from one spreadsheet in a report to another.
 
 ### Anatomy of an INTERJECT Report
 
