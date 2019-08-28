@@ -948,7 +948,7 @@ The first Formula Parameter you add will be an input parameter. It will be the O
 
 1. Enter **OrderID** into the **NAME** field.
 2. Enter **int** into the **TYPE** field.
-3. Enter **inout** into the **DIRECTION** field.
+3. Enter **input** into the **DIRECTION** field.
 4. Press the save icon and wait for it to turn green.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/08.png)
@@ -960,28 +960,66 @@ This Data Portal will have many output parameters since SalesOrder is a detailed
 3. Enter **nvarchar** in all 5 of the highlighted **TYPE** fields.
 4. Enter **output** in all 5 of the highlighted **DIRECTION** fields.
 4. Enter the following:
-    * **CustomerID** in the second Formula Parameter **NAME** field.
-    * **ContactName** in the third Formula Parameter **NAME** field.
-    * **CompanyName** in the forth Formula Parameter **NAME** field.
-    * **ShipAddress** in the fifth Formula Parameter **NAME** field.
-    * **ShipCity** in the sixth Formula Parameter **NAME** field.
+    * **CustomerID** in the 2nd **NAME** field.
+    * **ContactName** in the 3rd **NAME** field.
+    * **CompanyName** in the 4th **NAME** field.
+    * **ShipAddress** in the 5th **NAME** field.
+    * **ShipCity** in the 6th **NAME** field.
 5. Press the save icon following the last parameter added (the other 4 should have saved automatically).
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/09.png)
 
-1. Press **Click here to add a Formula Parameter** 4 times to creat 4 new fields.
+1. Press **Click here to add a Formula Parameter** 4 times to create 4 new fields.
 3. Enter **nvarchar** in all 4 of the highlighted **TYPE** fields.
 4. Enter **output** in all 4 of the highlighted **DIRECTION** fields.
 4. Enter the following:
-    * **ShipPostalCode** in the second Formula Parameter **NAME** field.
-    * **ShipCountry** in the third Formula Parameter **NAME** field.
-    * **Phone** in the forth Formula Parameter **NAME** field.
-    * **Fax** in the fifth Formula Parameter **NAME** field.
-5. Press the save icon following the last parameter added (the other 3 should have saved automatically).
+    * **ShipPostalCode** in the 7th **NAME** field.
+    * **ShipCountry** in the 8th **NAME** field.
+    * **Phone** in the 9th **NAME** field.
+    * **Fax** in the 10th **NAME** field.
+5. Press the save icon following the last parameter added.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/10.png)
 
+Now, add the necessary date parameters.
 
+1. Press **Click here to add a Formula Parameter** 3 times to create 3 new fields.
+3. Enter **date** in all 3 of the highlighted **TYPE** fields.
+4. Enter **output** in all 3 of the highlighted **DIRECTION** fields.
+4. Enter the following:
+    * **OrderDate** in the 11th **NAME** field.
+    * **RequiredDate** in the 12th **NAME** field.
+    * **ShippedDate** in the 13th **NAME** field.
+5. Press the save icon following the last parameter added.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/11.png)
+
+Add the last 2 Forumula Parameters.
+
+1. Press **Click here to add a Formula Parameter** 2 times to create 2 new fields.
+3. Enter the following:
+    * **nvarchar** in the 14th **TYPE** field.
+    * **money** in the 15th **TYPE** field.
+4. Enter **output** in both of the highlighted **DIRECTION** fields.
+4. Enter the following:
+    * **ShipVia** in the 14th **NAME** field.
+    * **Freight** in the 15th **NAME** field.
+5. Press the save icon following the last parameter added.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/12.png)
+
+**Step 4:** Add the required System Parameters to your Data Portal.
+
+In this Data Portal, we will use the Interject_RequestContext system parameter.
+
+1. Scroll down to the System Parameters section and click **Click here to add a System Parameter**.
+2. Select **Interject_RequestContext** from the list.
+
+Click the save icon to save if it does not save automatically.
+
+The TYPE and DIRECTION are preset for System Parameters.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/13.png)
 
 ### Introducing the SalesOrder Report and Drilling Between Reports
 
