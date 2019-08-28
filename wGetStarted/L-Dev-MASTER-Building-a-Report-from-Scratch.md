@@ -63,7 +63,7 @@ This section will walk you through writing the second stored procedure, which wi
 ##### [Section 10: Create the Data Portal for the SalesOrder Spreadsheet]()
 In this section you will create the Data Portal that will access the stored procedure written which performs a data PULL.
 
-##### [Section 9: Build the SalesOrder Spreadsheet for the Report]()
+##### [Section 11: Build the SalesOrder Spreadsheet for the Report]()
 In this section you will create the second of two spreadsheets in the report. SalesOrder will be a detailed look at a single customer order.
 
 ## Section 1: Download required software and sample database()
@@ -892,6 +892,97 @@ Now you should see that, as well as the data in the Target Data Range being clea
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/95.png)
 
+
+
+## Section 10: Create the Data Portal for the SalesOrder Spreadsheet
+
+**Step 1:** Create the Data Portal.
+
+Navigate to [the portal site](https://portal.gointerject.com/) and choose Data Portals.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/01.png)
+
+Create a new data portal by clicking the **NEW DATA PORTAL** button.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/02.png)
+
+**Step 2:** Edit the data portal details.
+
+1. Enter a name for your Data Portal (**”NorthwindCustomerSingleOrder_MyName”** with your name substituted in for MyName) in the **Name** field.
+2. Enter a brief description in the **Description** field.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/03.png)
+
+Under **connection**, you will need to find the name of the Data Connection that you created for this lab in Section 10.
+
+1. Click on the dropdown menu next to the word "none".
+2. Start typing your name in the **Filter** box to filter for all Data Connections that contain your name.
+3. Select **NorthwindDB_MyName**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/04.png)
+
+Now, set some of the descriptive attributes of the Data Portal and specify the stored procedure you created in Section 9.
+
+1. Optionally, you can include **Demo** for the **Category** field (it can also be left blank).
+2. Under **Command Type**, click the dropdown menu.
+3. Select **Stored Procedure Name** from the dropdown list that appears.
+4. Type in the name of the stored procedure you created in Section 9, **[demo].[northwind_customer_single_order_myname]** with your name substituted for "myname".
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/05.png)
+
+1. For **Data Portal Status**, choose **Enabled**.
+2. For **Is Custom Command?**, choose **No**
+3. Save your new data portal by clicking **CREATE NEW DATA PORTAL**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/06.png)
+
+**Step 3:** Add Formula Parameters to your new Data Portal.
+
+Once you save your Data Portal, you will be able to add parameters to your Data Portal.
+
+Press **Click here to add a Formula Parameter**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/07.png)
+
+The first Formula Parameter you add will be an input parameter. It will be the OrderID that the SalesOrder spreadsheet will recieve when it is drilled into from CustomerOrderHistory. This will then be passed in from the spreadsheet to the ReportRange() Data Function which will pass it through the data portal as an input into the stored procedure.
+
+1. Enter **OrderID** into the **NAME** field.
+2. Enter **int** into the **TYPE** field.
+3. Enter **inout** into the **DIRECTION** field.
+4. Press the save icon and wait for it to turn green.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/08.png)
+
+This Data Portal will have many output parameters since SalesOrder is a detailed sheet that requires many data fields.
+
+<!-- fix spacing -->
+1. Press **Click here to add a Formula Parameter** 5 times to create 5 blank parameter entry fields.
+3. Enter **nvarchar** in all 5 of the highlighted **TYPE** fields.
+4. Enter **output** in all 5 of the highlighted **DIRECTION** fields.
+4. Enter the following:
+    * **CustomerID** in the second Formula Parameter **NAME** field.
+    * **ContactName** in the third Formula Parameter **NAME** field.
+    * **CompanyName** in the forth Formula Parameter **NAME** field.
+    * **ShipAddress** in the fifth Formula Parameter **NAME** field.
+    * **ShipCity** in the sixth Formula Parameter **NAME** field.
+5. Press the save icon following the last parameter added (the other 4 should have saved automatically).
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/09.png)
+
+1. Press **Click here to add a Formula Parameter** 4 times to creat 4 new fields.
+3. Enter **nvarchar** in all 4 of the highlighted **TYPE** fields.
+4. Enter **output** in all 4 of the highlighted **DIRECTION** fields.
+4. Enter the following:
+    * **ShipPostalCode** in the second Formula Parameter **NAME** field.
+    * **ShipCountry** in the third Formula Parameter **NAME** field.
+    * **Phone** in the forth Formula Parameter **NAME** field.
+    * **Fax** in the fifth Formula Parameter **NAME** field.
+5. Press the save icon following the last parameter added (the other 3 should have saved automatically).
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/10.png)
+
+
+
 ### Introducing the SalesOrder Report and Drilling Between Reports
 
 We will now switch to creating a second report so that we can demonstrate *drilling* between reports.
@@ -900,7 +991,7 @@ Drilling is a way to connect and pass values between separate worksheets or work
 
 In this case, CustomerOrderHistory is the general/summary report. You will create a new report, SaleOrder, which will be the detailed report that can be drilled into from CustomerOrderHistory.
 
-## Section 9: Build the SalesOrder Spreadsheet for the Report
+## Section 11: Build the SalesOrder Spreadsheet for the Report
 
 You will start by taking a look at the final SalesOrder spreadsheet to see what you will be creating.
 
