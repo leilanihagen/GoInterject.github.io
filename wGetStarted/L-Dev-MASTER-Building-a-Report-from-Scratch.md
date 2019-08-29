@@ -892,7 +892,75 @@ Now you should see that, as well as the data in the Target Data Range being clea
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/95.png)
 
+## Section 9: Write the SQL Stored Procedure for the SalesOrder Spreadsheet
 
+Using a SQL editor, preferably SQL Server Management Studio, create a new query file and copy-paste in the following code:
+
+<button class="collapsible">\[demo\].\[northwind_customer_single_order_myname\]</button>
+<div markdown="1" class="panel">
+
+```sql
+USE [MyDatabase]
+
+CREATE PROC [MySchema].[northwind_customer_single_order_myname]
+
+    	 @OrderID	VARCHAR(100)
+    	,@Interject_RequestContext NVARCHAR(MAX)
+
+    AS
+    BEGIN
+
+    SET NOCOUNT ON  -- helps reduce conflicts with ADO
+
+    DECLARE @ErrorMessage VARCHAR(100)
+
+    IF LEN(@OrderID)>40
+    BEGIN
+    	SET @ErrorMessage = 'Usernotice:The OrderID must not be more than 40 characters.'
+    	RAISERROR (@ErrorMessage, 18, 1)
+    	RETURN		
+    END
+
+    EXEC []
+
+    SELECT
+    	 c.[CustomerID]
+    	,c.[ContactName]
+    	,c.[CompanyName]
+	  	,o.[ShipAddress]
+    	,o.[ShipCity]
+	  	,o.[ShipPostalCode]
+    	,o.[ShipCountry]
+	  	,c.[Phone]
+	  	,c.[Fax]
+    	,o.[OrderDate]
+	  	,o.[RequiredDate]
+    	,o.[ShippedDate]
+    	,s.[CompanyName] AS ShipVia
+    	,o.[Freight]
+    FROM [demo].[Northwind_Orders] o
+    	INNER JOIN [demo].[Northwind_Customers] c
+    		ON o.[CustomerID] = c.[CustomerID]
+    	INNER JOIN [demo].[Northwind_Shippers] s
+    		ON o.[ShipVia] = s.[ShipperID]
+    	INNER JOIN [demo].[Northwind_Order Details] d
+    		ON o.[OrderID] = d.[OrderID]
+    WHERE o.[OrderID] = @OrderID
+
+    END
+```
+
+</div>
+
+<button class="collapsible">\[demo\].\[northwind_customer_single_order_myname\]</button>
+<div markdown="1" class="panel">
+
+```sql
+EXEC [MySchema].[northwind_customer_single_order_myname]
+@OrderID = 11061
+```
+
+</div>
 
 ## Section 10: Create the Data Portal for the SalesOrder Spreadsheet
 
@@ -1021,6 +1089,10 @@ The TYPE and DIRECTION are preset for System Parameters.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/13.png)
 
+## Section 11: Build the SalesOrder Spreadsheet for the Report
+
+This section will walk you through creating the SalesOrder spreadsheet, which is a detailed look at a single customer order. You will start by taking a look at the final SalesOrder spreadsheet to preview you will be creating.
+
 ### Introducing the SalesOrder Report and Drilling Between Reports
 
 We will now switch to creating a second report so that we can demonstrate *drilling* between reports.
@@ -1028,10 +1100,6 @@ We will now switch to creating a second report so that we can demonstrate *drill
 Drilling is a way to connect and pass values between separate worksheets or workbooks. In a drill, you always have a *source* report and a *destination* report, where the source report is the report that the user would start on and perform the drill on, and the destination report is the report that the user ends up on after the drill. A typical use case for a drill arises when you have a general report that provides a summary of some high-level data, and you want to allow the user to get more detail on some of the data in that report, but don’t have enough room to display this detail on the report. This can be resolved by creating a second report for that more detailed data and setting up a drill into the more detailed report from the summary one. You can then pass some piece of data from the general/summary report into a cell in the detailed report so that the detailed report can automatically pull in and filter data based on the cell the user drilled on in the source report. You can read more about ReportDrill() [here]().
 
 In this case, CustomerOrderHistory is the general/summary report. You will create a new report, SaleOrder, which will be the detailed report that can be drilled into from CustomerOrderHistory.
-
-## Section 11: Build the SalesOrder Spreadsheet for the Report
-
-You will start by taking a look at the final SalesOrder spreadsheet to see what you will be creating.
 
 ### SalesOrder Worksheet Preview
 
@@ -1047,19 +1115,19 @@ The SalesOrder report will provide information for a given order, broken up into
 
 The final report with the above categories is shown below.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/01.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/01.png)
 
 The SalesOrder report is designed to be drilled to from a report that lists **OrderIDs** (such as the CustomerOrderHistory report), so that the user can choose one OrderID to drill on, then SalesOrder will open and display a report for that specific OrderID. This allows the user to focus in on one order in SalesOrder while still giving them the flexibility to also view all previous orders from a comprehensive list in CustomerOrderHistory.
 
 The following screenshot shows the steps for how one would perform a DRILL on an OrderID from the CustomerOrderHistory report. Do not repeat these steps yet, because it will not work for you until you’ve built your SalesOrder report with a ReportDrill(). It is provided to show how SalesOrder the report is accessed from the CustomerOrderHistory report.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/02.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/02.png)
 
 This sends the OrderID = 11027 to the SalesOrder report, where SalesOrder will run a ReportRange() (a PULL action) using OrderID = 11027 as a filter for the results it pulls in.
 
 As you can see below, the PULL action brings you to the SalesOrder worksheet and pulls data for the OrderID = 11027.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/03.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/03.png)
 
 ### Creating the SalesOrder Worksheet
 
@@ -1067,16 +1135,16 @@ As you can see below, the PULL action brings you to the SalesOrder worksheet and
 
 Click the plus sign to add another worksheet.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/04.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/04.png)
 
 1. Right-click on the new worksheet.
 2. Select **Rename** from the list that appears.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/05.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/05.png)
 
 Enter **SalesOrder** in the input field.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/06.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/06.png)
 
 ### SalesOrder - Creating the Worksheet Definitions Area
 
@@ -1088,56 +1156,56 @@ The report definitions area for this report will have very similar formatting to
 
 Switch workbooks back to CustomerOrderHistory.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/07.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/07.png)
 
 Copy **rows 1-17**.
 
 1. Select **rows 1-17**.
 2. Right-click on the selected rows and select **Copy**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/08.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/08.png)
 
 Go back to the SalesOrder tab.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/09.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/09.png)
 
 1. Right-click on **row 1** of the report.
 2. Select the first **Paste** option form the list on icons.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/10.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/10.png)
 
 The SalesOrder report doesn’t need a Formatting range, so you can delete the Formatting Range altogether.
 
 1. Select **rows 5-8** and right click on them.
 2. Select **Delete**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/11.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/11.png)
 
 The Column Definitions area only needs one row, so delete the other 2.
 
 1. Select **rows 2 and 3** (the rows with unneeded text in them) and right-click on them.
 2. Select **Delete**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/12.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/12.png)
 
 The Hidden Parameters and Notes section only needs 2 rows, so, delete one of them.
 
 1. Select **row 8** and right-click on it.
 2. Select **Delete**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/13.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/13.png)
 
 Now that all of the sections are the right size, remove the excess text.
 
 1. Right-click on one of the light blue rows that has no text in it (in this case, **row 6**).
 2. Select **Copy**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/14.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/14.png)
 
 1. Select **rows 4 and 5** and right-click on them.
 2. Select the first **Paste** option from the list of icons.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/15.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/15.png)
 
 **Step 2:** Add the Column Definition values.
 
@@ -1151,29 +1219,29 @@ You can optionally change the sizes of the columns to roughly match the ones in 
 6. Enter **UnitPrice** into cell **G2**.
 7. Enter **ExtendedPrice** into cell **H2**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/16.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/16.png)
 
 1. Enter **OrderID** into cell **J2**.
 2. Enter **ProductID** into cell **K2**.
 3. Enter **CategoryID** into cell **L2**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/17.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/17.png)
 
 Collapse columns J-M because they are not going to be displayed in the report area directly under the column definitions section like most of the column definition values are. This would be done in a business use case to ensure that users are not confused.
 
 Select **columns J-M**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/18.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/18.png)
 
 Click the edge of column M while columns J-M are selected, and drag the edge all the way into the start of column J until the columns are collapsed and hidden as shown below.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/19.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/19.png)
 
 ### SalesOrder - Setting the Freeze Panes
 
 In the Report Formulas section in **cell G4**, type **=jFreezePanes(A24, A11)** to set the cells between A11-A24 as our frozen section at the top of the report, and cells above A11 as the hidden section when panes are frozen.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/20.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/20.png)
 
 Now, activate the freeze panes so that you can focus on formatting the Report Area for now.
 
@@ -1181,25 +1249,27 @@ Now, activate the freeze panes so that you can focus on formatting the Report Ar
 2. Select **Freeze/UnFreeze Panes (current tab)**.
 3. Press **ENTER** OR click on **Run and Close**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/21.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/21.png)
 
 ### SalesOrder - Formatting the Report Area
 
-**Step 1:** Start by turning off gridlines in this workbook.
+Next, you will format the Report Area. You will do this before writing the Report Formulas for this report because the formatting of the Report Area will help to determine which cells will be inputs/outputs to the Report Formulas.
+
+**Step 1:** Start by turning off gridlines in this workbook to temporarily move them out of the way.
 
 Click into the **File** tab above the Excel ribbon.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/22.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/22.png)
 
 Click **Options**
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/23.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/23.png)
 
 1. In the window that pops up, click the **Advanced** tab.
 2. Scroll down until you see the header **Display options for this worksheet**.
 3. **Uncheck** the **Show gridlines** box.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/24.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/24.png)
 
 **Step 2:** Add a title to the report area.
 
@@ -1209,11 +1279,11 @@ Click **Options**
 4. Click on the **Text Color** selector.
 5. Select the second from last blue color (#4B758B).
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/25.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/25.png)
 
 Now, drag **row 12** down to be about **42 pixels** tall.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/26.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/26.png)
 
 **Step 3:** Format the customer information section.
 
@@ -1226,7 +1296,7 @@ First, add a title to the section.
 3. Enter **10** in the **Font Size** box.
 4. Select **Bold**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/27.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/27.png)
 
 Apply a background color to the customer information section.
 
@@ -1234,7 +1304,7 @@ Apply a background color to the customer information section.
 2. Click the paint bucket to open the fill color selector.
 3. Select the lightest blue color (#D9E1F2).
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/28.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/28.png)
 
 **Step 4:** Format the order information section.
 
@@ -1242,14 +1312,14 @@ Add the cell titles for the different pieces of order information that will be d
 
 Type **ORDER DATE:** into cell **G14**, **ORDER NUMBER:** into cell **G15**, **REQUIRED DATE:** into cell **G16**, **SHIPPED DATE:** into cell **G17**, and **SHIPPED VIA:** into cell **G18**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/29.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/29.png)
 
 Right-align the title cells so that they don't overlap the cells to the right, where the data will be displayed.
 
 1. Select **cells G14-G18**.
 2. Toggle the right-align option.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/30.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/30.png)
 
 Add a background highlight color to the order number display cell so that users can see this important piece of information clearly.
 
@@ -1257,7 +1327,7 @@ Add a background highlight color to the order number display cell so that users 
 2. Click the paint bucket.
 3. Select the lighest orange color ().
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/31.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/31.png)
 
 **Step 5:** Format the order contents section.
 
@@ -1265,11 +1335,11 @@ Add a background highlight color to the order number display cell so that users 
 2. Click the dropdown menu button next to the paint bucket icon.
 3. Select the third blue color from the top ().
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/32.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/32.png)
 
 Enter **CATEGORY** into cell **B23**, **Prod #** into cell **C23**, **DESCRIPTION** into cell **D23**, **DISC** into cell **E23**, **QTY** into cell **F23**, **PRICE** into cell **G23**, and **AMOUNT** into cell **H23**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/33.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/33.png)
 
 Place a border around the set of cells that makes up the main portion of of the order contents section.
 
@@ -1277,16 +1347,16 @@ Place a border around the set of cells that makes up the main portion of of the 
 2. Click on the dropdown menu next to the borders button in the Home ribbon.
 3. Select **Outside Borders**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/34.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/34.png)
 
 1. Click on the dropdown menu next to the borders button in the Home ribbon.
 2. Select **Draw Border**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/35.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/35.png)
 
 Draw the borders as shown below.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/36.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/36.png)
 
 Now, format the title text for the cells.
 
@@ -1297,7 +1367,7 @@ Now, format the title text for the cells.
 5. Click on the dropdown menu next to the text color option.
 6. Choose **true white**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/37.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/37.png)
 
 Next, add 3 more cells to the order contents section.
 
@@ -1305,19 +1375,19 @@ Next, add 3 more cells to the order contents section.
 2. Click on the dropdown menu next to the paint bucket option.
 3. Select the lightest blue color ().
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/38.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/38.png)
 
 1. Select **cells H28-H30**.
 2. Click on the dropdown menu next to the borders button in the Home ribbon.
 3. Select **All Borders**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/39.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/39.png)
 
 1. Enter **SUBTOTAL** into cell **G28**, **FREIGHT** into cell **G29** and **TOTAL** into cell **G30**.
 2. Toggle the **Align Right** option.
 3. Choose **Century Gothic** from the font list, or enter it into the input.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/40.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/40.png)
 
 ### SalesOrder - Configuring the Worksheet Definitions Area
 
@@ -1329,16 +1399,29 @@ Unfreeze the panes so that you can work on the Worksheet Definitions Area.
 2. Select **Freeze/UnFreeze Panes (current tab)**.
 3. Press **ENTER** OR click on **Run and Close**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/41.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/41.png)
 
+<!-- how should this section be formatted? -->
 #### SalesOrder - Writing the ReportRange() Data Function
+
+You will now write the ReportRange() formula for the sheet. This is the formula that will call upon the Data Portal created for SalesOrder in Section 10 in order to populate the sheet with data on a data PULL.
 
 1. Type **=ReportRange()** into cell **C4**.
 2. Click on the function builder.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/42.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/42.png)
 
-For the Data Portal, enter the same Data Portal created earlier, **"NorthwindCustomerOrders_MyName"**. Note that you are using the same data portal here
+For the **DataPortal** argument, enter the name of the Data Portal you created for SalesOrder, **"NorthwindCustomerSingleOrder_MyName"**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/43.png)
+
+For the **TargetDataRange** argument, enter **24:25**.
+<!-- read more -->
+This instructs ReportRange() to insert data records between rows 24 and 25, creating new rows as necessary to fit the number of records. Keep in mind that, since we do not have a formatting range, the formatting of the first row in the TargetDataRange gets copied to all subsequent rows. In this case, this copies the side-borders down nicely to preserve the box around the data. This will also keep a padding of 3 rows below any data inserted between.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/44.png)
+
+
 
 
 ## Section 7: Introduce the INTERJECT Report
