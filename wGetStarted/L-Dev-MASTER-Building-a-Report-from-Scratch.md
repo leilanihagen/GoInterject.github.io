@@ -1421,6 +1421,73 @@ This instructs ReportRange() to insert data records between rows 24 and 25, crea
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/44.png)
 
+For the **ColDefRange**, enter **2:2**, where the Column Definition section is on the sheet.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/45.png)
+
+In **Parameters**, enter **Param()** then click **OK** to close the window.
+<!-- move this to definitions section? -->
+Entering Param() calls the INTERJECT Param() helper function to which you will provide the actual parameter cells to. Param() concatenates all of the cell names provided to it with the correct delimiting characters in the way that the Data Function (ReportRange() in this case) accepts. Read more about [helper function]() [Param()]().
+
+All input and output parameters to the Data Portal and stored procedure that end up on the spreadsheet must be reported to the Parameters argument of the Data Function (ReportRange() here). This is because the Data Function must know where to place the output cells or which cells to receive input from inside the spreadsheet.
+
+Take note that the order in which you are being instructed to enter the cell values into Param() here is significant, because it must match the order that the Formula Parameters were entered into the Data Portal and the order of parameters given to the SQL stored procedure. The Data Portal knows which parameters are which *only* based on the order in which they are passed to the Data Portal. This means that if parameters are passed in the wrong order from the spreadsheet, this will pass the wrong values into the Data Portal and the names in the Data Portal will refer to different valeus than intended.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/46.png)
+
+In order to provide Param() with its arguments, you must open the function builder on Param() within ReportRange().
+
+1. Click inside cell **C4**.
+2. Position the cursor on the word **Param**.
+3. Click on the **Function Builder**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/47.png)
+
+Provide the first 5 cell values to Param()s arguments.
+
+Enter the following:
+* Into **Value1**, enter **H15**.
+* Into **Val2**, enter **K14**.
+* Into **Val3**, enter **B15**.
+* Into **Val4**, enter **B16**.
+* Into **Val5**, enter **B17**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/48.png)
+
+Enter the following:
+* Into **Val6**, enter **K17**.
+* Into **Val7**, enter **K18**.
+* Into **Val8**, enter **K19**.
+* Into **Val9**, enter **K15**.
+* Into **Val10**, enter **K16**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/49.png)
+
+Provide the last 5 arguments to Param().
+
+Enter the following:
+* Into **Val11**, enter **H14**.
+* Into **Val12**, enter **H16**.
+* Into **Val13**, enter **H17**.
+* Into **Val14**, enter **H18**.
+* Into **Val15**, enter **H32**.
+
+Save by pressing **OK**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/50.png)
+
+Add the last 2 arguments to ReportRange().
+
+1. Click in cell **C4**.
+2. Position the cursor in the word ReportRange.
+3. Click the **Function Builder**.
+4. For **UseEntireRow**, enter **TRUE**.
+5. For **PutFieldNamesAtTop**, enter **FALSE**.
+6. Press **OK** to save.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/51.png)
+
+#### SalesOrder - Writing the ReportDefaults() Data Function
 
 
 
