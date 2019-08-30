@@ -1389,6 +1389,55 @@ Next, add 3 more cells to the order contents section.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/40.png)
 
+Next, you will format the output cells to represent the data type that they will contain.
+
+Since you don't have a column definitions section for this sheet, the formatting of the first row in the TargetDataRange, row 24, will be copied down to al subsequent rows of output data. Start by formatting the first row.
+
+Format cell **E24**, the output for DISC (discount), to display as a percentage.
+
+1. Select cell **E24**.
+2. Click the dropdown menu to the right of the format selection box in the Home ribbon.
+3. Choose **Percentage**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/41.png)
+
+Format the QTY (quantity) cell to display as a number.
+
+1. Select cell **F24**.
+2. Click the dropdown menu to the right of the format selection box in the Home ribbon.
+3. Choose **Number**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/42.png)
+
+Format the PRICE and AMOUNT cells to display in the Excel Accounting format.
+
+1. Select **cells G24 and H24**.
+2. Click the dropdown menu to the right of the format selection box in the Home ribbon.
+3. Choose **Accounting**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/43.png)
+
+Format the totals section to display in the Excel Accounting format.
+
+1. Select **cells H28-H30**.
+2. Click the dropdown menu to the right of the format selection box in the Home ribbon.
+3. Choose **Accounting**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/44.png)
+
+Apply the Century Gothic font to all output cells.
+<!-- make hideable -->
+How to multi-select groups of cells: select the first group, hold down CTRL, then drag a box around the next group of cells to select with the mouse.
+
+1. Select cells:
+    * **B15-D19**,
+    * **H14-H19**,
+    * **B24-H27**,
+    * and **H28-H30**.
+2. Type **Century Gothic** into the text selection box.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/45.png)
+
 ### SalesOrder - Configuring the Worksheet Definitions Area
 
 **Step 1:** Unfreeze panes.
@@ -1399,7 +1448,7 @@ Unfreeze the panes so that you can work on the Worksheet Definitions Area.
 2. Select **Freeze/UnFreeze Panes (current tab)**.
 3. Press **ENTER** OR click on **Run and Close**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/41.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/46.png)
 
 <!-- how should this section be formatted? -->
 #### SalesOrder - Writing the ReportRange() Data Function
@@ -1409,21 +1458,21 @@ You will now write the ReportRange() formula for the sheet. This is the formula 
 1. Type **=ReportRange()** into cell **C4**.
 2. Click on the function builder.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/42.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/47.png)
 
 For the **DataPortal** argument, enter the name of the Data Portal you created for SalesOrder, **"NorthwindCustomerSingleOrder_MyName"**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/43.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/48.png)
 
 For the **TargetDataRange** argument, enter **24:25**.
 <!-- read more -->
 This instructs ReportRange() to insert data records between rows 24 and 25, creating new rows as necessary to fit the number of records. Keep in mind that, since we do not have a formatting range, the formatting of the first row in the TargetDataRange gets copied to all subsequent rows. In this case, this copies the side-borders down nicely to preserve the box around the data. This will also keep a padding of 3 rows below any data inserted between.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/44.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/49.png)
 
 For the **ColDefRange**, enter **2:2**, where the Column Definition section is on the sheet.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/45.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/50.png)
 
 In **Parameters**, enter **Param()** then click **OK** to close the window.
 <!-- move this to definitions section? -->
@@ -1433,7 +1482,7 @@ All input and output parameters to the Data Portal and stored procedure that end
 
 Take note that the order in which you are being instructed to enter the cell values into Param() here is significant, because it must match the order that the Formula Parameters were entered into the Data Portal and the order of parameters given to the SQL stored procedure. The Data Portal knows which parameters are which *only* based on the order in which they are passed to the Data Portal. This means that if parameters are passed in the wrong order from the spreadsheet, this will pass the wrong values into the Data Portal and the names in the Data Portal will refer to different valeus than intended.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/46.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/51.png)
 
 In order to provide Param() with its arguments, you must open the function builder on Param() within ReportRange().
 
@@ -1441,7 +1490,7 @@ In order to provide Param() with its arguments, you must open the function build
 2. Position the cursor on the word **Param**.
 3. Click on the **Function Builder**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/47.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/52.png)
 
 Provide the first 5 cell values to Param()s arguments.
 
@@ -1452,7 +1501,7 @@ Enter the following:
 * Into **Val4**, enter **B16**.
 * Into **Val5**, enter **B17**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/48.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/53.png)
 
 Enter the following:
 * Into **Val6**, enter **K17**.
@@ -1461,7 +1510,7 @@ Enter the following:
 * Into **Val9**, enter **K15**.
 * Into **Val10**, enter **K16**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/49.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/54.png)
 
 Provide the last 5 arguments to Param().
 
@@ -1474,7 +1523,7 @@ Enter the following:
 
 Save by pressing **OK**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/50.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/55.png)
 
 Add the last 2 arguments to ReportRange().
 
@@ -1485,7 +1534,7 @@ Add the last 2 arguments to ReportRange().
 5. For **PutFieldNamesAtTop**, enter **FALSE**.
 6. Press **OK** to save.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/51.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/56.png)
 
 #### SalesOrder - Writing the ReportDefaults() Data Function
 
@@ -1494,7 +1543,7 @@ As in CustomerOrderHistory, you will use ReportDefaults() to clear the outputs a
 1. Type **=ReportDefaults()** into cell **C5**.
 2. Click on the **Function Builder** icon.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/52.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/57.png)
 
 Provide the necessary arguments to ReportDefaults().
 
@@ -1505,7 +1554,7 @@ Enter the following into the arguments:
 
 Press **OK** to save.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/53.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/58.png)
 
 Open the Function Builder for PairGroup().
 
@@ -1513,7 +1562,7 @@ Open the Function Builder for PairGroup().
 2. Position the cursor on the word **PairGroup**.
 3. Click on the **Function Builder** icon.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/54.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/59.png)
 
 (Hint: you can make the typing that follows easier by copy-pasting **Pair("",B15)** into each block of 5 Pair parameters and then modifying each to have the correct cell address.)
 
@@ -1524,7 +1573,7 @@ Enter the following arguments for PairGroup():
 * In **Pair4**, enter **Pair("",K15)**.
 * In **Pair5**, enter **Pair("",H14)**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/55.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/60.png)
 
 Scroll down to **Pair6** and enter the following arguments:
 * In **Pair6**, enter **Pair("",H15)**.
@@ -1533,7 +1582,7 @@ Scroll down to **Pair6** and enter the following arguments:
 * In **Pair9**, enter **Pair("",H18)**.
 * In **Pair10**, enter **Pair("",K16)**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/56.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/61.png)
 
 Scroll down to **Pair11** and enter the following arguments:
 * In **Pair11**, enter **Pair("",K17)**.
@@ -1542,9 +1591,21 @@ Scroll down to **Pair11** and enter the following arguments:
 
 Click **OK** to save.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/57.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/62.png)
 
 You have now configured the ReportDefaults() function for the SalesOrder report.
+
+#### SalesOrder - Adding the jFocus() Formatting Function
+
+The jFocus() formatting function lets you choose the active cell that will be focused upon (selected) when the spreadsheet is open. It is recommended to place the focus on an input or otherwise important cell. Here, place the focus on the OrderID cell, which is the value that was drilled on to get to the SalesOrder sheet.
+
+1. Type **=jFocus()** into cell **G5**.
+2. Click on the function builder.
+3. Into the **Target** argument, type **H15**.
+4. Click **OK** to save.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/63.png)
+
 
 ### SalesOrder - Finishing up the Report Area
 
@@ -1554,11 +1615,15 @@ Start by adding customer Phone and Fax display cells in the "customer info" sect
 
 In cell **B20**, type **="Phone: " & K15**. This combines the label "Phone: " with the phone number value placed into cell K15 by ReportRange().
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/58.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/63.png)
 
 In cell **B21**, type **="Fax: " & K16** to do the same for Fax number.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/59.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/64.png)
+
+Lastly, change the font of these two cells to Century Gothic.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/65.png)
 
 You have now finished the SalesOrder spreadsheet, the last step is to configure the DRILL into it from CustomerOrderHistory.
 
