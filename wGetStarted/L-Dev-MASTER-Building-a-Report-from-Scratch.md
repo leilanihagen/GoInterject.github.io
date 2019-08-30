@@ -1489,7 +1489,78 @@ Add the last 2 arguments to ReportRange().
 
 #### SalesOrder - Writing the ReportDefaults() Data Function
 
+As in CustomerOrderHistory, you will use ReportDefaults() to clear the outputs and some of the inputs from the sheet on a PULL-CLEAR action.
 
+1. Type **=ReportDefaults()** into cell **C5**.
+2. Click on the **Function Builder** icon.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/52.png)
+
+Provide the necessary arguments to ReportDefaults().
+
+Enter the following into the arguments:
+* Into **OnPullSaveOrBoth**, enter **"Pull"**.
+* Into **OnClearRunOrBoth**, enter **"Clear"**.
+* Into **TransferPairs**, enter **PairGroup()**.
+
+Press **OK** to save.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/53.png)
+
+Open the Function Builder for PairGroup().
+
+1. Click inside cell **C5**.
+2. Position the cursor on the word **PairGroup**.
+3. Click on the **Function Builder** icon.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/54.png)
+
+(Hint: you can make the typing that follows easier by copy-pasting **Pair("",B15)** into each block of 5 Pair parameters and then modifying each to have the correct cell address.)
+
+Enter the following arguments for PairGroup():
+* In **Pair1**, enter **Pair("",B15)**.
+* In **Pair2**, enter **Pair("",B16)**.
+* In **Pair3**, enter **Pair("",B17)**.
+* In **Pair4**, enter **Pair("",K15)**.
+* In **Pair5**, enter **Pair("",H14)**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/55.png)
+
+Scroll down to **Pair6** and enter the following arguments:
+* In **Pair6**, enter **Pair("",H15)**.
+* In **Pair7**, enter **Pair("",H16)**.
+* In **Pair8**, enter **Pair("",H17)**.
+* In **Pair9**, enter **Pair("",H18)**.
+* In **Pair10**, enter **Pair("",K16)**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/56.png)
+
+Scroll down to **Pair11** and enter the following arguments:
+* In **Pair11**, enter **Pair("",K17)**.
+* In **Pair12**, enter **Pair("",K18)**.
+* In **Pair13**, enter **Pair("",K19)**.
+
+Click **OK** to save.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/57.png)
+
+You have now configured the ReportDefaults() function for the SalesOrder report.
+
+### SalesOrder - Finishing up the Report Area
+
+Now that you have finished the Worksheet Definitions Area and set up the necessary Report Formulas, you can finish some final touch-ups in the Report Area which require referencing cells in the Column Definitions.
+
+Start by adding customer Phone and Fax display cells in the "customer info" section of the report.
+
+In cell **B20**, type **="Phone: " & K15**. This combines the label "Phone: " with the phone number value placed into cell K15 by ReportRange().
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/58.png)
+
+In cell **B21**, type **="Fax: " & K16** to do the same for Fax number.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/59.png)
+
+You have now finished the SalesOrder spreadsheet, the last step is to configure the DRILL into it from CustomerOrderHistory.
 
 ## Section 7: Introduce the INTERJECT Report
 
