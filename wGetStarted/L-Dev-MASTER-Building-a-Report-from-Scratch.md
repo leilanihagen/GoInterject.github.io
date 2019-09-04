@@ -127,7 +127,7 @@ Click the **Execute** button in SSMS.
 *In this section:*
 
 ##### [2.1 - What is SQL Server?](#21---what-is-sql-server-1)
-##### [2.2 - The SQL SELECT Statement](#22---the-sql-select-statement-1)
+##### [2.2 - The SQL SELECT Statement](#22---the-sql-select-statement)
 ##### [2.3 - SQL Stored Procedures](#23---sql-stored-procedures-1)
 
 #### Introduction
@@ -140,7 +140,7 @@ The following sections wil links as learning resources for SQL Server.
 
 Here is an [article from sqlservertutorial.net](http://www.sqlservertutorial.net/getting-started/what-is-sql-server/) explaining what SQL Server is, how it works, what it is built on, and a little bit of its history.
 
-#### 2.2  - The SQL SELECT Statement
+#### 2.2 - The SQL SELECT Statement
 * Here is an [article from sqlservertutorial.net](http://www.sqlservertutorial.net/sql-server-basics/sql-server-select/) explaining the structure of the SELECT statement and how it is executed by SQL. It also shows examples of how to write common SELECT statements.
 * Here is an [article from techonthenet.com](https://www.techonthenet.com/sql_server/select.php) explaining the SELECT statement and how to use it, including all additional clauses that can be added to SELECT.
 
