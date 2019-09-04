@@ -72,7 +72,7 @@ In this section you will create the second of two spreadsheets in the report. Sa
 
 ##### [1.1 - Download SQL Server]()
 ##### [1.2 - Download SQL Server Management Studio]()
-##### [1.3 - Create Your own Northwind Sample Database](#13---create-your-own-northwind-sample-database#2)
+##### [1.3 - Create Your own Northwind Sample Database](#13---create-your-own-northwind-sample-database-1)
 
 #### Introduction
 
