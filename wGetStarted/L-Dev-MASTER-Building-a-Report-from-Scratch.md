@@ -68,30 +68,38 @@ In this section you will create the second of two spreadsheets in the report. Sa
 
 ## Section 1: Download required software and sample database()
 
+*In this section:*
+
+##### [1.1 - Download SQL Server]()
+##### [1.2 - Download SQL Server Management Studio]()
+##### [1.3 - Create Your own Northwind Sample Database](#-1.3---create-your-own-northwind-sample-database)
+
+#### Introduction
+
 You will need SQL Server installed on your computer to complete this lab, and you will also need an editor for SQL Server that allows you to connect to a database and write a stored procedure to it.
 
-**Step 1:** Download SQL server.
+#### 1.1 - Download SQL Server
 
 Skip this step if you already have a working version of SQL Server on your computer.
 
 Navigate to [Microsoft's SQL Server downloads page](https://www.microsoft.com/en-us/sql-server/sql-server-downloads), download the correct version for your computer, then run the install wizard and follow the steps to install SQL Server on your computer.
 
-**Step 2:** Download SQL Server Management Studio.
+#### 1.2 - Download SQL Server Management Studio
 
 Skip this step if you already have a SQL editor that you are familiar with. If not, we recommend installing and using SQL Server Management Studio (SSMS), as it is the industry standard editor for SQL Server on Windows.
 
 Navigate to [Microsoft's SSMS download page](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017), download the correct version for your computer, then run the install wizard and follow the steps to install SSMS on your computer.
 
-**Step 3:** Create a Northwind sample database on your computer.
+#### 1.3 - Create Your own Northwind Sample Database
 
-This lab requires that you have access to a Northwind sample database that can be queried by the stored procedure that you will write. Northwind is a Microsoft sample database that is used in many SQL Server tutorials and demos. If you do not already have a Northwind database, follow this step to get one on your SQL database instance.
+This lab requires that you have access to a Northwind sample database that can be used as a data source. Northwind is a Microsoft sample/demo database that is used in many SQL Server tutorials for educational and demo purposes. If you do not already have a Northwind database, follow this step to get one on your SQL database instance.
 
 
 <!-- Create full steps with pictures for how to create the DB in SSMS -->
 Complete the following steps to obtain the CREATE DATABASE script for the Northwind database from GitHub:
-* Click on the [Github link to the CREATE DATABASE script for the Northwind database](https://github.com/microsoft/sql-server-samples/blob/master/samples/databases/northwind-pubs/instnwnd.sql).
-* Click on "View raw" on the github page.
-* Copy the entire script (CTRL + A then CTRL + C on the page)..
+1. Click on the [Github link to the CREATE DATABASE script for the Northwind database](https://github.com/microsoft/sql-server-samples/blob/master/samples/databases/northwind-pubs/instnwnd.sql).
+2. Click on "View raw" on the github page.
+3. Copy the entire script (CTRL + A then CTRL + C on the page)..
 
 Now follow the steps to duplicate the Northwind databse on your own database instance:
 
@@ -101,19 +109,19 @@ Open SSMS.
 2. Type in "SSMS".
 3. Press **ENTER** OR click on the SSMS icon that shows up in the list.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-2/01.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-1/01.png)
 
 Click on the **New Query** button in SSMS.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-2/02.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-1/02.png)
 
 Paste in the code copied from GitHub.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-2/03.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-1/03.png)
 
 Click the **Execute** button in SSMS.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-2/04.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-1/04.png)
 
 ## Section 2: Learn SQL Server Basics
 
@@ -224,6 +232,7 @@ Filters work in INTERJECT reports by using a SQL Server LIKE operator inside the
 
 <!-- Move to sect. 7 -->
 
+## Section 8: Build the CustomerOrderHistory Spreadsheet for the Report
 
 ### CustomerOrderHistory - Creating the Worksheet Definitions Area
 
@@ -233,15 +242,15 @@ This section shows how to create the report definitions area.
 
 Open Excel on your computer.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/07.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/01.png)
 
 Once Excel is open, choose **Blank Workbook**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/08.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/02.png)
 
 Now, you should have a blank Excel workbook that looks like the following:
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/09.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/03.png)
 
 **Step 2:** Add titles to the worksheet definitions subsections.
 
@@ -251,7 +260,7 @@ Select row 1 and color it dark blue (#1F4E78). This is a common cell color that 
 2. Click the paint bucket to fill the color.
 3. Choose the darkest blue in the first blue column (#1F4E78).
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/10.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/04.png)
 
 For this report, we will need 5 different titled sections. Now that you have the color selected in your paint bucket, simply click on every other row and then click on the paint bucket until you have 5 dark blue rows with blank white rows in between them.
 
@@ -259,7 +268,7 @@ For this report, we will need 5 different titled sections. Now that you have the
 2. Click on the paint bucket.
 3. Repeat steps 1-2 for **rows 3, 5, 7, and 9**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/11.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/05.png)
 
 Now, add the titles.
 
@@ -267,11 +276,11 @@ Now, add the titles.
 2. Select **White** from the **Font Color** selector.
 3. Select **Bold**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/12.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/06.png)
 
 Now enter the names **Formatting Range** in cell **A3**, **Report Formulas** in cell **A5**, **Hidden Parameters and Notes** in cell **A7**, and **Report Area Below** in cell **A9** in the next 4 title rows. Don’t worry about the formatting of these 4 for now.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/13.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/07.png)
 
 Next, use the format painter to copy the formatting of the first title to the remaining 4.
 
@@ -280,7 +289,7 @@ Next, use the format painter to copy the formatting of the first title to the re
 3. Click **row 3, 5, 7, or 9**.
 4. Repeat steps 1-3 for **rows 3, 5, 7 and 9.**
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/14.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/08.png)
 
 **Step 3:** Format the subsections.
 
@@ -290,18 +299,18 @@ Start by adding more space under each section. Copy two empty rows from somewher
 2. Hold down CTRL and click the row under the first one you selected (here, **row 13**)
 3. Press CTRL + C to copy both rows.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/15.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/09.png)
 
 Paste them above row 2.
 
 1. Right-click on row 2.
 2. Select **Insert Copied Cells**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/16.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/10.png)
 
 Repeat the above 2 steps by copy-pasting 2 more rows under each title so that your report looks as follows.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/17.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/11.png)
 
 Apply light blue color under each titled section.
 
@@ -309,7 +318,7 @@ Apply light blue color under each titled section.
 2. Click the paint bucket.
 3. Select the lightest blue color in the first blue column (#DDEBF7).
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/18.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/12.png)
 
 <!-- is this sufficient instruction?  : -->
 Now, you can use the Excel format painter feature to apply the same light blue color applied to the first title section to the remaining 4.
@@ -320,7 +329,7 @@ Now, you can use the Excel format painter feature to apply the same light blue c
 
 <!-- add the finished result of adding light blue to all these columns -->
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/19.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/13.png)
 
 ### Setting the Freeze Panes
 
@@ -336,7 +345,7 @@ INTERJECT uses freeze panes on its reports to:
 
 Type “=jFreezePanes()” in cell **F10**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/20.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/14.png)
 
 **Step 2:** Set the freeze panes at the correct location.
 
@@ -344,26 +353,26 @@ There are two formula arguments for jFreezePanes(), **FreezePanesCell** and **An
 
 Click on the function builder icon to open it.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/21.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/15.png)
 
 In the input box for **FreezePanesCell**, type **A26**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/22.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/16.png)
 
 For **AnchorViewCell**, type **A18**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/23.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/17.png)
 
 **Step 3:** Try freezing the panes to see how it works.
 
 1. Press and hold **CTRL + SHIFT + T** OR click on the **Quick Tools** option in the INTERJECT ribbon to open the Quick Tools menu.
 2. Select **Freeze/Unfreeze Panes (current tab)** and press **Enter**, or click **Freeze/Unfreeze Panes (current tab)**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/24.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/18.png)
 
 Your report should now look like the following. The sectioned off block from rows 18-25 (ends at highlighted line) is the frozen pane section that will stay at the top as you scroll down. This is where the header with the name of the report and filter parameters will go later. The cells above row 18, which contain the report definitions area, are hidden.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/25.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/19.png)
 
 Now that the freeze panes is set up, formatting the spreadsheet is the next step in creating the CustomerOrderHistory report.
 
@@ -375,7 +384,7 @@ Now that the freeze panes is set up, formatting the spreadsheet is the next step
 2. Select the **Bold** option.
 3. Type **14** into the text size input field.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/26.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/20.png)
 
 **Step 2:** Add input fields for the filter parameters.
 
@@ -383,7 +392,7 @@ Report filter parameters are a way for the report user to restrict the dataset b
 
 In cells **B21, B22 and B23**, respectively, type in: **“Company Name:”**, **“Contact Name:”**, and **“Customer ID:”**
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/27.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/21.png)
 
 Now, resize column A to be smaller, and extend column B and C by a bit. This will give the user more space to enter their input text.
 
@@ -391,28 +400,28 @@ Now, resize column A to be smaller, and extend column B and C by a bit. This wil
 2. Drag column B forward.
 3. Drag column C forward.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/28.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/22.png)
 
 Color the input fields for the report filters. Apply the lightest orange color () to cells **C21, C22 and C23**:
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/29.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/23.png)
 
 <!-- Should this be included? -->
 **Step 3:** Make the spreadsheet look better by removing the gridlines in Excel.
 
 Go to the **File** tab in Excel:
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/30.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/24.png)
 
 Go to **Options**:
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/31.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/25.png)
 
 1. Go to the **Advanced** tab.
 2. Scroll down until you see **“Display options for this worksheet”**.
 3. **Uncheck** the **“Show gridlines”** checkbox.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/32.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/26.png)
 
 Now there should be no gridlines on the current worksheet.
 
@@ -420,15 +429,15 @@ Now there should be no gridlines on the current worksheet.
 
 Right-click on the first sheet’s title and select **Rename**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/33.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/27.png)
 
 Type in **CustomerOrderHistory**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/34.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/28.png)
 
 Right-click on any other sheets that you have in the workbook and select **Delete**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/35.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/29.png)
 
 <!-- This whole section needs to be moved -->
 ### Adding ReportRange() to the Report
@@ -440,7 +449,7 @@ ReportRange() is a report formula used to PULL data into a defined *range* of a 
 1. Type **=ReportRange()** in cell **C10**.
 2. Click on the function builder icon.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/36.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/30.png)
 
 **Step 2:** Specify the Data Portal that ReportRange() will pull data from.
 
@@ -449,11 +458,280 @@ As you can see, **DataPortal** is the first parameter that you must provide to R
 1. Type **NorthwindCustomerOrders_MyName** into the DataPortal parameter box.
 2. Press **OK**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/37.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/31.png)
 
 You will now switch to configuring an INTERJECT Data Connection, and a Data Portal that will together make up the datasource for ReportRange().
 
 You will fill in the rest of the ReportRange() parameters once the Data Portal and Connection are both set up.
+
+<!-- Move this entire section -->
+### Setting up ReportRange() with the Data Portal
+
+Now, you have a Data Connection to a database, and a Data Portal which specifies a stored procedure to provide data to it; but you still need to write the stored procedure in order to actually get anything back from our ReportRange() call in the report.
+
+In order to show how the front-end Excel interface ties into the writing of the back-end stored procedure, start by going back to the report and figuring out what data you want to display to the user.
+
+**Step 1:** Go back to the report, click in cell **C10** and open the function builder.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/32.png)
+
+Enter **2:4** into the **ColDefRange** to tell ReportRange() that all of its column definitions can be found in this range of rows. You can read more about ColDefRange here.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/33.png)
+
+Now, you can specify the columns that you want to get back from our Data Portal via ReportRange() in the Column Definitions section of our report. Let’s fill these values in.
+
+Starting with row 2, type **CustomerID** into cell **B2**, **CompanyName** into cell **C2**, **ContactName** into cell **E2**, **OrderID** into cell **F2**, **OrderDate** into cell **G2**, **OrderAmount** into cell **H2**, **Freight** into cell **I2**, **TotalAmount** into cell **J2**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/34.png)
+
+In row 3, we just need **ShipVia** in cell **C3** and **ShippedDate** in cell **E3**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/35.png)
+
+Now, add the other parameters. Open the function arguments for ReportRange() again.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/36.png)
+
+ReportRange() works by inserting the result set returned from the Data Portal *in between* two or more rows. These rows are specified by the TargetDataRange argument. Input **27:28** for the **TargetDataRange** (down in the Report Area, below the filter parameters).
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/37.png)
+
+The Formatting Range is the part of the report definitions section that specifies how final output will be formatted when returned to the end user. Our formatting range occupies rows 6:8, so input **6:8** in **FormatRange**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/38.png)
+
+The **Parameters** parameter specifies which cells will be the “filter” cells whose values are sent to the Data Portal to filter results to the user’s specifications. The Param() function ([read more here](https://docs.gointerject.com/wIndex/Param.html)) is used here to capture the cells. Type **Param(C21,C22,C23)** into **Parameters**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/39.png)
+
+As a best practice, it is recommended that you set **UseEntireRow** to **TRUE** and **PutFieldNamesAtTop** to **FALSE**
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/40.png)
+
+### Designing the Formatting Range
+
+Formatting Ranges work by letting you define the formatting that you wish to apply to your output data (specified in the Column Definition area); they let you do it concisely, in one place, such that the formatting can be copied down and repeated for each data record set pulled from the Data Portal. You don’t need to design a Formatting Range for every report you will write, but when you are using report formulas that trigger a pull action, you need a Formatting Range if you have more than one row in your column definition. If you have only one row, and you don’t specify a formatting range, the formatting of the first row in the TargetDataRange will be copied to the output rows.
+
+**Step 1:** Apply a white background to cells in the Formatting Range.
+
+1. Select **rows 6-8**.
+2. Click on the dropdown list next to the paint bucket icon.
+3. Select **white** from the dropdown list of paint bucket colors.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/41.png)
+
+**Step 2:** Apply desired formatting to sample data in the formatting range.
+
+When designing Formatting Ranges, it is useful to use contrived sample data in the formatting range and apply the formatting to it. This helps illustrate how the real data will look in the TargetDataRange once it’s pulled in.
+
+To format how you want **CustomerID** to look in the output data, enter the sample ID **GREAL** into cell **B6**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/42.png)
+
+ Notice how cell **B6** is located in the same row as the field we are applying formatting to, **CustomerID**. This is how the report knows which field to format.
+
+Enter the formatting for **CompanyName** as follows:
+
+1. Enter **Great Lakes Food Market** into cell **C6**.
+2. Select all the text.
+3. Toggle the **bold** option.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/43.png)
+
+For **ContactName**, enter **Howard Snyder** into cell **E6**. This field doesn't need any special formatting, so we are simply entering sample data to show that it will not be specially formatted.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/44.png)
+
+Enter the formatting for **OrderID** as follows:
+
+1. Enter **11061** into cell **F6**.
+2. Select all text in the cell and make it bold.
+3. Click the center-align text button.
+4. Click the paint bucket.
+5. Select the lightest grey color.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/45.png)
+
+Enter the formatting for **OrderDate** as follows:
+
+1. Enter the sample date **4/30/98** in cell **G6**.
+2. Enter **Date** in the format options for the cell.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/46.png)
+
+Enter the formatting for **OrderAmount** as follows:
+
+1. Enter the sample data **510** in cell **H6**.
+2. Choose **Accounting** for the format options for the cell.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/47.png)
+
+Enter the formatting for **Freight** as follows:
+
+1. Enter **14.01** into cell **I6**.
+2. Choose **Accounting** for the format options for the cell.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/48.png)
+
+Enter the formatting for **TotalAmount** as follows:
+
+1. Enter **524.01** into cell **J6**.
+2. Toggle the **bold** option for the text.
+3. Choose **Accounting** for the format options for the cell.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/49.png)
+
+You now only have to format the cells for **ShipVia** and **ShippedDate**. You will add titles for these fields in the row to the left of them and leave the values themselves without any formatting.
+
+1. Enter **Shipped Via:** in cell **B7**.
+2. Enter **Ship Date:** in cell **D7**.
+3. Expand column C a bit.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/50.png)
+
+Now, add a border under row 7 (at the top of row 8) to demarcate the end of each record set.
+
+Select cells **B8-J8**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/51.png)
+
+1. Click on the **Borders** dropdown menu.
+2. Choose **Top Border**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/52.png)
+
+Lastly, reduce **row 8** to provide a small padding under the border we just added.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/53.png)
+
+### Testing ReportRange() with a Data PULL
+
+It is always good practice to test each individual formula you add to the report you’re building once it’s done, before you move on to building the next part/formula on the report. This ensures that at the end when you’re ready to test the finished report, you know that all the constituent parts work by themselves.
+
+**Step 1:** Enter some sample filter text into the one of the filter parameter input fields.
+
+<!-- Move this? -->
+It is a good idea to test the filter functionality while you test the data pull.
+
+Providing a filter when pulling data is helpful for 2 reasons:
+1. It reduces the amount of data you are requesting back from the database which reduces the execution speed of the data pull.
+2. It helps test your query to see if it selected all of the expected data records.
+
+Enter **market** into the Company Name filter parameter in cell **C21**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/54.png)
+
+**Step 2:** Run a data PULL on the report.
+
+1. Press **CTRL + SHIFT + J** together on your keyboard or click the **PULL Data** button.
+2. Press **Enter** or click **Pull Data**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/55.png)
+
+**Step 3:** Unfreeze the panes to view the data how the end user would.
+
+1. Press **CTRL + SHIFT + T** together on your keyboard or click the **Quick Tools** button.
+2. Press **Enter** or click on **Freeze/Unfreeze Panes (current tab)** in the menu.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/56.png)
+
+Your data should look like the following screenshot:
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/57.png)
+
+Now that you know which pieces of data are needed in the report, you can design the stored procedure.
+
+### Setting up ReportDefaults()
+
+The ReportDefaults() function is used to capture values from one or a set of cells (or a hard-coded value) then send the value/s to another cell or set of cells. Its execution is triggered based on an action or event (read the distinction between an INTERJECT action/event [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) occurring in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used here. Read more about ReportDefaults() [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
+
+In this report, you will be using ReportDefaults to clear out the filter values in cells C21-C23 after a CLEAR is run on the report. CLEAR does not do this by default, because it’s scope of control over the report is limited to the *results* of the data pull (CLEAR is only allowed to modify the data that a PULL action brings in, because a CLEAR reverses a PULL).
+
+**Step 1:** Add the formula to the report.
+
+1. Type **=ReportDefaults()** into cell **C11**.
+2. Open the function builder.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/58.png)
+
+**Step 2:** Fill in the formula arguments.
+
+For the arguments OnPullSaveOrBoth and OnClearRunOrBoth, you want ”Pull” and ”Clear” respectively. This is because you want to execute “Trigger 2” explained in [the ReportDefaults() documentation](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list). With these arguments, ReportDefaults() will trigger when the user performs a Pull-Clear event-action sequence.
+
+Enter **”Pull”** into the **OnPullSaveOrBoth** field, and **”Clear”** into **OnClearRunOrBoth**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/59.png)
+
+The TransferPairs argument is what decides the default values to place in the selected cells. We want to clear out our filter parameter cells, so we will pair each of these cells (C21-C23) with a blank string ("") to pass in when a Pull-Clear occurs.
+
+Each of these pairs (a cell and a blank string (“”)) needs its own Pair() function inside the overarching PairGroup() function that ReportDefaults() takes as a parameter. Learn more about PairGroup() and Pair()  [here]().
+
+Input **PairGroup()** into **TransferPairs**, then press **Ok**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/60.png)
+
+Now, to give arguments to the PairGroup() function, click inside the PairGroup() function within ReportDefaults() and open the function builder.
+
+1. Click in cell C11.
+2. In the **Formula Bar**, place the cursor somewhere in the function name text “PairGroup().”
+3. Click the function builder icon.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/61.png)
+
+The parameters to Pair() are **From, Target**, or, if you do not have a “From” cell, as in our case, they can be thought of as "SourceValue", and "Target". Our “Source Value” is “” (an empty string) and our Targets are cells C21-C23
+
+Type **Pair(””, C21)** into **Pair1**, **Pair(””, C22)** into **Pair2** and **Pair(””, C23)** into **Pair3**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/62.png)
+
+Your ReportDefaults() function should now look like the following:
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/63.png)
+
+### Testing ReportDefaults()
+
+Now test our ReportDefaults() function. It should clear any filter arguments from cells C21-C23 after a PULL-CLEAR.
+
+**Step 1:** Enter some filters into the filter fields.
+
+Enter **market** into cell **C21**, and **b** into cell **C22**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/64.png)
+
+**Step 2:** PULL in the data.
+
+1. Press **CTRL + SHIFT + J** OR click the **PULL Data** menu button.
+2. Press **Enter** OR click **Pull Data**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/65.png)
+
+**Step 3:** CLEAR the data.
+
+1. Press **CTRL + SHIFT + T** or click the **Quick Tools** menu button.
+2. Press **Down Arrow** once then **Enter** OR click **Clear**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/66.png)
+
+Now you should see that, as well as the data in the Target Data Range being cleared, the filter values in cells C21-C23 will also clear out.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/67 .png)
+
+
+### Writing the SQL Stored Procedure Behind ReportRange()
+
+<!-- Add steps showing how to navigate SSMS to copy paste the code -->
+
+Using a SQL editor like [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/sql-server-management-studio-ssms?view=sql-server-2017), copy and paste in the following code:
+```
+code
+```
+Here is the SELECT statement in the code. The columns returned from the SELECT statement are the ones that populate into the report.
+
+## (screenshot including both SELECT and column definition area)
+
+Save your stored procedure, making sure that its name matches the name you specified for it in the Data Portal you created and that it is in the same database that you specified in the Data Connection you created.
+
 
 ### Setting Up the Data Connection
 
@@ -625,272 +903,6 @@ Your screen should look as follows.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/59.png)
 
-<!-- Move this entire section -->
-### Setting up ReportRange() with the Data Portal
-
-Now, you have a Data Connection to a database, and a Data Portal which specifies a stored procedure to provide data to it; but you still need to write the stored procedure in order to actually get anything back from our ReportRange() call in the report.
-
-In order to show how the front-end Excel interface ties into the writing of the back-end stored procedure, start by going back to the report and figuring out what data you want to display to the user.
-
-**Step 1:** Go back to the report, click in cell **C10** and open the function builder.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/60.png)
-
-Enter **2:4** into the **ColDefRange** to tell ReportRange() that all of its column definitions can be found in this range of rows. You can read more about ColDefRange here.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/61.png)
-
-Now, you can specify the columns that you want to get back from our Data Portal via ReportRange() in the Column Definitions section of our report. Let’s fill these values in.
-
-Starting with row 2, type **CustomerID** into cell **B2**, **CompanyName** into cell **C2**, **ContactName** into cell **E2**, **OrderID** into cell **F2**, **OrderDate** into cell **G2**, **OrderAmount** into cell **H2**, **Freight** into cell **I2**, **TotalAmount** into cell **J2**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/62.png)
-
-In row 3, we just need **ShipVia** in cell **C3** and **ShippedDate** in cell **E3**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/63.png)
-
-Now, add the other parameters. Open the function arguments for ReportRange() again.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/64.png)
-
-ReportRange() works by inserting the result set returned from the Data Portal *in between* two or more rows. These rows are specified by the TargetDataRange argument. Input **27:28** for our **TargetDataRange** (down in the Report Area, below the filter parameters).
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/65.png)
-
-The Formatting Range is the part of the report definitions section that specifies how final output will be formatted when returned to the end user. Our formatting range occupies rows 6:8, so input **6:8** in **FormatRange**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/66.png)
-
-The **Parameters** parameter specifies which cells will be the “filter” cells whose values are sent to the Data Portal to filter results to the user’s specifications. The Param() function ([read more here](https://docs.gointerject.com/wIndex/Param.html)) is used here to capture the cells. Type **Param(C21,C22,C23)** into **Parameters**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/67.png)
-
-As a best practice, it is recommended that you set **UseEntireRow** to **TRUE** and **PutFieldNamesAtTop** to **FALSE**
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/68.png)
-
-### Writing the SQL Stored Procedure Behind ReportRange()
-
-<!-- Add steps showing how to navigate SSMS to copy paste the code -->
-
-Using a SQL editor like [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/sql-server-management-studio-ssms?view=sql-server-2017), copy and paste in the following code:
-```
-code
-```
-Here is the SELECT statement in the code. The columns returned from the SELECT statement are the ones that populate into the report.
-
-## (screenshot including both SELECT and column definition area)
-
-Save your stored procedure, making sure that its name matches the name you specified for it in the Data Portal you created and that it is in the same database that you specified in the Data Connection you created.
-
-### Designing the Formatting Range
-
-Formatting Ranges work by letting you define the formatting that you wish to apply to your output data (specified in the Column Definition area); they let you do it concisely, in one place, such that the formatting can be copied down and repeated for each data record set pulled from the Data Portal. You don’t need to design a Formatting Range for every report you will write, but when you are using report formulas that trigger a pull action, you need a Formatting Range if you have more than one row in your column definition. If you have only one row, and you don’t specify a formatting range, the formatting of the first row in the TargetDataRange will be copied to the output rows.
-
-**Step 1:** Apply a white background to cells in the Formatting Range.
-
-1. Select **rows 6-8**.
-2. Click on the dropdown list next to the paint bucket icon.
-3. Select **white** from the dropdown list of paint bucket colors.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/69.png)
-
-**Step 2:** Apply desired formatting to sample data in the formatting range.
-
-When designing Formatting Ranges, it is useful to use contrived sample data in the formatting range and apply the formatting to it. This helps illustrate how the real data will look in the TargetDataRange once it’s pulled in.
-
-To format how you want **CustomerID** to look in the output data, enter the sample ID **GREAL** into cell **B6**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/70.png)
-
- Notice how cell **B6** is located in the same row as the field we are applying formatting to, **CustomerID**. This is how the report knows which field to format.
-
-Enter the formatting for **CompanyName** as follows:
-
-1. Enter **Great Lakes Food Market** into cell **C6**.
-2. Select all the text.
-3. Toggle the **bold** option.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/71.png)
-
-For **ContactName**, enter **Howard Snyder** into cell **E6**. This field doesn't need any special formatting, so we are simply entering sample data to show that it will not be specially formatted.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/72.png)
-
-Enter the formatting for **OrderID** as follows:
-
-1. Enter **11061** into cell **F6**.
-2. Select all text in the cell and make it bold.
-3. Click the center-align text button.
-4. Click the paint bucket.
-5. Select the lightest grey color.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/73.png)
-
-Enter the formatting for **OrderDate** as follows:
-
-1. Enter the sample date **4/30/98** in cell **G6**.
-2. Enter **Date** in the format options for the cell.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/74.png)
-
-Enter the formatting for **OrderAmount** as follows:
-
-1. Enter the sample data **510** in cell **H6**.
-2. Choose **Accounting** for the format options for the cell.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/75.png)
-
-Enter the formatting for **Freight** as follows:
-
-1. Enter **14.01** into cell **I6**.
-2. Choose **Accounting** for the format options for the cell.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/76.png)
-
-Enter the formatting for **TotalAmount** as follows:
-
-1. Enter **524.01** into cell **J6**.
-2. Toggle the **bold** option for the text.
-3. Choose **Accounting** for the format options for the cell.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/77.png)
-
-You now only have to format the cells for **ShipVia** and **ShippedDate**. You will add titles for these fields in the row to the left of them and leave the values themselves without any formatting.
-
-1. Enter **Shipped Via:** in cell **B7**.
-2. Enter **Ship Date:** in cell **D7**.
-3. Expand column C a bit.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/78.png)
-
-Now, add a border under row 7 (at the top of row 8) to demarcate the end of each record set.
-
-Select cells **B8-J8**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/79.png)
-
-1. Click on the **Borders** dropdown menu.
-2. Choose **Top Border**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/80.png)
-
-Lastly, reduce **row 8** to provide a small padding under the border we just added.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/81.png)
-
-### Testing ReportRange() with a Data PULL
-
-It is always good practice to test each individual formula you add to the report you’re building once it’s done, before you move on to building the next part/formula on the report. This ensures that at the end when you’re ready to test the finished report, you know that all the constituent parts work by themselves.
-
-**Step 1:** Enter some sample filter text into the one of the filter parameter input fields.
-
-<!-- Move this? -->
-It is a good idea to test the filter functionality while you test the data pull.
-
-Providing a filter when pulling data is helpful for 2 reasons:
-1. It reduces the amount of data you are requesting back from the database which reduces the execution speed of the data pull.
-2. It helps test your query to see if it selected all of the expected data records.
-
-Enter **market** into the Company Name filter parameter in cell **C21**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/82.png)
-
-**Step 2:** Run a data PULL on the report.
-
-1. Press **CTRL + SHIFT + J** together on your keyboard or click the **PULL Data** button.
-2. Press **Enter** or click **Pull Data**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/83.png)
-
-**Step 3:** Unfreeze the panes to view the data how the end user would.
-
-1. Press **CTRL + SHIFT + T** together on your keyboard or click the **Quick Tools** button.
-2. Press **Enter** or click on **Freeze/Unfreeze Panes (current tab)** in the menu.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/84.png)
-
-Your data should look like the following screenshot:
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/85.png)
-
-Now that you know which pieces of data are needed in the report, you can design the stored procedure.
-
-### Setting up ReportDefaults()
-
-The ReportDefaults() function is used to capture values from one or a set of cells (or a hard-coded value) then send the value/s to another cell or set of cells. Its execution is triggered based on an action or event (read the distinction between an INTERJECT action/event [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) occurring in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used here. Read more about ReportDefaults() [here](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
-
-In this report, you will be using ReportDefaults to clear out the filter values in cells C21-C23 after a CLEAR is run on the report. CLEAR does not do this by default, because it’s scope of control over the report is limited to the *results* of the data pull (CLEAR is only allowed to modify the data that a PULL action brings in, because a CLEAR reverses a PULL).
-
-**Step 1:** Add the formula to the report.
-
-1. Type **=ReportDefaults()** into cell **C11**.
-2. Open the function builder.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/86.png)
-
-**Step 2:** Fill in the formula arguments.
-
-For the arguments OnPullSaveOrBoth and OnClearRunOrBoth, you want ”Pull” and ”Clear” respectively. This is because you want to execute “Trigger 2” explained in [the ReportDefaults() documentation](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list). With these arguments, ReportDefaults() will trigger when the user performs a Pull-Clear event-action sequence.
-
-Enter **”Pull”** into the **OnPullSaveOrBoth** field, and **”Clear”** into **OnClearRunOrBoth**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/87.png)
-
-The TransferPairs argument is what decides the default values to place in the selected cells. We want to clear out our filter parameter cells, so we will pair each of these cells (C21-C23) with a blank string ("") to pass in when a Pull-Clear occurs.
-
-Each of these pairs (a cell and a blank string (“”)) needs its own Pair() function inside the overarching PairGroup() function that ReportDefaults() takes as a parameter. Learn more about PairGroup() and Pair()  [here]().
-
-Input **PairGroup()** into **TransferPairs**, then press **Ok**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/88.png)
-
-Now, to give arguments to the PairGroup() function, click inside the PairGroup() function within ReportDefaults() and open the function builder.
-
-1. Click in cell C11.
-2. In the **Formula Bar**, place the cursor somewhere in the function name text “PairGroup().”
-3. Click the function builder icon.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/89.png)
-
-The parameters to Pair() are **From, Target**, or, if you do not have a “From” cell, as in our case, they can be thought of as "SourceValue", and "Target". Our “Source Value” is “” (an empty string) and our Targets are cells C21-C23
-
-Type **Pair(””, C21)** into **Pair1**, **Pair(””, C22)** into **Pair2** and **Pair(””, C23)** into **Pair3**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/90.png)
-
-Your ReportDefaults() function should now look like the following:
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/91.png)
-
-### Testing ReportDefaults()
-
-Now test our ReportDefaults() function. It should clear any filter arguments from cells C21-C23 after a PULL-CLEAR.
-
-**Step 1:** Enter some filters into the filter fields.
-
-Enter **market** into cell **C21**, and **b** into cell **C22**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/92.png)
-
-**Step 2:** PULL in the data.
-
-1. Press **CTRL + SHIFT + J** OR click the **PULL Data** menu button.
-2. Press **Enter** OR click **Pull Data**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/93.png)
-
-**Step 3:** CLEAR the data.
-
-1. Press **CTRL + SHIFT + T** or click the **Quick Tools** menu button.
-2. Press **Down Arrow** once then **Enter** OR click **Clear**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/94.png)
-
-Now you should see that, as well as the data in the Target Data Range being cleared, the filter values in cells C21-C23 will also clear out.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/95.png)
 
 ## Section 9: Write the SQL Stored Procedure for the SalesOrder Spreadsheet
 
@@ -1615,15 +1627,15 @@ Start by adding customer Phone and Fax display cells in the "customer info" sect
 
 In cell **B20**, type **="Phone: " & K15**. This combines the label "Phone: " with the phone number value placed into cell K15 by ReportRange().
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/63.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/64.png)
 
 In cell **B21**, type **="Fax: " & K16** to do the same for Fax number.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/64.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/65.png)
 
 Lastly, change the font of these two cells to Century Gothic.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/65.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/66.png)
 
 You have now finished the SalesOrder spreadsheet, the last step is to configure the DRILL into it from CustomerOrderHistory.
 
