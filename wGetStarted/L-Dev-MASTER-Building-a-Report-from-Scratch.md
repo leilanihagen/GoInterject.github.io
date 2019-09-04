@@ -157,7 +157,7 @@ Reports are more than just an Excel spreadsheet, however. Excel is the front-end
 
 *In this section:*
 
-##### [3.1 - What is an INTERJECT Report?](#31-what-is-an-interject-report-1)
+##### [3.1 - What is an INTERJECT Report?](#31---what-is-an-interject-report-1)
 
 ##### [3.2 - How INTERJECT Reports Work Behind the Scenes](#32---how-interject-reports-work-behind-the-scenes-1)
 * ###### [Report Formulas](#-report-formulas-1)
@@ -176,7 +176,7 @@ Reports are more than just an Excel spreadsheet, however. Excel is the front-end
 * ##### [3.3.3 - Filter Parameters](#333---filter-parameters-1)
 
 
-#### 3.1 What is an INTERJECT Report?
+#### 3.1 - What is an INTERJECT Report?
 
 ##### INTERJECT Report
 An INTERJECT report is a spreadsheet-based interface to data, designed for analysis, exploration, or manipulation of metrics in almost any form or arrangement. Reports are tools that are highly customizable and, with sufficient knowledge of INTERJECTs report formulas and features, can be designed for a multitude of different and specific business, scientific or exploratory purposes.
@@ -190,7 +190,7 @@ A report can span multiple Excel workbooks or worksheets, as more than one workb
 To show you how INTERJECT reports are structured, one of the final spreadsheets that you will create in this lab will be used as an example.
 
 
-#### 3.2 How INTERJECT Reports Work Behind the Scenes
+#### 3.2 - How INTERJECT Reports Work Behind the Scenes
 
 There is more to a report than just the spreadsheet. The Excel spreadsheet, or set of spreadsheets, is just the interface for the user to interact with the data in the report. Behind this, we have **Report Formulas**, **Data Portals**, **Data Connections**, and **the data source** all working together to bring the end report to the user. Below is a breakdown of how each of these components contributes to the functionality of an INTERJECT Report.
 <!-- capitalize Report Formulas? -->
