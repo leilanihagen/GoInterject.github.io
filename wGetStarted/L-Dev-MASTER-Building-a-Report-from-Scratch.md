@@ -127,7 +127,7 @@ Click the **Execute** button in SSMS.
 *In this section:*
 
 ##### [2.1 - What is SQL Server?](#21---what-is-sql-server-1)
-##### [2.2 - The SQL SELECT Statement](#22---the-sql-select-statement)
+##### [2.2 - The SQL SELECT Statement](#22---the-sql-select-statement-1)
 ##### [2.3 - SQL Stored Procedures](#23---sql-stored-procedures-1)
 
 #### Introduction
