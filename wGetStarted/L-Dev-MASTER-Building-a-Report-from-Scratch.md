@@ -171,7 +171,7 @@ Reports are more than just an Excel spreadsheet, however. Excel is the front-end
 * ##### [3.3.2 - Worksheet Definitions Area](#332---worksheet-definitions-area-1)
     * ###### [Column Definitions](#column-definitions-1)
     * ###### [Formatting Range](#formatting-range-1)
-    * ###### [Report Formulas](#report-formulas-1)
+    * ###### [Report Formulas](#report-formulas-2)
     * ###### [Hidden Parameters and Notes](#hidden-parameters-and-notes-1)
 * ##### [3.3.3 - Filter Parameters](#333---filter-parameters-1)
 
