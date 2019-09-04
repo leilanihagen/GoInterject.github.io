@@ -96,15 +96,14 @@ This lab requires that you have access to a Northwind sample database that can b
 
 
 <!-- Create full steps with pictures for how to create the DB in SSMS -->
-Complete the following steps to obtain the CREATE DATABASE script for the Northwind database from GitHub:
-1. Click on the [Github link to the CREATE DATABASE script for the Northwind database](https://github.com/microsoft/sql-server-samples/blob/master/samples/databases/northwind-pubs/instnwnd.sql).
+Complete the following steps to obtain the CREATE DATABASE script for the Northwind database from GitHub.
+1. Click on the following Github link to the [CREATE DATABASE script for the Northwind database](https://github.com/microsoft/sql-server-samples/blob/master/samples/databases/northwind-pubs/instnwnd.sql).
 2. Click on "View raw" on the github page.
-3. Copy the entire script (CTRL + A then CTRL + C on the page)..
+3. Copy the entire script (CTRL + A then CTRL + C on the page).
 
-Now follow the steps to duplicate the Northwind databse on your own database instance:
+Now, follow the steps to duplicate the Northwind database on your own database instance using SSMS or your favorite SQL query editor.
 
-Open SSMS.
-
+If using SSMS:
 1. Click on the Windows key or icon on the bottom-left corner of the desktop.
 2. Type in "SSMS".
 3. Press **ENTER** OR click on the SSMS icon that shows up in the list.
@@ -125,19 +124,27 @@ Click the **Execute** button in SSMS.
 
 ## Section 2: Learn SQL Server Basics
 
-You will get the most out of this lab if you understand what SQL server is, SQL SELECT statements and SQL stored procedures. However, this understanding is not strictly required and you can skip these articles and just copy-paste the SQL stored procedure that will be used in this lab.
+*In this section:*
 
-Use the following links as learning resources for SQL Server.
+##### [2.1 - What is SQL Server?](#21---what-is-sql-server-1)
+##### [2.2 - The SQL SELECT Statement](#22---the-sql-select-statement-1)
+##### [2.3 - SQL Stored Procedures](#23---sql-stored-procedures-1)
 
-**What is SQL Server?**
+#### Introduction
 
-Here is [an article from sqlservertutorial.net](http://www.sqlservertutorial.net/getting-started/what-is-sql-server/) explaining what SQL Server is, how it works, what it is built on, and a little bit of its history.
+You will get the most out of this lab if you understand what SQL server is and how to write basic SQL SELECT statements and SQL stored procedures. However, this understanding is not strictly required in order to be able to reproduce the steps in this lab, and you can skip learning SQL if you are only focused on learning the Excel and INTERJECT portions of the lab.
 
-**The SQL SELECT statement**
-1. [Here](http://www.sqlservertutorial.net/sql-server-basics/sql-server-select/) is an article from sqlservertutorial.net explaining the structure of the SELECT statement and how it is executed by SQL. It also shows examples of how to write common SELECT statements.
-2. [Here](https://www.techonthenet.com/sql_server/select.php) is an article from techonthenet.com explaining the SELECT statement and how to use it, including all additional clauses that can be added to SELECT.
+The following sections wil links as learning resources for SQL Server.
 
-**SQL stored procedures**
+#### 2.1 - What is SQL Server?
+
+Here is an [article from sqlservertutorial.net](http://www.sqlservertutorial.net/getting-started/what-is-sql-server/) explaining what SQL Server is, how it works, what it is built on, and a little bit of its history.
+
+#### 2.2  - The SQL SELECT Statement
+* Here is an [article from sqlservertutorial.net](http://www.sqlservertutorial.net/sql-server-basics/sql-server-select/) explaining the structure of the SELECT statement and how it is executed by SQL. It also shows examples of how to write common SELECT statements.
+* Here is an [article from techonthenet.com](https://www.techonthenet.com/sql_server/select.php) explaining the SELECT statement and how to use it, including all additional clauses that can be added to SELECT.
+
+#### 2.3 - SQL Stored Procedures
 1. [Here](https://www.essentialsql.com/what-is-a-stored-procedure/) is an article from essentialsql.com on what a stored procedure is, why they are used, and how they can be used. It is a higher-level overview.
 2. [Here](http://www.sqlservertutorial.net/sql-server-stored-procedures/basic-sql-server-stored-procedures/) is a tutorial from sqlservertutorial.net showing how to write basic stored procedures, explaining the structure and syntax of stored procedure creation and how to execute stored procedures.
 
