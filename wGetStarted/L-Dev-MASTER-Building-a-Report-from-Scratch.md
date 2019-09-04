@@ -155,53 +155,83 @@ Reports are more than just an Excel spreadsheet, however. Excel is the front-end
 
 ## Section 3: Important INTERJECT Terminology and Definitions
 
-### What is an INTERJECT Report?
+*In this section:*
+
+##### [3.1 - What is an INTERJECT Report?](#31-what-is-an-interject-report-1)
+
+##### [3.2 - How INTERJECT Reports Work Behind the Scenes](#32---how-interject-reports-work-behind-the-scenes-1)
+* ###### [Report Formulas](#-report-formulas-1)
+* ###### [Data Portals](#-data-portals-1)
+* ###### [Data Connections](#-data-connections-1)
+* ###### [Data Portals](#-data-portals-1)
+* ###### [Data Sources](#-data-sources-1)
+
+##### [3.3 - Anatomy of an INTERJECT Report in Excel](#33---anatomy-of-an-interject-report-in-excel-1)
+* ##### [3.3.1 - The Report Area](#331---the-report-area-1)
+* ##### [3.3.2 - Worksheet Definitions Area](#332---worksheet-definitions-area-1)
+    * ###### [Column Definitions](#column-definitions-1)
+    * ###### [Formatting Range](#formatting-range-1)
+    * ###### [Report Formulas](#report-formulas-1)
+    * ###### [Hidden Parameters and Notes](#hidden-parameters-and-notes-1)
+* ##### [3.3.3 - Filter Parameters](#333---filter-parameters-1)
+
+
+#### 3.1 What is an INTERJECT Report?
 
 ##### INTERJECT Report
 An INTERJECT report is a spreadsheet-based interface to data, designed for analysis, exploration, or manipulation of metrics in almost any form or arrangement. Reports are tools that are highly customizable and, with sufficient knowledge of INTERJECTs report formulas and features, can be designed for a multitude of different and specific business, scientific or exploratory purposes.
 
-##### Multi-Worksheet/Workbook Reports
+##### Multiple Worksheets and Workbooks
 A report can span multiple Excel workbooks or worksheets, as more than one workbook/worksheet may need to be used to achieve the purpose of the report. For example, one can use an INTERJECT DRILL to connect two worksheets or workbooks together. DRILLs work by letting the user choose a value from one sheet to "drill on", then this value is carried to another sheet where data processing can be done with the transferred value as input to the data operations. This allows the two sheets to work on the same data sets but perform different data processing on them. Using multiple sheets is a good approach to building complex INTERJECT reports because it allows you to show the data in different levels of detail for different purposes, while still having the data connected and centralized in one report. You will create a 2-spreadsheet report with a DRILL from a summary report to a detailed report in this lab.
 
-##### How INTERJECT Reports Work Behind the Scenes
-There is more to a report than just the spreadsheet, however. The Excel spreadsheet, or set of spreadsheets, is just the interface for the user to interacte with the data in the report. Behind this, we have **Report Formulas**, **Data Portals**, **Data Connections**, and **the data source** all working together to bring the end report to the user.
+
+<!-- #### 3.2 Anatomy of an INTERJECT Report -->
+<!-- change to fit new scope -->
+To show you how INTERJECT reports are structured, one of the final spreadsheets that you will create in this lab will be used as an example.
+
+
+#### 3.2 How INTERJECT Reports Work Behind the Scenes
+
+There is more to a report than just the spreadsheet. The Excel spreadsheet, or set of spreadsheets, is just the interface for the user to interact with the data in the report. Behind this, we have **Report Formulas**, **Data Portals**, **Data Connections**, and **the data source** all working together to bring the end report to the user. Below is a breakdown of how each of these components contributes to the functionality of an INTERJECT Report.
 <!-- capitalize Report Formulas? -->
-**Report Formulas** control everything that happens at the report level, from controlling the look of the Excel sheet by allowing formatting to be programmed to populating data into the spreadsheet and extracting it from the spreadsheet back to the database.
+###### Report Formulas
+Report Formulas control everything that happens at the report level, from controlling the look of the Excel sheet by allowing formatting to be programmed to populating data into the spreadsheet and extracting it from the spreadsheet back to the database.
 
 Report formulas work the same way as general Excel formulas, but they are specific to INTERJECT report actions. The most important Report Formulas to understand here are Data Functions. Data Functions are a class of INTERJECT Report Formulas that directly control and manipulate the data that is displayed the sheet. Data Functions are typically not executed until the report user performs an action that tells the Data Function to execute. An example of this is can be shown with the Data Functions ReportFixed() and ReportRange(), which both bring data into the report. They are triggered to execute when the user runs a PULL on the report. Data Portals must be provided to Data Functions as one of the functions arguments; the Data Portal provides the data to which the Data Function can further manipulate (decide where to place on the sheet, etc.).
 
-**Data Portals** exist outside of the report, in the INTERJECT Portal Site. They serve as a way to define specific data operations that can be done to extract or retrieve data from your data source. Think of the Data Portal as holding a set of instructions for how to interact with the data source. Only when the Data Portal is called on by the Report Formula is the Data Portal actually activated. When the Portal is "activated," it performs the set of instructions it contains on the data source, then returns the result (usually a dataset), if any, back to the the report. Data Portals must be assigned a Data Connection, which allows communication with the data source.
+###### Data Portals
+Data Portals exist outside of the report, in the INTERJECT Portal Site. They serve as a way to define specific data operations that can be done to extract or retrieve data from your data source. Think of the Data Portal as holding a set of instructions for how to interact with the data source. Only when the Data Portal is called on by the Report Formula is the Data Portal actually activated. When the Portal is "activated," it performs the set of instructions it contains on the data source, then returns the result (usually a dataset), if any, back to the the report. Data Portals must be assigned a Data Connection, which allows communication with the data source.
 
-**Data Connections** also exist outside of the report, in the INTERJECT Portal Site. Data Connections store the connection information for a given data source. Using this information, INTERJECT can create a connection to the data source (a database or data API) when needed.
+###### Data Connections
+Data Connections also exist outside of the report, in the INTERJECT Portal Site. Data Connections store the connection information for a given data source. Using this information, INTERJECT can create a connection to the data source (a database or data API) when needed, such as when requested by a report formula being triggered and calling a Data Portal.
 
-**The data source** itself can be a database, or a data API. See ours docs on [Data Connections](https://docs.gointerject.com/wPortal/Data-Connections.html) to learn more about the different types of data sources that Data Connections can be made with.
+###### Data Sources
+The data source itself can be a database, or a data API. See our docs on [Data Connections](https://docs.gointerject.com/wPortal/Data-Connections.html) to learn more about the different types of data sources that Data Connections can be made with.
 
-You can now see that INTERJECT reports consist of many moving parts all working together, and all which you have control over.
+You can now see that INTERJECT reports are controlled by a few simple, modular components in the backend all working together, and all which you have control over.
 
-### Anatomy of an INTERJECT Report
+#### 3.3 - Anatomy of an INTERJECT Report in Excel
 
-To show you how INTERJECT reports are structured, one of the final spreadsheets that you will create in this lab will be used as an example.
-
-#### Report Area
+##### 3.3.1 - The Report Area
 The report area is the part of the report that displays the data. It has all the report formulas and configuration details hidden, showing only what the end user needs to see in order to use the report.
 
 The report can be broken up into the following sections:
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/01.png)
 
-##### 1 - Title of the current sheet in the report
+###### 1 - Title of the current sheet in the report
 It is standard to place a title somewhere on each spreadsheet to tell the users the topic of the current sheet.
 
-##### 2 - Filter parameter input area
+###### 2 - Filter parameter input area
 Here, users can enter filter text for specific columns. The Data Function which pulls in the data is programmed to look at these cells and only return data records from the Data Portal who data abides by the restrictions of the filter parameters. For each data record returned, the columns specified in the filter parameters (for example, CompanyName) must *contain* the filter text provided by the user (for example "market").
 
-##### 3 - Column names section
+###### 3 - Column names section
 This section generally occupies 1 row and simply displays the titles of the data that appears below in each column.
 
-##### 4 - Target data range
+###### 4 - Target data range
 The target data range is the area of the sheet where report formulas are allowed to insert or extract data to/from the report.
 
-#### Worksheet Definitions area
+##### 3.3.2 - Worksheet Definitions area
 
 INTERJECT reports have a sort of “behind the scenes” section at the top of each worksheet where all the spreadsheet configuration is kept. This area is colored differently from the rest of the report and hidden from the end user using Excel’s Freeze Panes option. While this section is typically hidden from the end user, those who build reports will typically spend much of their time configuring the worksheet functionality in this section. Once we unhide the section by [**unfreezing the panes**](), this is what the report looks like.
 
@@ -209,25 +239,29 @@ INTERJECT reports have a sort of “behind the scenes” section at the top of e
 
 The following sections make up the Worksheet Definitions area:
 
-**Column Definitions:** This section defines the names of the columns, or attributes, that the data source will return, and also defines where those attributes should be placed in the report. The columns where attributes are placed in the Column Definitions section will match where they get placed in the worksheet.
+###### Column Definitions
+This section defines the names of the columns, or attributes, that the data source will return, and also defines where those attributes should be placed in the report. The columns where attributes are placed in the Column Definitions section will match where they get placed in the worksheet.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/03.png)
 
-**Formatting Range:** The Formatting Range is a feature that allows you to define the formatting of the data in your Report Area in one place without repetition. It works similarly to how the Column Definitions section works, by copying the formatting applied to its cells down to the Report Area for each record that is pulled in from the data source.
+###### Formatting Range
+The Formatting Range is a feature that allows you to define the formatting of the data in your Report Area in one place without repetition. It works similarly to how the Column Definitions section works, by copying the formatting applied to its cells down to the Report Area for each record that is pulled in from the data source.
 
 <!-- You can define your formatting by simply formatting the cells in the formatting range, then this formatting will be applied to the attributes in the Column Definitions, when they are pulled into the report. A Formatting Range is only necessary for INTERJECT reports wherein you are pulling multi-row data records into your report, but we will speak more on this later. Note that our Formatting Range here has sample data that matches the data type of the attribute in its Column Definition above. -->
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/04.png)
 
-**Report Formulas:** This section is where the INTERJECT Report Formulas that you need for a given sheet will be placed. To add a Report Formula, simply start typing = and the name of the formula. Labels can be added in cells adjacent to cells containing report formulas to help describe what each formula is doing, as shown below.
+###### Report Formulas
+This section is where the INTERJECT Report Formulas that you need for a given sheet will be placed. To add a Report Formula, simply start typing = and the name of the formula. Labels can be added in cells adjacent to cells containing report formulas to help describe what each formula is doing, as shown below.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/05.png)
 
-**Hidden Parameters and Notes:** This section is optional on most reports. It is used as a place to give a brief description of the use case or functionality of a report, and to add Filter Parameters to the report that should always be there (and in turn should be hidden from users so they cannot modify them).
+###### Hidden Parameters and Notes
+This section is optional on most reports. It is used as a place to give a brief description of the use case or functionality of a report, and to add Filter Parameters to the report that should always be there (and in turn should be hidden from users so they cannot modify them).
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/06.png)
 
-#### Filter Parameters
+##### 3.3.3 - Filter Parameters
 
 Filter parameters are used in reports that pull data in, and are used to restrict the result set to only records which match the filter parameter arguments given on the report.
 
