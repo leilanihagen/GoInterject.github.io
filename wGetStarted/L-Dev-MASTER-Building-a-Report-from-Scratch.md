@@ -289,6 +289,16 @@ INTERJECT uses freeze panes on its reports to:
 
 There are two formula arguments for jFreezePanes(), **FreezePanesCell** and **AnchorViewCell**. AnchorViewCell specifies the very top row that will be visible when the panes are frozen. The cells above AnchorViewCell will be hidden when the panes are frozen. The cells between AnchorViewCell and FreezePanesCell will become a frozen block of cells that are anchored to the top of the sheet as the user scrolls down through the report.
 
+<!-- reportrage() -->
+ReportRange() is a report formula used to PULL data into a defined *range* of a report from a Data Portal. ReportRange() can be used with formatting to format the data returned from the Data Portal into the spreadsheet. Read more about ReportRange() [here](https://docs.gointerject.com/wIndex/ReportRange.html#function-summary).
+
+ReportRange() works by inserting the result set returned from the Data Portal *in between* two or more rows. These rows are specified by the TargetDataRange argument. Input **27:28** for the **TargetDataRange** (down in the Report Area, below the filter parameters).
+
+
+The **Parameters** parameter specifies which cells will be the “filter” cells whose values are sent to the Data Portal to filter results to the user’s specifications. The Param() function ([read more here](https://docs.gointerject.com/wIndex/Param.html)) is used here to capture the cells. Type **Param(C21,C22,C23)** into **Parameters**.
+
+
+
 ## Section 4: Create the Data Connection
 
 You will now create the Data Connection that will serve as the layer that accesses your Northwind database. This Data Connection will be used to connect to your database by both of the Data Portals that will be created later in the lab.
@@ -541,7 +551,7 @@ Your screen should look as follows.
 
 *In this section:*
 
-##### [7.1 - Introduction to the Structure of the Report](#71---tntroduction-to-the-structure-of-the-report-1)
+##### [7.1 - Introduction to the Structure of the Report](#71---introduction-to-the-structure-of-the-report-1)
 
 ##### [7.2 - CustomerOrderHistory Sheet Preview](#72---customerorderhistory-sheet-preview-1)
 
@@ -801,74 +811,67 @@ Right-click on any other sheets that you have in the workbook and select **Delet
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/29.png)
 
-#### 8.4 - Adding ReportRange() to the Report
+#### 8.4 - Adding the Column Definitions
 
-ReportRange() is a report formula used to PULL data into a defined *range* of a report from a Data Portal. ReportRange() can be used with formatting to format the data returned from the Data Portal into the spreadsheet. Read more about ReportRange() [here](https://docs.gointerject.com/wIndex/ReportRange.html#function-summary).
+This section will walk you through adding the needed Column Definitons to the Column Definitions section you already created.
+
+The Column Definitions section will be referenced by the [dbo].[northwind_customer_orders_myname] Data Portal when we call ReportRange() and pass in the Data Portal. It is important that the order of the column names listed here in the Column Definitions section match the order in which they were entered into the Data Portal, because SQL stored procedures (and therefore INTERJECT Data Portals) rely only on parameter *order* to know which parameter is which.
+
+**Step 1:** Enter the first row of Column Definitions.
+
+Starting with row 2, type:
+* **CustomerID** into cell **B2**,
+* **CompanyName** into cell **C2**,
+* **ContactName** into cell **E2**,
+* **OrderID** into cell **F2**,
+* **OrderDate** into cell **G2**,
+* **OrderAmount** into cell **H2**,
+* **Freight** into cell **I2**,
+* **TotalAmount** into cell **J2**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/30.png)
+
+In row 3, type:
+* **ShipVia** in cell **C3**,
+* **ShippedDate** in cell **E3**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/31.png)
+
+#### 8.5 - Adding ReportRange() to the Report
+
+This section will walk you through configuring a ReportRange() on the CustomerOrderHistory sheet as well as set up the arguments that you need to provide to it, such as the Column Definiton section.
 
 **Step 1:** Add the formula to the report.
 
 1. Type **=ReportRange()** in cell **C10**.
 2. Click on the function builder icon.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/30.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/32.png)
 
 **Step 2:** Specify the Data Portal that ReportRange() will pull data from.
 
-As you can see, **DataPortal** is the first parameter that you must provide to ReportRange() so that it knows where to pull in the data from.
-
 1. Type **NorthwindCustomerOrders_MyName** into the DataPortal parameter box.
-2. Press **OK**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/31.png)
-
-You will now switch to configuring an INTERJECT Data Connection, and a Data Portal that will together make up the datasource for ReportRange().
-
-You will fill in the rest of the ReportRange() parameters once the Data Portal and Connection are both set up.
-
-<!-- Move this entire section -->
-### Setting up ReportRange() with the Data Portal
-
-Now, you have a Data Connection to a database, and a Data Portal which specifies a stored procedure to provide data to it; but you still need to write the stored procedure in order to actually get anything back from our ReportRange() call in the report.
-
-In order to show how the front-end Excel interface ties into the writing of the back-end stored procedure, start by going back to the report and figuring out what data you want to display to the user.
-
-**Step 1:** Go back to the report, click in cell **C10** and open the function builder.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/32.png)
-
-Enter **2:4** into the **ColDefRange** to tell ReportRange() that all of its column definitions can be found in this range of rows. You can read more about ColDefRange here.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/33.png)
 
-Now, you can specify the columns that you want to get back from our Data Portal via ReportRange() in the Column Definitions section of our report. Let’s fill these values in.
+Enter **2:4** into the **ColDefRange** to tell ReportRange() that all of its column definitions can be found in this range of rows. You can read more about ColDefRange here.
 
-Starting with row 2, type **CustomerID** into cell **B2**, **CompanyName** into cell **C2**, **ContactName** into cell **E2**, **OrderID** into cell **F2**, **OrderDate** into cell **G2**, **OrderAmount** into cell **H2**, **Freight** into cell **I2**, **TotalAmount** into cell **J2**.
+**Step 3:**
+
+Type:
+* **27:28** into the **TargetDataRange** argument,
+* **2:4** into the **ColDefRange** argument,
+* **6:8** into the **FormatRange** argument.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/34.png)
 
-In row 3, we just need **ShipVia** in cell **C3** and **ShippedDate** in cell **E3**.
+The **Parameters** parameter specifies which cells will be the “filter” cells whose values are sent to the Data Portal to filter results to the user’s specifications. The Param() function ([read more here](https://docs.gointerject.com/wIndex/Param.html)) is used here to capture the cells. Type **Param(C21,C22,C23)** into **Parameters**.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/35.png)
 
-Now, add the other parameters. Open the function arguments for ReportRange() again.
+As a best practice, it is recommended that you set **UseEntireRow** to **TRUE** and **PutFieldNamesAtTop** to **FALSE**.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/36.png)
-
-ReportRange() works by inserting the result set returned from the Data Portal *in between* two or more rows. These rows are specified by the TargetDataRange argument. Input **27:28** for the **TargetDataRange** (down in the Report Area, below the filter parameters).
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/37.png)
-
-The Formatting Range is the part of the report definitions section that specifies how final output will be formatted when returned to the end user. Our formatting range occupies rows 6:8, so input **6:8** in **FormatRange**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/38.png)
-
-The **Parameters** parameter specifies which cells will be the “filter” cells whose values are sent to the Data Portal to filter results to the user’s specifications. The Param() function ([read more here](https://docs.gointerject.com/wIndex/Param.html)) is used here to capture the cells. Type **Param(C21,C22,C23)** into **Parameters**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/39.png)
-
-As a best practice, it is recommended that you set **UseEntireRow** to **TRUE** and **PutFieldNamesAtTop** to **FALSE**
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/40.png)
 
 ### Designing the Formatting Range
 
