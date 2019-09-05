@@ -40,12 +40,12 @@ This section provides you with resources for learning the basics of SQL Server. 
 
 ##### [Section 3: Important INTERJECT Terminology and Definitions]()
 This section provides you with the necessary understanding of INTERJECT terminology and definitions. It explains all the key components that make up an INTERJECT report and how they work together. It is *recommended* that you read this section before completing the lab. This section can also be used as a reference to look up a terms that you do not know.
-<!-- [Section 6](#section-5:-create-the-data connection-in-the-interject-portal-site) -->
-##### [Section 4: Write the SQL Stored Procedure for the CustomerOrderHistory Spreadsheet]()
-This section will walk you through writing a stored procedure that will perform an INTERJECT Data PULL action (inserts data from database tables into an Excel report). The stored procedure is the the first thing that you will create in this lab because it is the fundamental piece that needs to be working properly for the INTERJECT Data Portal and the report itself to work as well.
 
-##### [Section 5: Create the Data Connection]()
+##### [Section 4: Create the Data Connection]()
 This section walks you through creating a Data Connection in the INTERJECT Portal Site. The Data Connection you create will store connection details for your sample database. You create the Data Connection before the Data Portal because the Data Portal uses the Data Connection to access your database.
+
+##### [Section 5: Write the SQL Stored Procedure for the CustomerOrderHistory Spreadsheet]()
+This section will walk you through writing a stored procedure that will perform an INTERJECT Data PULL action (inserts data from database tables into an Excel report). The stored procedure is the the first thing that you will create in this lab because it is the fundamental piece that needs to be working properly for the INTERJECT Data Portal and the report itself to work as well.
 
 ##### [Section 6: Create the Data Portal for the CustomerOrderHistory Spreadsheet]()
 This section walks you through creating the first of two Data Portals that you will create in this lab. Data Portals store the name of a specific stored procedure as well as the name of an existing Data Connection. It locates a database using the database connection information stored in the Data Connection, then locates the stored procedure within that database.
@@ -270,6 +270,137 @@ Filter parameters can be used to search the dataset for specific records.
 As you can see in the screenshot above, “market” was entered into the **Company Name** filter, which limits the result set that is returned to records which *contain* the partial string “market” in their CompanyName attribute.
 
 Filters work in INTERJECT reports by using a SQL Server LIKE operator inside the WHERE clause of the query that the report data is being sourced from.
+
+## Section 4: Create the Data Connection
+
+You will now create the Data Connection that will serve as the layer that accesses your Northwind database. This Data Connection will be used to connect to your database by both of the Data Portals that will be created later in the lab.
+
+**Step 1:** Log in to the INTERJECT portal site.
+
+Navigate to the portal site [here](https://portal.gointerject.com/).
+
+1. Type in your email.
+2. Type in your password.
+3. Press the **LOGIN** button.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/38.png)
+
+**Step 2:** Create a new Data Connection.
+
+Click on the **New Connection** button.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/39.png)
+
+**Step 3:** Fill in the connection details.
+
+1. Type the name of your connection (**NorthwindDB_MyName** with your name substituted for "MyName" is recommended) into the **Name** field.
+2.  Add a short description in the **Description** field.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/40.png)
+
+Select database as your connection type.
+
+1. Under **Connection Type**, click the small triable to show the options.
+2. Select **Database** from the dropdown list for **Connection Type**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/41.png)
+
+Enter the connection string for your Northwind database.
+
+<!-- Change this to a ref link to the top of the page where sql resources are listed? -->
+For the connection string, you must already have your own sample Northwind database to use. You can download a Northwind sample database from Microsoft [here](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/downloading-sample-databases).
+
+1. Substitute in your server and database name in italicized parts (*MyServerAddress* and *MyDatabaseName*) of the following sample connection string:
+
+  **”Server=*MyServerAddress*;Database=*MyDatabaseName*;Trusted_Connection=True;”**
+
+2. Once you have your connection string entered, press Save to continue.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/42.png)
+
+## Section 5: Write the SQL Stored Procedure for the CustomerOrderHistory Spreadsheet
+
+<!-- Add steps showing how to navigate SSMS to copy paste the code -->
+
+**Step 1:** COpy-paste the stored procedure code provided into your favorite SQL editor..
+
+Using a SQL editor like [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/sql-server-management-studio-ssms?view=sql-server-2017), copy and paste in the following code:
+
+```sql
+CREATE PROC [dbo].[northwind_customer_orders_myname]
+
+    	 @CompanyName VARCHAR(100) = ‘’
+    	,@ContactName VARCHAR(100) = ‘’
+    	,@CustomerID VARCHAR(500) = ''
+    	,@Interject_NTLogin VARCHAR(10)
+    	,@Interject_LocalTimeZoneOffset MONEY
+
+    AS
+    BEGIN
+
+    SET NOCOUNT ON  -- helps reduce conflicts with ADO
+
+    DECLARE @ErrorMessage VARCHAR(100)
+
+    IF LEN(@CompanyName)>40
+    BEGIN
+    	SET @ErrorMessage = 'Usernotice:The company search text must not be more than 40 characters.'
+    	RAISERROR (@ErrorMessage, 18, 1)
+    	RETURN		
+    END
+
+    SELECT
+    	 c.[CustomerID]
+    	,c.[CompanyName]
+    	,c.[ContactName]
+    	,c.[Country]
+    	,o.[OrderID]
+    	,o.[OrderDate]
+    	,o.[ShipCity]
+    	,o.[ShipCountry]
+    	,s.[CompanyName] AS ShipVia
+    	,o.[ShippedDate]
+    	,SUM(d.[UnitPrice] * cast(d.[Quantity] AS MONEY) * (cast(1 AS MONEY) -d.[Discount])) AS OrderAmount
+    	,o.[Freight]
+    	,SUM(d.[UnitPrice] * cast(d.[Quantity] AS MONEY) * (cast(1 AS MONEY) -d.[Discount])) + o.[Freight] AS TotalAmount
+    FROM [dbo].[Orders] o
+    	INNER JOIN [dbo].[Customers] c
+    		ON o.[CustomerID] = c.[CustomerID]
+    	INNER JOIN [dbo].[Shippers] s
+    		ON o.[ShipVia] = s.[ShipperID]
+    	INNER JOIN [dbo].[Order Details] d
+    		ON o.[OrderID] = d.[OrderID]
+    WHERE
+    	(@CompanyName='' OR c.CompanyName LIKE '%' + @CompanyName + '%')
+    	and
+    	(@ContactName='' OR c.ContactName LIKE '%' + @ContactName + '%')
+    	and
+    	(@CustomerID='' OR c.[CustomerID] = @CustomerID)
+    GROUP BY
+    	 c.[CustomerID]
+    	,c.[CompanyName]
+    	,c.[ContactName]
+    	,c.[Country]
+    	,o.[OrderID]
+    	,o.[OrderDate]
+    	,o.[ShipName]
+    	,o.[ShipCity]
+    	,o.[ShipCountry]
+    	,s.[CompanyName]
+    	,o.[ShippedDate]
+    	,o.[Freight]
+    ORDER BY c.[CompanyName], o.[OrderID]  DESC
+
+    END
+```
+
+**Step 2:** Modify the stored procedure.
+
+Change "myname" in the following portion of code to your name (here "mary").
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-5/01.png)
+
+**Step 3:** Execute your stored procedure.
 
 <!-- Move to sect. 7 -->
 
@@ -759,70 +890,6 @@ Now you should see that, as well as the data in the Target Data Range being clea
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/67 .png)
 
 
-### Writing the SQL Stored Procedure Behind ReportRange()
-
-<!-- Add steps showing how to navigate SSMS to copy paste the code -->
-
-Using a SQL editor like [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/sql-server-management-studio-ssms?view=sql-server-2017), copy and paste in the following code:
-```
-code
-```
-Here is the SELECT statement in the code. The columns returned from the SELECT statement are the ones that populate into the report.
-
-## (screenshot including both SELECT and column definition area)
-
-Save your stored procedure, making sure that its name matches the name you specified for it in the Data Portal you created and that it is in the same database that you specified in the Data Connection you created.
-
-
-### Setting Up the Data Connection
-
-<!-- Edit these sections after moving "### Adding ReportRange()" -->
-In order to continue, you need to set up the back-end Data Portal that ReportRange() will be using. For now, pause working on the front-end Excel report to configure the Data Portal and Data Connection that ReportRange() will use in the report.
-
-Start by creating the Data Connection. INTERJECT Data Connections enable users to connect to a database in order to pull data out of that database based on criteria specified in stored procedures which are set up in the database and accessed with Data Portals. An overview of Data Connections and Data Portals can be found [here](https://docs.gointerject.com/wPortal/The-INTERJECT-Website-Portal.html#overview).
-
-**Step 1:** Log in to the INTERJECT portal site.
-
-Navigate to the portal site [here](https://portal.gointerject.com/).
-
-1. Type in your email.
-2. Type in your password.
-3. Press the **LOGIN** button.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/38.png)
-
-**Step 2:** Create a new INTERJECT Data Connection.
-
-Click on the **New Connection** button.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/39.png)
-
-**Step 3:** Fill in the connection details.
-
-1. Type the name of your connection (**NorthwindDB_MyName** with your name substituted for "MyName" is recommended) into the **Name** field.
-2.  Add a short description in the **Description** field.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/40.png)
-
-Select database as your connection type.
-
-1. Under **Connection Type**, click the small triable to show the options.
-2. Select **Database** from the dropdown list for **Connection Type**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/41.png)
-
-Enter the connection string for your Northwind database.
-
-<!-- Change this to a ref link to the top of the page where sql resources are listed? -->
-For the connection string, you must already have your own sample Northwind database to use. You can download a Northwind sample database from Microsoft [here](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/downloading-sample-databases).
-
-1. Substitute in your server and database name in italicized parts (*MyServerAddress* and *MyDatabaseName*) of the following sample connection string:
-
-  **”Server=*MyServerAddress*;Database=*MyDatabaseName*;Trusted_Connection=True;”**
-
-2. Once you have your connection string entered, press Save to continue.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/42.png)
 
 ### Setting Up the Data Portal
 
