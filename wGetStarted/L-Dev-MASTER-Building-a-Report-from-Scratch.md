@@ -52,10 +52,10 @@ This section walks you through creating the first of two Data Portals that you w
 
 <!-- ? -->
 ##### [Section 7: Introduce the INTERJECT Report]()
-This section introduces the final INTERJECT report that you will create in Sections 8 and 9. It explains the different sections of the report and their purposes.
+This section introduces the final, multi-sheet INTERJECT Report that you will create in Sections 8 and 9. It also introduces the concept of drilling between sheets inside a Report.
 
 ##### [Section 8: Build the CustomerOrderHistory Spreadsheet for the Report]()
-after completing this section, you will have created the first of two spreadsheets that will together make up the report. CustomerOrderHistory will be a summary sheet of historical customer order data.
+After completing this section, you will have created the first of two spreadsheets that will together make up the report. CustomerOrderHistory will be a summary sheet of historical customer order data.
 
 ##### [Section 9: Write the SQL Stored Procedure for the SalesOrder Spreadsheet]()
 This section will walk you through writing the second stored procedure, which will be the backend to the Data Portal for the SalesOrder spreadsheet. This stored procedure will also perform a PULL that will bring data from the database to the SalesOrder spreadsheet.
@@ -271,6 +271,24 @@ As you can see in the screenshot above, “market” was entered into the **Comp
 
 Filters work in INTERJECT reports by using a SQL Server LIKE operator inside the WHERE clause of the query that the report data is being sourced from.
 
+#### other stuff (review/see if we need)
+<!-- data portals -->
+When using a SQL database as your data source, Data Portals provide a way to connect to specific stored procedures within an already existing Data Connection which connects directly to the database. Data Portals provide a finer-grain level of control, and connect to a single stored procedure on the database. You can have multiple Data Portals connected to one Data Connection, but not vice-versa. For more, see [the website portal documentation](https://docs.gointerject.com/wPortal/The-INTERJECT-Website-Portal.html#-data-connections-).
+
+<!-- dirlling: change 'report' language -->
+Drilling is a way to connect and pass values between separate worksheets or workbooks. In a drill, you always have a *source* report and a *destination* report, where the source report is the report that the user would start on and perform the drill on, and the destination report is the report that the user ends up on after the drill. A typical use case for a drill arises when you have a general report that provides a summary of some high-level data, and you want to allow the user to get more detail on some of the data in that report, but don’t have enough room to display this detail on the report. This can be resolved by creating a second report for that more detailed data and setting up a drill into the more detailed report from the summary one. You can then pass some piece of data from the general/summary report into a cell in the detailed report so that the detailed report can automatically pull in and filter data based on the cell the user drilled on in the source report. You can read more about ReportDrill() [here]().
+
+<!-- jFreezePanes -->
+jFreezePanes() is an INTERJECT formatting function that takes advantage of the Excel native Freeze/Unfreeze panes option, and it can be executed in the Quick Tools menu. The jFreezePanes() function allows you to specify:
+* Which worksheets in a workbook will be frozen (whichever worksheets have the jFreezePanes() function in their Report Formulas section) when "Freeze/unfreeze panes" is run in Excel.
+* *Where* to freeze the panes in the workbook (which cells will be frozen at the top of the sheet and which will be hidden when panes are frozen). [Read more about jFreezePanes() here](https://docs.gointerject.com/wIndex/jFreezePanes.html).
+
+INTERJECT uses freeze panes on its reports to:
+* Contain and hide the **report definitions section**. It is hidden to ensure that end users are not confused with details that they do not need to see.
+* Keep a header with column titles and a report title visible to the user as they scroll through report data.
+
+There are two formula arguments for jFreezePanes(), **FreezePanesCell** and **AnchorViewCell**. AnchorViewCell specifies the very top row that will be visible when the panes are frozen. The cells above AnchorViewCell will be hidden when the panes are frozen. The cells between AnchorViewCell and FreezePanesCell will become a frozen block of cells that are anchored to the top of the sheet as the user scrolls down through the report.
+
 ## Section 4: Create the Data Connection
 
 You will now create the Data Connection that will serve as the layer that accesses your Northwind database. This Data Connection will be used to connect to your database by both of the Data Portals that will be created later in the lab.
@@ -402,11 +420,188 @@ Change "myname" in the following portion of code to your name (here "mary").
 
 **Step 3:** Execute your stored procedure.
 
-<!-- Move to sect. 7 -->
+## Section 6: Create the Data Portal for the CustomerOrderHistory Spreadsheet
+
+**Step 1:** Create the Data Portal.
+
+Navigate again to [the portal site](https://portal.gointerject.com/) and choose Data Portals.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/01.png)
+
+Create a new data portal by clicking the **NEW DATA PORTAL** button.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/02.png)
+
+**Step 2:** Edit the data portal details.
+
+1. Enter a name for your Data Portal (**”NorthwindCustomerOrders_MyName”** with your name substituted in for MyName) in the **Name** field.
+2. Enter a brief description in the **Description** field.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/03.png)
+
+<!-- This will need to change -->
+For the **Connection**, use the Data Connection you created in the last section, **NorthwindDB_YourName**. It should appear in the dropdown list when clicked.
+
+1. Expand the dropdown menu under **Connection**.
+2. Select your database, **NorthwindDB_YourName**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/04.png)
+
+Now specify the stored procedure that this data portal will be referencing. You will write the stored procedure itself shortly.
+
+Under **Stored Procedure / Command**, type in **”[demo].[northwind_customer_orders_myname]”**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/05.png)
+
+1. Under **Category**, enter **Demo**.
+2. Expand the dropdown list under **Command Type**.
+3. Choose **Stored Procedure Name** from the dropdown list.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/06.png)
+
+1. For **Data Portal Status**, choose **Enabled**.
+2. For **Is Custom Command?**, choose **No**
+3. Save your new data portal by clicking **CREATE NEW DATA PORTAL**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/07.png)
+
+**Step 3:** Add the formula parameters to the data portal.
+
+<!-- Proofread this. this is long... -->
+Formula parameters are a way for the stored procedure designer to tell the data portal about any custom parameters that they add to the data portals corresponding stored procedure. Here, custom parameters mean additional parameters that are coded into the stored procedure for a specific purpose, in this case, to serve filter parameters. There are other parameters, System Parameters, that are not considered "custom" because they are hardcoded and pass a specific piece of information from the system to whichever stored procedure they are used in. System Parameters will be discussed more in the following section.
+
+If you look at the report, you will remember we have 3 filters on our report, **Company Name**, **Contact Name** and **Customer ID**. The Data Portal and stored procedures need to know that these filter parameters exist in order for the parameters to affect the data that they pull out.
+
+It will be important later on, when writing the stored procedure, that the order the parameters are listed in the data portal and in the report is the same as their order listed in the stored procedure. Since you have already entered the filter parameters in the report, we will use the order chosen there as a template for the order in the data portal and the stored procedure.
+
+Parameter order of filters in report:
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/08.png)
+
+You will now add the filter parameters into the data portal as Formula Parameters, in the same order as their input titles are displayed the report.
+
+1. Click on the **Click here to add a Formula Parameter** link.
+2. Enter the first parameter name, **CompanyName**, in the **NAME** field.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/09.png)
+
+1. Set the **TYPE** to **nvarchar** so that a character string can be entered by the user.
+2. Set the **DIRECTION** to **input** since this will be an input parameter to the stored procedure.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/10.png)
+
+Press the save button so that it turns from red to green.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/11.png)
+
+Add the next Formula Parameter for **ContactName**.
+
+1. Click on the **Click here to add a Formula Parameter** link again.
+2. Enter **ContactName** in the **NAME** field.
+3. Select **nvarchar** in the **TYPE** field.
+4. Select **input** in the **DIRECTION** field.
+5. Click the save icon and wait until it turns green as in the picture.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/12.png)
+
+Repeat the last set of steps, changing only the **NAME** field to **CustomerID**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/13.png)
+
+**Step 4:** Add the system parameters to the report.
+
+System Parameters are used to pass information from the user’s system to the stored procedure via Data Portal. Here you will be adding 2 System Parameters, **Interject_NTLogin**, which is used to capture the user’s Windows login, and **Interject_LocalTimeZoneOffset**, which is used to capture the difference from the user’s local time zone to the universal time. You can read more about System Parameters (and these specific ones) [here](https://docs.gointerject.com/wGetStarted/L-Dev-CustomerAging.html#system-parameters).
+
+1. Create a new system parameter by pressing **Click here to add a System Parameter**.
+2. Choose **Interject_NTLogin** from the dropdown menu.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/14.png)
+
+Press the save button and wait until it turns green.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/15.png)
+
+Add a second System Parameter.
+
+1. Create a new system parameter by pressing **Click here to add a System Parameter**.
+2. Choose **Interject_LocalTimeZoneOffset** from the dropdown menu.
+3. Press the save icon to save the new parameter.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/16.png)
+
+**Step 5:** Verify all parameters are correct.
+
+Verify that you have all your parameter information correct and that you have saved them all before moving on.
+
+Your screen should look as follows.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/17.png)
+
+## Section 7: Introduce the INTERJECT Report
+
+*In this section:*
+
+##### [7.1 - Introduction to the Structure of the Report](#71---tntroduction-to-the-structure-of-the-report-1)
+
+##### [7.2 - CustomerOrderHistory Sheet Preview](#72---customerorderhistory-sheet-preview-1)
+
+##### [7.3 - SalesOrder Sheet Preview](#73---salesorder-sheet-preview-1)
+
+##### [7.4 - Drilling from CustomerOrderHistory to SalesOrder](#74---drilling-from-customerorderhistory-to-salesorder-1)
+
+#### Introduction
+
+This section introduces the report, its layout and structure, and its purpose.
+
+#### 7.1 - Introduction to the Structure of the Report
+
+In this lab, you will create one report which contains two spreadsheets. The report is a customer order report, showing data about past orders, the orders' contents, and the customers who placed the orders.
+
+The first sheet in the report is called **CustomerOrderHistory**. It is a summary sheet, showing one record for each of all past orders, and allowing filtering of the data reported based customer and company information. The data presented for each record in this sheet is brief, but tells the general story of who placed the order, when the order was placed, how much was spent, etc.
+
+The second sheet is called **SalesOrder**. This sheet provides a detailed look at a single order, providing more detailed information about each order than CustomerOrderHistory provides, such as the contact information of the customer, shipper information, etc.
+
+The two sheets are linked together with an INTERJECT ReportDrill() function, which allows the user the select a record in CustomerOrderHistory and *DRILL* into the SalesOrder report for that specific order. This interaction between the two sheets within the report makes it a powerful and efficient tool for looking at lots of data at once in CustomerOrderHistory, and only drilling into SalesOrder when it is necessary to inspect a single order in detail.
+
+#### 7.2 - CustomerOrderHistory Sheet Preview
+
+Here is how the final CustomerOrderHistory report will look to the end user, populated with data.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/01.png)
+
+As you can see, each record here is concise and well formatted. It is easy to see all the necessary high-level information about a large group of orders.
+
+#### 7.3 - SalesOrder Sheet Preview
+
+The SalesOrder report will provide information for a given order, broken up into the following 3 categories:
+
+**1. Customer Information:** This section includes information about the customer who placed the order that is being drilled on.
+
+**2. Order Information:** This section contains information about the order and shipping logistics.
+
+**3. Product/Order Contents Information:** This section contains information about the products in the order.
+
+The final report with the above categories is shown below.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/02.png)
+
+#### 7.4 - Drilling from CustomerOrderHistory to SalesOrder
+
+The SalesOrder report is designed to be drilled to from CustomerOrderHistory, which lists **OrderIDs**. The user drills *on* a specific OrderID, then SalesOrder will open and display a report for that specific OrderID. This allows the user to focus in on one order in SalesOrder while still giving them the flexibility to also view all previous orders from a comprehensive list in CustomerOrderHistory.
+
+The following screenshot shows the steps for how one would run a DRILL on an OrderID in the CustomerOrderHistory report.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/02.png)
+
+This sends the OrderID = 11027 to the SalesOrder report, where SalesOrder will run a ReportRange() (a PULL action) using OrderID = 11027 as a filter for the results it pulls in.
+
+As you can see below, the PULL action brings you to the SalesOrder worksheet and pulls data for the OrderID = 11027.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/03.png)
 
 ## Section 8: Build the CustomerOrderHistory Spreadsheet for the Report
 
-### CustomerOrderHistory - Creating the Worksheet Definitions Area
+### 8.1 - Creating the Worksheet Definitions Area
 
 This section shows how to create the report definitions area.
 
@@ -424,7 +619,7 @@ Now, you should have a blank Excel workbook that looks like the following:
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/03.png)
 
-**Step 2:** Add titles to the worksheet definitions subsections.
+**Step 2:** Add titles for the worksheet definitions subsections.
 
 Select row 1 and color it dark blue (#1F4E78). This is a common cell color that INTERJECT uses for report definition subsection titles, but you can customize it as you wish.
 
@@ -503,15 +698,9 @@ Now, you can use the Excel format painter feature to apply the same light blue c
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/13.png)
 
-### Setting the Freeze Panes
+#### 8.2 - Setting the Frozen Panes
 
-jFreezePanes() is an INTERJECT formatting function that takes advantage of the Excel native Freeze/Unfreeze panes option, and it can be executed in the Quick Tools menu. The jFreezePanes() function allows us to specify:
-* Which worksheets in a workbook will be frozen (whichever worksheets have the jFreezePanes() function in their Report Formulas section) when "Freeze/unfreeze panes" is run in Excel.
-* *Where* to freeze the panes in the workbook (which cells will be frozen at the top of the sheet and which will be hidden when panes are frozen). [Read more about jFreezePanes() here](https://docs.gointerject.com/wIndex/jFreezePanes.html).
-
-INTERJECT uses freeze panes on its reports to:
-* Contain and hide the **report definitions section**. It is hidden to ensure that end users are not confused with details that they do not need to see.
-* Keep a header with column titles and a report title visible to the user as they scroll through report data.
+This section walks you through configring the frozen panes in the spreadsheet using jFreezePanes().
 
 **Step 1:** Add the formula to the sheet.
 
@@ -521,7 +710,6 @@ Type “=jFreezePanes()” in cell **F10**.
 
 **Step 2:** Set the freeze panes at the correct location.
 
-There are two formula arguments for jFreezePanes(), **FreezePanesCell** and **AnchorViewCell**. AnchorViewCell specifies the very top row that will be visible when the panes are frozen. The cells above AnchorViewCell will be hidden when the panes are frozen. The cells between AnchorViewCell and FreezePanesCell will become a frozen block of cells that are anchored to the top of the sheet as the user scrolls down through the report.
 
 Click on the function builder icon to open it.
 
@@ -548,7 +736,9 @@ Your report should now look like the following. The sectioned off block from row
 
 Now that the freeze panes is set up, formatting the spreadsheet is the next step in creating the CustomerOrderHistory report.
 
-### Formatting the Report Area
+#### 8.3 - Creating the Report Area
+
+This section walks you through creating the report area.
 
 **Step 1:** Add the report title.
 
@@ -611,8 +801,7 @@ Right-click on any other sheets that you have in the workbook and select **Delet
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/29.png)
 
-<!-- This whole section needs to be moved -->
-### Adding ReportRange() to the Report
+#### 8.4 - Adding ReportRange() to the Report
 
 ReportRange() is a report formula used to PULL data into a defined *range* of a report from a Data Portal. ReportRange() can be used with formatting to format the data returned from the Data Portal into the spreadsheet. Read more about ReportRange() [here](https://docs.gointerject.com/wIndex/ReportRange.html#function-summary).
 
@@ -891,127 +1080,6 @@ Now you should see that, as well as the data in the Target Data Range being clea
 
 
 
-### Setting Up the Data Portal
-
-<!-- Move this description to the intro? -->
-Data Portals are provided as a way to connect to specific stored procedures within an already existing Data Connection which connects directly to the database. Data Portals provide a finer-grain level of control, and connect to a single stored procedure on the database. You can have multiple Data Portals connected to one Data Connection, but not vice-versa. For more, see [the website portal documentation](https://docs.gointerject.com/wPortal/The-INTERJECT-Website-Portal.html#-data-connections-).
-
-**Step 1:** Create the Data Portal.
-
-Navigate again to [the portal site](https://portal.gointerject.com/) and choose Data Portals.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/43.png)
-
-Create a new data portal by clicking the **NEW DATA PORTAL** button.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/44.png)
-
-**Step 2:** Edit the data portal details.
-
-1. Enter a name for your Data Portal (**”NorthwindCustomerOrders_MyName”** with your name substituted in for MyName) in the **Name** field.
-2. Enter a brief description in the **Description** field.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/45.png)
-
-<!-- This will need to change -->
-For the **Connection**, use the Data Connection you created in the last section, **NorthwindDB_YourName**. It should appear in the dropdown list when clicked.
-
-1. Expand the dropdown menu under **Connection**.
-2. Select your database, **NorthwindDB_YourName**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/46.png)
-
-Now specify the stored procedure that this data portal will be referencing. You will write the stored procedure itself shortly.
-
-Under **Stored Procedure / Command**, type in **”[demo].[northwind_customer_orders_myname]”**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/47.png)
-
-1. Under **Category**, enter **Demo**.
-2. Expand the dropdown list under **Command Type**.
-3. Choose **Stored Procedure Name** from the dropdown list.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/48.png)
-
-1. For **Data Portal Status**, choose **Enabled**.
-2. For **Is Custom Command?**, choose **No**
-3. Save your new data portal by clicking **CREATE NEW DATA PORTAL**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/49.png)
-
-**Step 3:** Add the formula parameters to the data portal.
-
-<!-- Proofread this. this is long... -->
-Formula parameters are a way for the stored procedure designer to tell the data portal about any custom parameters that they add to the data portals corresponding stored procedure. Here, custom parameters mean additional parameters that are coded into the stored procedure for a specific purpose, in this case, to serve filter parameters. There are other parameters, System Parameters, that are not considered "custom" because they are hardcoded and pass a specific piece of information from the system to whichever stored procedure they are used in. System Parameters will be discussed more in the following section.
-
-If you look at the report, you will remember we have 3 filters on our report, **Company Name**, **Contact Name** and **Customer ID**. The Data Portal and stored procedures need to know that these filter parameters exist in order for the parameters to affect the data that they pull out.
-
-It will be important later on, when writing the stored procedure, that the order the parameters are listed in the data portal and in the report is the same as their order listed in the stored procedure. Since you have already entered the filter parameters in the report, we will use the order chosen there as a template for the order in the data portal and the stored procedure.
-
-Parameter order of filters in report:
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/50.png)
-
-You will now add the filter parameters into the data portal as Formula Parameters, in the same order as their input titles are displayed the report.
-
-1. Click on the **Click here to add a Formula Parameter** link.
-2. Enter the first parameter name, **CompanyName**, in the **NAME** field.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/51.png)
-
-1. Set the **TYPE** to **nvarchar** so that a character string can be entered by the user.
-2. Set the **DIRECTION** to **input** since this will be an input parameter to the stored procedure.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/52.png)
-
-Press the save button so that it turns from red to green.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/53.png)
-
-Add the next Formula Parameter for **ContactName**.
-
-1. Click on the **Click here to add a Formula Parameter** link again.
-2. Enter **ContactName** in the **NAME** field.
-3. Select **nvarchar** in the **TYPE** field.
-4. Select **input** in the **DIRECTION** field.
-5. Click the save icon and wait until it turns green as in the picture.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/54.png)
-
-Repeat the last set of steps, changing only the **NAME** field to **CustomerID**.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/55.png)
-
-**Step 4:** Add the system parameters to the report.
-
-System Parameters are used to pass information from the user’s system to the stored procedure via Data Portal. Here you will be adding 2 System Parameters, **Interject_NTLogin**, which is used to capture the user’s Windows login, and **Interject_LocalTimeZoneOffset**, which is used to capture the difference from the user’s local time zone to the universal time. You can read more about System Parameters (and these specific ones) [here](https://docs.gointerject.com/wGetStarted/L-Dev-CustomerAging.html#system-parameters).
-
-1. Create a new system parameter by pressing **Click here to add a System Parameter**.
-2. Choose **Interject_NTLogin** from the dropdown menu.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/56.png)
-
-Press the save button and wait until it turns green.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/57.png)
-
-Add a second System Parameter.
-
-1. Create a new system parameter by pressing **Click here to add a System Parameter**.
-2. Choose **Interject_LocalTimeZoneOffset** from the dropdown menu.
-3. Press the save icon to save the new parameter.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/58.png)
-
-**Step 5:** Verify all parameters are correct.
-
-Verify that you have all your parameter information correct and that you have saved them all before moving on.
-
-Your screen should look as follows.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/59.png)
-
-
 ## Section 9: Write the SQL Stored Procedure for the SalesOrder Spreadsheet
 
 Using a SQL editor, preferably SQL Server Management Studio, create a new query file and copy-paste in the following code:
@@ -1213,41 +1281,7 @@ The TYPE and DIRECTION are preset for System Parameters.
 
 This section will walk you through creating the SalesOrder spreadsheet, which is a detailed look at a single customer order. You will start by taking a look at the final SalesOrder spreadsheet to preview you will be creating.
 
-### Introducing the SalesOrder Report and Drilling Between Reports
 
-We will now switch to creating a second report so that we can demonstrate *drilling* between reports.
-
-Drilling is a way to connect and pass values between separate worksheets or workbooks. In a drill, you always have a *source* report and a *destination* report, where the source report is the report that the user would start on and perform the drill on, and the destination report is the report that the user ends up on after the drill. A typical use case for a drill arises when you have a general report that provides a summary of some high-level data, and you want to allow the user to get more detail on some of the data in that report, but don’t have enough room to display this detail on the report. This can be resolved by creating a second report for that more detailed data and setting up a drill into the more detailed report from the summary one. You can then pass some piece of data from the general/summary report into a cell in the detailed report so that the detailed report can automatically pull in and filter data based on the cell the user drilled on in the source report. You can read more about ReportDrill() [here]().
-
-In this case, CustomerOrderHistory is the general/summary report. You will create a new report, SaleOrder, which will be the detailed report that can be drilled into from CustomerOrderHistory.
-
-### SalesOrder Worksheet Preview
-
-The goal for the second report, SalesOrder, is to have a DRILL from CustomerOrderHistory that carries over the OrderID of the record being drilled on to SalesOrder, where a detailed report on a single order will be displayed.
-
-The SalesOrder report will provide information for a given order, broken up into the following 3 categories:
-
-**1. Customer Information:** This section includes information about the customer who placed the order that is being drilled on.
-
-**2. Order Information:** This section contains information about the order and shipping logistics.
-
-**3. Product/Order Contents Information:** This section contains information about the products in the order.
-
-The final report with the above categories is shown below.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/01.png)
-
-The SalesOrder report is designed to be drilled to from a report that lists **OrderIDs** (such as the CustomerOrderHistory report), so that the user can choose one OrderID to drill on, then SalesOrder will open and display a report for that specific OrderID. This allows the user to focus in on one order in SalesOrder while still giving them the flexibility to also view all previous orders from a comprehensive list in CustomerOrderHistory.
-
-The following screenshot shows the steps for how one would perform a DRILL on an OrderID from the CustomerOrderHistory report. Do not repeat these steps yet, because it will not work for you until you’ve built your SalesOrder report with a ReportDrill(). It is provided to show how SalesOrder the report is accessed from the CustomerOrderHistory report.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/02.png)
-
-This sends the OrderID = 11027 to the SalesOrder report, where SalesOrder will run a ReportRange() (a PULL action) using OrderID = 11027 as a filter for the results it pulls in.
-
-As you can see below, the PULL action brings you to the SalesOrder worksheet and pulls data for the OrderID = 11027.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/03.png)
 
 ### Creating the SalesOrder Worksheet
 
@@ -1749,13 +1783,6 @@ You have now finished the SalesOrder spreadsheet, the last step is to configure 
 
 ## Section 7: Introduce the INTERJECT Report
 
-### Introducing the CustomerOrderHistory Report
-
-In this lab, we will create 2 reports. The first, CustomerOrderHistory, will be used to demonstrate creating a summary report that shows a list of summarized information about past customer orders, i.e. a historical record of customer orders.
-
-Here is how the final CustomerOrderHistory report will look to the end user, populated with data.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/01.png)
 
 ### CustomerOrderHistory - Introducing the Worksheet Definitions Area
 
@@ -1769,21 +1796,3 @@ Report formulas are INTERJECTs way of providing fine-grain control to report cre
 Many INTERJECT report formulas use the Worksheet Definitions Section to find the information that they need in order to perform their actions. For example, report formulas that populate data in the spreadsheet use an area of the Worksheet Definitions Section called the Column Definitions in order to tell which data to to place in which column of the spreadsheet.
 
 The worksheet definitions section is broken up into the subsections titled and colored dark blue at the top of the report, as shown above. The last title at the bottom names the Report Area, which is the final product report that end users will see. The subsections are each defined as follows:
-
-**Column Definitions:** This section defines the names of the columns, or attributes, that the data source will return, and also defines where those attributes should be placed in the report. The columns where attributes are placed in the Column Definitions section will match where they get placed in the worksheet.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/03.png)
-
-**Formatting Range:** The Formatting Range is a feature that allows you to define the formatting of the data in your Report Area in one place without repetition. It works similarly to how the Column Definitions section works, by copying the formatting applied to its cells down to the Report Area for each record that is pulled in from the data source.
-
-<!-- You can define your formatting by simply formatting the cells in the formatting range, then this formatting will be applied to the attributes in the Column Definitions, when they are pulled into the report. A Formatting Range is only necessary for INTERJECT reports wherein you are pulling multi-row data records into your report, but we will speak more on this later. Note that our Formatting Range here has sample data that matches the data type of the attribute in its Column Definition above. -->
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/04.png)
-
-**Report Formulas:** This section is used to define the INTERJECT report formulas that will be in action to make your report behave the way you are aiming for. To add a report formula, simply start typing = and the name of the formula. Labels can be added in cells adjacent to cells containing report formulas to help describe what each formula is doing, as shown below.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/05.png)
-
-**Hidden Parameters and Notes:** This section is optional on most reports. It is used as a place to give a brief description of the use case or functionality of a report, and to add Filter Parameters to the report that should always be there (and in turn should be hidden from users so they cannot modify them).
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/06.png)
