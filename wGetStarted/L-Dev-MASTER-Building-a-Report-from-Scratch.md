@@ -635,6 +635,12 @@ As you can see below, the PULL action brings you to the SalesOrder worksheet and
 
 ##### [8.9 - Testing ReportDefaults()](#89---testing-reportdefaults-1)
 
+#### Introduction
+
+This section will walk you through building the CustomerOrderHistory spreadsheet, which is the first spreadsheet in the report that you will create in this lab.
+
+You can optionally end the lab after this section, and you will still have created a standalone report with only 1 sheet.
+
 #### 8.1 - Creating the Worksheet Definitions Area
 
 This section shows how to create the report definitions area.
@@ -1102,9 +1108,9 @@ Using a SQL editor, create a new query file and copy-paste in the following code
 <div markdown="1" class="panel">
 
 ```sql
-USE [MyDatabase]
+USE [mydatabase]
 
-CREATE PROC [MySchema].[northwind_customer_single_order_myname]
+CREATE PROC [dbo].[northwind_customer_single_order_myname]
 
     	 @OrderID	VARCHAR(100)
     	,@Interject_RequestContext NVARCHAR(MAX)
@@ -1140,12 +1146,12 @@ CREATE PROC [MySchema].[northwind_customer_single_order_myname]
     	,o.[ShippedDate]
     	,s.[CompanyName] AS ShipVia
     	,o.[Freight]
-    FROM [demo].[Northwind_Orders] o
-    	INNER JOIN [demo].[Northwind_Customers] c
+    FROM [dbo].[Northwind_Orders] o
+    	INNER JOIN [dbo].[Northwind_Customers] c
     		ON o.[CustomerID] = c.[CustomerID]
-    	INNER JOIN [demo].[Northwind_Shippers] s
+    	INNER JOIN [dbo].[Northwind_Shippers] s
     		ON o.[ShipVia] = s.[ShipperID]
-    	INNER JOIN [demo].[Northwind_Order Details] d
+    	INNER JOIN [dbo].[Northwind_Order Details] d
     		ON o.[OrderID] = d.[OrderID]
     WHERE o.[OrderID] = @OrderID
 
@@ -1154,17 +1160,31 @@ CREATE PROC [MySchema].[northwind_customer_single_order_myname]
 
 </div>
 
-<button class="collapsible">Sample execute statement</button>
+<button class="collapsible">Example Test Script</button>
 <div markdown="1" class="panel">
 
 ```sql
-EXEC [MySchema].[northwind_customer_single_order_myname]
+EXECUTE [dbo].[northwind_customer_single_order_myname]
 @OrderID = 11061
 ```
 
 </div>
 
 ## Section 10: Create the Data Portal for the SalesOrder Spreadsheet
+
+*In this section:*
+
+##### [10.1 - Create the Data Portal](#101--create-the-data-portal-1)
+
+##### [10.2 - Add the Formula Parameters](#102---add-the-formula-parameters-1)
+
+##### [10.3 - Add the System Parameters](#103---add-the-system-parameters-1)
+
+#### Introduction
+
+This section will walk you through creating the Data Portal that will connect to the [northwind_customer_single_order_myname] stored procedure. This Data Portal will be used to populate data into the SalesOrder spreadsheet upon a data PULL.
+
+#### 10.1 - Create the Data Portal
 
 **Step 1:** Create the Data Portal.
 
@@ -1206,7 +1226,7 @@ Now, set some of the descriptive attributes of the Data Portal and specify the s
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/06.png)
 
-**Step 3:** Add Formula Parameters to your new Data Portal.
+#### 10.2 - Add the Formula Parameters
 
 Once you save your Data Portal, you will be able to add parameters to your Data Portal.
 
@@ -1278,7 +1298,7 @@ Add the last 2 Forumula Parameters.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/12.png)
 
-**Step 4:** Add the required System Parameters to your Data Portal.
+#### 10.3 - Add the System Parameters
 
 In this Data Portal, we will use the Interject_RequestContext system parameter.
 
@@ -1293,11 +1313,13 @@ The TYPE and DIRECTION are preset for System Parameters.
 
 ## Section 11: Build the SalesOrder Spreadsheet for the Report
 
+#### Introduction
+
 This section will walk you through creating the SalesOrder spreadsheet, which is a detailed look at a single customer order. You will start by taking a look at the final SalesOrder spreadsheet to preview you will be creating.
 
 
 
-### Creating the SalesOrder Worksheet
+#### 11.1 - Creating the SalesOrder Worksheet
 
 **Step 1:** Create another worksheet in the workbook and name it SalesOrder.
 
@@ -1314,9 +1336,9 @@ Enter **SalesOrder** in the input field.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/06.png)
 
-### SalesOrder - Creating the Worksheet Definitions Area
+#### 11.2 - Creating the Worksheet Definitions Area
 
-You will start by setting up the bare bones of the Worksheet Definitions Area, then switch to formatting the Report Area. The reason you are starting with the Worksheet Definitions Area is that the configuration of the Worksheet Definitions Area will impact how the Report Area will look, in this case.
+You will start by setting up the bare bones of the Worksheet Definitions Area, then switch to formatting the Report Area. You will start with the Worksheet Definitions Area because its configuration will impact how the Report Area will look.
 
 **Step 1:** Format the report definitions area.
 
@@ -1405,9 +1427,9 @@ Click the edge of column M while columns J-M are selected, and drag the edge all
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/19.png)
 
-### SalesOrder - Setting the Freeze Panes
+#### 11.3 - Setting the Frozen Panes
 
-In the Report Formulas section in **cell G4**, type **=jFreezePanes(A24, A11)** to set the cells between A11-A24 as our frozen section at the top of the report, and cells above A11 as the hidden section when panes are frozen.
+In the Report Formulas section in **cell G4**, type **=jFreezePanes(A24, A11)** to set the cells between A11-A24 as the frozen section at the top of the report, and cells above A11 as the hidden section when panes are frozen.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/20.png)
 
@@ -1419,7 +1441,7 @@ Now, activate the freeze panes so that you can focus on formatting the Report Ar
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/21.png)
 
-### SalesOrder - Formatting the Report Area
+#### 11.4 - Formatting the Report Area
 
 Next, you will format the Report Area. You will do this before writing the Report Formulas for this report because the formatting of the Report Area will help to determine which cells will be inputs/outputs to the Report Formulas.
 
@@ -1606,7 +1628,7 @@ How to multi-select groups of cells: select the first group, hold down CTRL, the
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/45.png)
 
-### SalesOrder - Configuring the Worksheet Definitions Area
+#### 11.5 - Adding ReportRange() to the Report
 
 **Step 1:** Unfreeze panes.
 
@@ -1617,11 +1639,6 @@ Unfreeze the panes so that you can work on the Worksheet Definitions Area.
 3. Press **ENTER** OR click on **Run and Close**.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/46.png)
-
-<!-- how should this section be formatted? -->
-#### SalesOrder - Writing the ReportRange() Data Function
-
-You will now write the ReportRange() formula for the sheet. This is the formula that will call upon the Data Portal created for SalesOrder in Section 10 in order to populate the sheet with data on a data PULL.
 
 1. Type **=ReportRange()** into cell **C4**.
 2. Click on the function builder.
@@ -1634,7 +1651,7 @@ For the **DataPortal** argument, enter the name of the Data Portal you created f
 
 For the **TargetDataRange** argument, enter **24:25**.
 <!-- read more -->
-This instructs ReportRange() to insert data records between rows 24 and 25, creating new rows as necessary to fit the number of records. Keep in mind that, since we do not have a formatting range, the formatting of the first row in the TargetDataRange gets copied to all subsequent rows. In this case, this copies the side-borders down nicely to preserve the box around the data. This will also keep a padding of 3 rows below any data inserted between.
+This instructs ReportRange() to insert data records between rows 24 and 25, creating new rows as necessary to fit the number of records. Keep in mind that, since this sheet has no formatting range, the formatting of the first row in the TargetDataRange gets copied to all subsequent rows. In this case, this copies the side-borders down nicely to preserve the box around the data. This will also keep a padding of 3 rows below any data inserted between.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/49.png)
 
@@ -1648,7 +1665,7 @@ Entering Param() calls the INTERJECT Param() helper function to which you will p
 
 All input and output parameters to the Data Portal and stored procedure that end up on the spreadsheet must be reported to the Parameters argument of the Data Function (ReportRange() here). This is because the Data Function must know where to place the output cells or which cells to receive input from inside the spreadsheet.
 
-Take note that the order in which you are being instructed to enter the cell values into Param() here is significant, because it must match the order that the Formula Parameters were entered into the Data Portal and the order of parameters given to the SQL stored procedure. The Data Portal knows which parameters are which *only* based on the order in which they are passed to the Data Portal. This means that if parameters are passed in the wrong order from the spreadsheet, this will pass the wrong values into the Data Portal and the names in the Data Portal will refer to different valeus than intended.
+Take note that the order in which you are being instructed to enter the cell values into Param() here is significant, because it must match the order that the Formula Parameters were entered into the Data Portal and the order of parameters given to the SQL stored procedure. The Data Portal knows which parameters are which *only* based on the order in which they are passed to the Data Portal. This means that if parameters are passed in the wrong order from the spreadsheet, this will pass the wrong values into the Data Portal and the names in the Data Portal will refer to different values than intended.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/51.png)
 
@@ -1704,7 +1721,7 @@ Add the last 2 arguments to ReportRange().
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/56.png)
 
-#### SalesOrder - Writing the ReportDefaults() Data Function
+#### 11.6 - Adding ReportDefaults() to the Report
 
 As in CustomerOrderHistory, you will use ReportDefaults() to clear the outputs and some of the inputs from the sheet on a PULL-CLEAR action.
 
@@ -1763,9 +1780,9 @@ Click **OK** to save.
 
 You have now configured the ReportDefaults() function for the SalesOrder report.
 
-#### SalesOrder - Adding the jFocus() Formatting Function
+#### 11.7 - Adding the jFocus() Formatting Function to the Report
 
-The jFocus() formatting function lets you choose the active cell that will be focused upon (selected) when the spreadsheet is open. It is recommended to place the focus on an input or otherwise important cell. Here, place the focus on the OrderID cell, which is the value that was drilled on to get to the SalesOrder sheet.
+The jFocus() formatting function lets you choose the active cell that will be focused upon (selected) when the spreadsheet is open. It is recommended to place the focus on an input cell, or otherwise important cell on the sheet. Here, place the focus on the OrderID cell, which is the value that was drilled on to get to the SalesOrder sheet.
 
 1. Type **=jFocus()** into cell **G5**.
 2. Click on the function builder.
@@ -1775,7 +1792,7 @@ The jFocus() formatting function lets you choose the active cell that will be fo
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/63.png)
 
 
-### SalesOrder - Finishing up the Report Area
+#### 11.8 - Final Formatting of the Report Area
 
 Now that you have finished the Worksheet Definitions Area and set up the necessary Report Formulas, you can finish some final touch-ups in the Report Area which require referencing cells in the Column Definitions.
 
@@ -1793,7 +1810,7 @@ Lastly, change the font of these two cells to Century Gothic.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/66.png)
 
-You have now finished the SalesOrder spreadsheet, the last step is to configure the DRILL into it from CustomerOrderHistory.
+You have now finished the standalone SalesOrder spreadsheet.
 
 ## Section 7: Introduce the INTERJECT Report
 
