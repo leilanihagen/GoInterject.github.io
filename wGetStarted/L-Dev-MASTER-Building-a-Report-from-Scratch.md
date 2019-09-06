@@ -615,7 +615,27 @@ As you can see below, the PULL action brings you to the SalesOrder worksheet and
 
 ## Section 8: Build the CustomerOrderHistory Spreadsheet for the Report
 
-### 8.1 - Creating the Worksheet Definitions Area
+*In this section:*
+
+##### [8.1 - Creating the Worksheet Definitions Area](#81---creating-the-worksheet-definitions-area-1)
+
+##### [8.2 - Setting the Frozen Panes](#82---setting-the-frozen-panes-1)
+
+##### [8.3 - Creating the Report Area](#83---creating-the-report-area-1)
+
+##### [8.4 - Adding the Column Definitions](#84---adding-the-column-definitions-1)
+
+##### [8.5 - Adding ReportRange() to the Report](#85---adding-reportrange-to-the-report-1)
+
+##### [8.6 - Designing the Formatting Range](#86---designing-the-formatting-range-1)
+
+##### [8.7 - Testing ReportRange() with a Data PULL](#87---testing-reportrange-with-a-data-pull-1)
+
+##### [8.8 - Adding ReportDefaults() to the Report](#88---adding-reportdefaults-to-the-report-1)
+
+##### [8.9 - Testing ReportDefaults()](#89---testing-reportdefaults-1)
+
+#### 8.1 - Creating the Worksheet Definitions Area
 
 This section shows how to create the report definitions area.
 
