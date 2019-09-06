@@ -1313,6 +1313,24 @@ The TYPE and DIRECTION are preset for System Parameters.
 
 ## Section 11: Build the SalesOrder Spreadsheet for the Report
 
+*In this section:*
+
+##### [11.1 - Creating the SalesOrder Worksheet](#111---creating-the-salesorder-worksheet-1)
+
+##### [11.2 - Creating the Worksheet Definitions Area](#112---creating-the-worksheet-definitions-area-1)
+
+##### [11.3 - Setting the Frozen Panes](#113---setting-the-frozen-panes-1)
+
+##### [11.4 - Formatting the Report Area](#114---formatting-the-report-area-1)
+
+##### [11.5 - Adding ReportRange() to the Report](#115---adding-reportrange-to-the-report-1)
+
+##### [11.6 - Adding ReportDefaults() to the Report](#116---adding-reportdefaults-to-the-report-1)
+
+##### [11.7 - Adding the jFocus() Formatting Function to the Report](#117---adding-the-jfocus-formatting-function-to-the-report-1)
+
+##### [11.8 - Final Formatting of the Report Area](#118---final-formatting-of-the-report-area-1)
+
 #### Introduction
 
 This section will walk you through creating the SalesOrder spreadsheet, which is a detailed look at a single customer order. You will start by taking a look at the final SalesOrder spreadsheet to preview you will be creating.
