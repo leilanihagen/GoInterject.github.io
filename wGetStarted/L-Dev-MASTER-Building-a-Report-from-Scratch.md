@@ -32,41 +32,41 @@ This lab will be broken up into sections that each achieve a small goal of their
 
 Click on any of the section headings listed here to jump to them.
 
-##### [Section 1: Download Required Software and Sample Database]()
+#### [Section 1: Required Software and Sample Database](#section-1-required-software-and-sample-database-1)
 The first section simply ensures that you have the correct software and sample data installed on your computer. After completing Section 1, you will have SQL Server installed on your computer as well as an editor to create and run SQL code, and you will have a sample SQL database on your local machine that you can run SQL on.
 
-##### [Section 2: Learn SQL Server Basics]()
+#### [Section 2: SQL Server Basics](#section-2-sql-server-basics-1)
 This section provides you with resources for learning the basics of SQL Server. Those familiar with SQL server SELECT statements can skip this section entirely. You can also skip this section if you are only interested in learning the INTERJECT parts of creating a report.
 
-##### [Section 3: Important INTERJECT Terminology and Definitions]()
+#### [Section 3: Important INTERJECT Terminology and Definitions](#section-3-important-interject-terminology-and-definitions-1)
 This section provides you with the necessary understanding of INTERJECT terminology and definitions. It explains all the key components that make up an INTERJECT report and how they work together. It is *recommended* that you read this section before completing the lab. This section can also be used as a reference to look up a terms that you do not know.
 
-##### [Section 4: Create the Data Connection]()
+<!-- ? -->
+#### [Section 4: Introducing the INTERJECT Report](#section-4-introducing-the-interject-report-1)
+This section introduces the final, multi-sheet INTERJECT Report that you will create in the remaining sections and explains each backend component that will be created, and how they all fit together.
+
+#### [Section 5: Creating the Data Connection](#section-5-creating-the-data-connection-1)
 This section walks you through creating a Data Connection in the INTERJECT Portal Site. The Data Connection you create will store connection details for your sample database. You create the Data Connection before the Data Portal because the Data Portal uses the Data Connection to access your database.
 
-##### [Section 5: Write the SQL Stored Procedure for the CustomerOrderHistory Spreadsheet]()
+#### [Section 6: Writing the SQL Stored Procedure for the CustomerOrderHistory Spreadsheet](#section-6-writing-the-sql-stored-procedure-for-the-customerorderhistory-spreadsheet-1)
 This section will walk you through writing a stored procedure that will perform an INTERJECT Data PULL action (inserts data from database tables into an Excel report). The stored procedure is the the first thing that you will create in this lab because it is the fundamental piece that needs to be working properly for the INTERJECT Data Portal and the report itself to work as well.
 
-##### [Section 6: Create the Data Portal for the CustomerOrderHistory Spreadsheet]()
+#### [Section 7: Creating the Data Portal for the CustomerOrderHistory Spreadsheet](#section-7-creating-the-data-portal-for-the-customerorderhistory-spreadsheet-1)
 This section walks you through creating the first of two Data Portals that you will create in this lab. Data Portals store the name of a specific stored procedure as well as the name of an existing Data Connection. It locates a database using the database connection information stored in the Data Connection, then locates the stored procedure within that database.
 
-<!-- ? -->
-##### [Section 7: Introduce the INTERJECT Report]()
-This section introduces the final, multi-sheet INTERJECT Report that you will create in Sections 8 and 9. It also introduces the concept of drilling between sheets inside a Report.
-
-##### [Section 8: Build the CustomerOrderHistory Spreadsheet for the Report]()
+#### [Section 8: Building the CustomerOrderHistory Spreadsheet for the Report](#section-8-building-the-customerorderhistory-spreadsheet-for-the-report)
 After completing this section, you will have created the first of two spreadsheets that will together make up the report. CustomerOrderHistory will be a summary sheet of historical customer order data.
 
-##### [Section 9: Write the SQL Stored Procedure for the SalesOrder Spreadsheet]()
+#### [Section 9: Writing the SQL Stored Procedure for the SalesOrder Spreadsheet](#section-9-writing-the-sql-stored-procedure-for-the-salesorder-spreadsheet-1)
 This section will walk you through writing the second stored procedure, which will be the backend to the Data Portal for the SalesOrder spreadsheet. This stored procedure will also perform a PULL that will bring data from the database to the SalesOrder spreadsheet.
 
-##### [Section 10: Create the Data Portal for the SalesOrder Spreadsheet]()
+#### [Section 10: Creating the Data Portal for the SalesOrder Spreadsheet](#section-10-creating-the-data-portal-for-the-salesorder-spreadsheet-1)
 In this section you will create the Data Portal that will access the stored procedure written which performs a data PULL.
 
-##### [Section 11: Build the SalesOrder Spreadsheet for the Report]()
+#### [Section 11: Building the SalesOrder Spreadsheet for the Report](#section-11-building-the-salesorder-spreadsheet-for-the-report-1)
 In this section you will create the second of two spreadsheets in the report. SalesOrder will be a detailed look at a single customer order.
 
-## Section 1: Download required software and sample database()
+## Section 1: Required Software and Sample Database
 
 *In this section:*
 
@@ -303,7 +303,75 @@ Formatting Ranges work by letting you define the formatting that you wish to app
 <!-- reportdefaults() -->
 The ReportDefaults() function is used to capture values from one or a set of cells (or a hard-coded value) then send the value/s to another cell or set of cells. Its execution is triggered based on an action or event ([read the distinction between an INTERJECT action/event](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) occurring in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used here. [Read more about ReportDefaults()](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
 
-## Section 4: Create the Data Connection
+## Section 4: Introduce the INTERJECT Report
+
+*In this section:*
+
+##### [4.1 - Spreadsheets in the Report](#41---spreadsheets-in-the-report-1)
+
+##### [4.2 - CustomerOrderHistory Sheet Preview](#42---customerorderhistory-sheet-preview-1)
+
+##### [4.3 - SalesOrder Sheet Preview](#43---salesorder-sheet-preview-1)
+
+##### [4.4 - Drilling from CustomerOrderHistory to SalesOrder](#44---drilling-from-customerorderhistory-to-salesorder-1)
+
+#### Introduction
+
+This section introduces the report, its layout and structure, and its purpose.
+
+#### 4.1 - The Report as a Whole
+
+In this lab, you will create one report which contains two spreadsheets. The report is a customer order report, showing data about past orders, the orders' contents, and the customers who placed the orders.
+
+The first sheet in the report is called **CustomerOrderHistory**. It is a summary sheet, showing one record for each of all past orders, and allowing filtering of the data reported based customer and company information. The data presented for each record in this sheet is brief, but tells the general story of who placed the order, when the order was placed, how much was spent, etc.
+
+The second sheet is called **SalesOrder**. This sheet provides a detailed look at a single order, providing more detailed information about each order than CustomerOrderHistory provides, such as the contact information of the customer, shipper information, etc.
+
+The two sheets are linked together with an INTERJECT ReportDrill() function, which allows the user the select a record in CustomerOrderHistory and *DRILL* into the SalesOrder report for that specific order. This interaction between the two sheets within the report makes it a powerful and efficient tool for looking at lots of data at once in CustomerOrderHistory, and only drilling into SalesOrder when it is necessary to inspect a single order in detail.
+
+#### 4.2 - CustomerOrderHistory Sheet Preview
+
+Here is how the final CustomerOrderHistory report will look to the end user, populated with data.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/01.png)
+
+As you can see, each record here is concise and well formatted. It is easy to see all the necessary high-level information about a large group of orders.
+
+#### 4.3 - SalesOrder Sheet Preview
+
+The SalesOrder report will provide information for a given order, broken up into the following 3 categories:
+
+**1. Customer Information:** This section includes information about the customer who placed the order that is being drilled on.
+
+**2. Order Information:** This section contains information about the order and shipping logistics.
+
+**3. Product/Order Contents Information:** This section contains information about the products in the order.
+
+The final report with the above categories is shown below.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/02.png)
+
+#### 4.4 - Drilling from CustomerOrderHistory to SalesOrder
+
+The SalesOrder report is designed to be drilled to from CustomerOrderHistory, which lists **OrderIDs**. The user drills *on* a specific OrderID, then SalesOrder will open and display a report for that specific OrderID. This allows the user to focus in on one order in SalesOrder while still giving them the flexibility to also view all previous orders from a comprehensive list in CustomerOrderHistory.
+
+The following screenshot shows the steps for how one would run a DRILL on an OrderID in the CustomerOrderHistory report.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/02.png)
+
+This sends the OrderID = 11027 to the SalesOrder report, where SalesOrder will run a ReportRange() (a PULL action) using OrderID = 11027 as a filter for the results it pulls in.
+
+As you can see below, the PULL action brings you to the SalesOrder worksheet and pulls data for the OrderID = 11027.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/03.png)
+
+#### 4.5 - The Backend of the Reports
+
+With the complex report that you have just been introduced to, it may be somewhat mysterious how INTERJECT handles the data retrieval and operations in the background. This subsection will explain how the reports backend will be structured.
+
+ 
+
+## Section 5: Creating the Data Connection
 
 You will now create the Data Connection that will serve as the layer that accesses your Northwind database. This Data Connection will be used to connect to your database by both of the Data Portals that will be created later in the lab.
 
@@ -350,11 +418,11 @@ For the connection string, you must already have your own sample Northwind datab
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/42.png)
 
-## Section 5: Write the SQL Stored Procedure for the CustomerOrderHistory Spreadsheet
+## Section 6: Writing the SQL Stored Procedure for the CustomerOrderHistory Spreadsheet
 
 <!-- Add steps showing how to navigate SSMS to copy paste the code -->
 
-**Step 1:** COpy-paste the stored procedure code provided into your favorite SQL editor..
+**Step 1:** Copy-paste the stored procedure code provided into your favorite SQL editor..
 
 Using a SQL editor like [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/sql-server-management-studio-ssms?view=sql-server-2017), copy and paste in the following code:
 
@@ -434,7 +502,17 @@ Change "myname" in the following portion of code to your name (here "mary").
 
 **Step 3:** Execute your stored procedure.
 
-## Section 6: Create the Data Portal for the CustomerOrderHistory Spreadsheet
+## Section 7: Creating the Data Portal for the CustomerOrderHistory Spreadsheet
+
+*In this section:*
+
+##### [7.1 - Creating the Data Portal](#71---creating-the-data-portal-1)
+
+##### [7.2 - Adding the Formula Parameters](#72---adding-the-formula-parameters-1)
+
+##### [7.3 - Adding the System Parameters](#73---adding-the-system-parameters)
+
+#### 7.1 - Creating the Data Portal
 
 **Step 1:** Create the Data Portal.
 
@@ -550,68 +628,6 @@ Verify that you have all your parameter information correct and that you have sa
 Your screen should look as follows.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/17.png)
-
-## Section 7: Introduce the INTERJECT Report
-
-*In this section:*
-
-##### [7.1 - Introduction to the Structure of the Report](#71---introduction-to-the-structure-of-the-report-1)
-
-##### [7.2 - CustomerOrderHistory Sheet Preview](#72---customerorderhistory-sheet-preview-1)
-
-##### [7.3 - SalesOrder Sheet Preview](#73---salesorder-sheet-preview-1)
-
-##### [7.4 - Drilling from CustomerOrderHistory to SalesOrder](#74---drilling-from-customerorderhistory-to-salesorder-1)
-
-#### Introduction
-
-This section introduces the report, its layout and structure, and its purpose.
-
-#### 7.1 - Introduction to the Structure of the Report
-
-In this lab, you will create one report which contains two spreadsheets. The report is a customer order report, showing data about past orders, the orders' contents, and the customers who placed the orders.
-
-The first sheet in the report is called **CustomerOrderHistory**. It is a summary sheet, showing one record for each of all past orders, and allowing filtering of the data reported based customer and company information. The data presented for each record in this sheet is brief, but tells the general story of who placed the order, when the order was placed, how much was spent, etc.
-
-The second sheet is called **SalesOrder**. This sheet provides a detailed look at a single order, providing more detailed information about each order than CustomerOrderHistory provides, such as the contact information of the customer, shipper information, etc.
-
-The two sheets are linked together with an INTERJECT ReportDrill() function, which allows the user the select a record in CustomerOrderHistory and *DRILL* into the SalesOrder report for that specific order. This interaction between the two sheets within the report makes it a powerful and efficient tool for looking at lots of data at once in CustomerOrderHistory, and only drilling into SalesOrder when it is necessary to inspect a single order in detail.
-
-#### 7.2 - CustomerOrderHistory Sheet Preview
-
-Here is how the final CustomerOrderHistory report will look to the end user, populated with data.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/01.png)
-
-As you can see, each record here is concise and well formatted. It is easy to see all the necessary high-level information about a large group of orders.
-
-#### 7.3 - SalesOrder Sheet Preview
-
-The SalesOrder report will provide information for a given order, broken up into the following 3 categories:
-
-**1. Customer Information:** This section includes information about the customer who placed the order that is being drilled on.
-
-**2. Order Information:** This section contains information about the order and shipping logistics.
-
-**3. Product/Order Contents Information:** This section contains information about the products in the order.
-
-The final report with the above categories is shown below.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/02.png)
-
-#### 7.4 - Drilling from CustomerOrderHistory to SalesOrder
-
-The SalesOrder report is designed to be drilled to from CustomerOrderHistory, which lists **OrderIDs**. The user drills *on* a specific OrderID, then SalesOrder will open and display a report for that specific OrderID. This allows the user to focus in on one order in SalesOrder while still giving them the flexibility to also view all previous orders from a comprehensive list in CustomerOrderHistory.
-
-The following screenshot shows the steps for how one would run a DRILL on an OrderID in the CustomerOrderHistory report.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/02.png)
-
-This sends the OrderID = 11027 to the SalesOrder report, where SalesOrder will run a ReportRange() (a PULL action) using OrderID = 11027 as a filter for the results it pulls in.
-
-As you can see below, the PULL action brings you to the SalesOrder worksheet and pulls data for the OrderID = 11027.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/03.png)
 
 ## Section 8: Build the CustomerOrderHistory Spreadsheet for the Report
 
@@ -1313,6 +1329,10 @@ The TYPE and DIRECTION are preset for System Parameters.
 
 ## Section 11: Build the SalesOrder Spreadsheet for the Report
 
+#### Introduction
+
+This section will walk you through creating the SalesOrder spreadsheet, which is a detailed look at a single customer order. You will start by taking a look at the final SalesOrder spreadsheet to preview you will be creating.
+
 *In this section:*
 
 ##### [11.1 - Creating the SalesOrder Worksheet](#111---creating-the-salesorder-worksheet-1)
@@ -1330,12 +1350,6 @@ The TYPE and DIRECTION are preset for System Parameters.
 ##### [11.7 - Adding the jFocus() Formatting Function to the Report](#117---adding-the-jfocus-formatting-function-to-the-report-1)
 
 ##### [11.8 - Final Formatting of the Report Area](#118---final-formatting-of-the-report-area-1)
-
-#### Introduction
-
-This section will walk you through creating the SalesOrder spreadsheet, which is a detailed look at a single customer order. You will start by taking a look at the final SalesOrder spreadsheet to preview you will be creating.
-
-
 
 #### 11.1 - Creating the SalesOrder Worksheet
 
