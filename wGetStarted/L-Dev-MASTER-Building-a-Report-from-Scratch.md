@@ -684,21 +684,23 @@ You can optionally end the lab after this section, and you will still have creat
 
 ##### [8.1 - Creating the Worksheet Definitions Area](#81---creating-the-worksheet-definitions-area-1)
 
-##### [8.2 - Setting the Frozen Panes](#82---setting-the-frozen-panes-1)
+##### [8.2 - Setting the Frozen Panes with jFreezePanes()](#82---setting-the-frozen-panes-with-jfreezepanes-1)
 
 ##### [8.3 - Creating the Report Area](#83---creating-the-report-area-1)
 
 ##### [8.4 - Adding the Column Definitions](#84---adding-the-column-definitions-1)
 
-##### [8.5 - Adding ReportRange() to the Report](#85---adding-reportrange-to-the-report-1)
+##### [8.5 - Adding ReportRange() to the Sheet](#85---adding-reportrange-to-the-sheet-1)
 
 ##### [8.6 - Designing the Formatting Range](#86---designing-the-formatting-range-1)
 
 ##### [8.7 - Testing ReportRange() with a Data PULL](#87---testing-reportrange-with-a-data-pull-1)
 
-##### [8.8 - Adding ReportDefaults() to the Report](#88---adding-reportdefaults-to-the-report-1)
+##### [8.8 - Adding ReportDefaults() to the Sheet](#88---adding-reportdefaults-to-the-sheet-1)
 
 ##### [8.9 - Testing ReportDefaults()](#89---testing-reportdefaults-1)
+
+##### [8.10 - Setting the Focused Cell with jFocus()](#810---setting-the-focused-cell-with-jfocus-1)
 
 #### 8.1 - Creating the Worksheet Definitions Area
 
@@ -797,9 +799,9 @@ Now, you can use the Excel format painter feature to apply the same light blue c
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/13.png)
 
-#### 8.2 - Setting the Frozen Panes
+#### 8.2 - Setting the Frozen Panes with jFreezePanes()
 
-This section walks you through configring the frozen panes in the spreadsheet using jFreezePanes().
+This section walks you through configuring the frozen panes in the spreadsheet using jFreezePanes().
 
 **Step 1:** Add the formula to the sheet.
 
@@ -926,7 +928,7 @@ In row 3, type:
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/31.png)
 
-#### 8.5 - Adding ReportRange() to the Report
+#### 8.5 - Adding ReportRange() to the Sheet
 
 This section will walk you through configuring a ReportRange() on the CustomerOrderHistory sheet as well as set up the arguments that you need to provide to it, such as the Column Definiton section.
 
@@ -1084,7 +1086,7 @@ Your data should look like the following screenshot:
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/53.png)
 
-#### 8.8 - Adding ReportDefaults() to the Report
+#### 8.8 - Adding ReportDefaults() to the Sheet
 
 This section will walk you through writing the ReportDefaults() function for this sheet. You are using ReportDefaults here to clear out the filter values in cells C21-C23 after a CLEAR is run on the report. CLEAR does not do this by default, because its scope of control over the report is limited to the *results* of the data pull (CLEAR is only allowed to modify the data that a PULL action brings in, because a CLEAR reverses a PULL).
 
@@ -1156,6 +1158,14 @@ Enter **market** into cell **C21**, and **b** into cell **C22**.
 Now you should see that, as well as the data in the Target Data Range being cleared, the filter values in cells C21-C23 will also clear out.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/63.png)
+
+#### 8.10 - Setting the Focused Cell with jFocus()
+
+As a finishing touch, set the active cell for the sheet. It is standard to set the Excel active focused cell on a user input cell when one exists. Set the active focused cell on the input field for the first filter parameter, Company Name.
+
+Type **=jFocus(C21)** into cell **F11**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/64.png)
 
 You have now completed the standalone CustomerOrderHistory sheet; the only thing left to implement is the DRILL from the CustomerOrderHistory sheet to the SalesOrder sheet, which will be done after the SalesOrder sheet has been made.
 
@@ -1391,15 +1401,15 @@ This section will walk you through creating the SalesOrder spreadsheet, which is
 
 ##### [11.2 - Creating the Worksheet Definitions Area](#112---creating-the-worksheet-definitions-area-1)
 
-##### [11.3 - Setting the Frozen Panes](#113---setting-the-frozen-panes-1)
+##### [11.3 - Setting the Frozen Panes with jFreezePanes()](#113---setting-the-frozen-panes-with-jfreezepanes-1)
 
 ##### [11.4 - Formatting the Report Area](#114---formatting-the-report-area-1)
 
-##### [11.5 - Adding ReportRange() to the Report](#115---adding-reportrange-to-the-report-1)
+##### [11.5 - Adding ReportRange() to the Sheet](#115---adding-reportrange-to-the-sheet-1)
 
-##### [11.6 - Adding ReportDefaults() to the Report](#116---adding-reportdefaults-to-the-report-1)
+##### [11.6 - Adding ReportDefaults() to the Sheet](#116---adding-reportdefaults-to-the-sheet-1)
 
-##### [11.7 - Adding the jFocus() Formatting Function to the Report](#117---adding-the-jfocus-formatting-function-to-the-report-1)
+##### [11.7 - Setting the Focused Cell with jFocus()](#117---setting-the-focused-cell-with-jfocus-1)
 
 ##### [11.8 - Final Formatting of the Report Area](#118---final-formatting-of-the-report-area-1)
 
@@ -1511,7 +1521,7 @@ Click the edge of column M while columns J-M are selected, and drag the edge all
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/19.png)
 
-#### 11.3 - Setting the Frozen Panes
+#### 11.3 - Setting the Frozen Panes with jFreezePanes()
 
 In the Report Formulas section in **cell G4**, type **=jFreezePanes(A24, A11)** to set the cells between A11-A24 as the frozen section at the top of the report, and cells above A11 as the hidden section when panes are frozen.
 
@@ -1712,7 +1722,7 @@ How to multi-select groups of cells: select the first group, hold down CTRL, the
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/45.png)
 
-#### 11.5 - Adding ReportRange() to the Report
+#### 11.5 - Adding ReportRange() to the Sheet
 
 **Step 1:** Unfreeze panes.
 
@@ -1805,7 +1815,7 @@ Add the last 2 arguments to ReportRange().
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/56.png)
 
-#### 11.6 - Adding ReportDefaults() to the Report
+#### 11.6 - Adding ReportDefaults() to the Sheet
 
 As in CustomerOrderHistory, you will use ReportDefaults() to clear the outputs and some of the inputs from the sheet on a PULL-CLEAR action.
 
@@ -1864,7 +1874,7 @@ Click **OK** to save.
 
 You have now configured the ReportDefaults() function for the SalesOrder report.
 
-#### 11.7 - Adding the jFocus() Formatting Function to the Report
+#### 11.7 - Setting the Focused Cell with jFocus()
 
 In this subsection you will set the Excel active focused cell for the sheet. Set the active cell to the OrderID cell, since this should be highlighted to the user as it is the value which was drilled on.
 
