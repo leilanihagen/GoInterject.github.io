@@ -66,6 +66,9 @@ In this section you will create the Data Portal that will access the stored proc
 #### [Section 11: Building the SalesOrder Spreadsheet for the Report](#section-11-building-the-salesorder-spreadsheet-for-the-report-1)
 In this section you will create the second of two spreadsheets in the report. SalesOrder will be a detailed look at a single customer order.
 
+#### [Section 12: Connecting CustomerOrderHistory and SalesOrder with ReportDrill()](#section-12-connecting-customerorderhistory-and-salesorder-with-reportdrill-1)
+In this section, you will add the ReportDrill() data function to the CustomerOrderHistory sheet, which will allow CustomerOrderHistory to pass a value to DRILL on to SalesOrder.
+
 ## Section 1: Required Software and Sample Database
 
 *In this section:*
@@ -333,7 +336,7 @@ The two sheets are linked together with an INTERJECT ReportDrill() function, whi
 
 Here is how the final CustomerOrderHistory report will look to the end user, populated with data.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/01.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-4/01.png)
 
 As you can see, each record here is concise and well formatted. It is easy to see all the necessary high-level information about a large group of orders.
 
@@ -349,7 +352,7 @@ The SalesOrder report will provide information for a given order, broken up into
 
 The final report with the above categories is shown below.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/02.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-4/02.png)
 
 #### 4.4 - Drilling from CustomerOrderHistory to SalesOrder
 
@@ -357,19 +360,37 @@ The SalesOrder report is designed to be drilled to from CustomerOrderHistory, wh
 
 The following screenshot shows the steps for how one would run a DRILL on an OrderID in the CustomerOrderHistory report.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/02.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-4/03.png)
 
 This sends the OrderID = 11027 to the SalesOrder report, where SalesOrder will run a ReportRange() (a PULL action) using OrderID = 11027 as a filter for the results it pulls in.
 
 As you can see below, the PULL action brings you to the SalesOrder worksheet and pulls data for the OrderID = 11027.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/03.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-4/04.png)
 
-#### 4.5 - The Backend of the Reports
+#### 4.5 - Construction of the Report
 
-With the complex report that you have just been introduced to, it may be somewhat mysterious how INTERJECT handles the data retrieval and operations in the background. This subsection will explain how the reports backend will be structured.
+With the complex report that you have just been introduced to, it may be somewhat mysterious how INTERJECT handles the data retrieval and operations in the background. This subsection will explain how the backend of the report will be built out in terms of the remaining sections in the lab.
 
- 
+##### The Data Connection
+
+**Section 5** will walk you through creating the Data Connection for this Report. Only one Data Connection is needed for the report as a whole, because only one database (your Northwind database) is being used as a data source in this Report.
+
+##### CustomerOrderHistory
+
+The CustomerOrderHistory sheet will be built in **sections 6-8**.
+
+The CustomerOrderHistory sheet will have its own SQL stored procedure written for its data PULL, which you will write in **Section 6**. Along with this, CustomerOrderHistory will have a Data Portal written for it in **Section 7**. Finally, you will create the CustomerOrderHistory spreadsheet itself in **Section 8**.
+
+##### SalesOrder
+
+The SalesOrder sheet will be built in **sections 9-11**.
+
+In **Section 9** you will write the stored procedure for the data PULL that will be used in the SalesOrder sheet. **Section 10** will then walk you through creating the Data Portal that goes with the stored procedure. You will create the SalesOrder spreadsheet itself in **Section 11**.
+
+##### Tying the Report together
+
+**Section 12** will walk you through connecting the CustomerOrderHistory and SalesOrder sheets together with a DRILL. This is the final step necessary for the report to be fully functional as a whole.
 
 ## Section 5: Creating the Data Connection
 
@@ -498,7 +519,7 @@ CREATE PROC [dbo].[northwind_customer_orders_myname]
 
 Change "myname" in the following portion of code to your name (here "mary").
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-5/01.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/01.png)
 
 **Step 3:** Execute your stored procedure.
 
@@ -518,18 +539,18 @@ Change "myname" in the following portion of code to your name (here "mary").
 
 Navigate again to [the portal site](https://portal.gointerject.com/) and choose Data Portals.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/01.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/01.png)
 
 Create a new data portal by clicking the **NEW DATA PORTAL** button.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/02.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/02.png)
 
 **Step 2:** Edit the data portal details.
 
 1. Enter a name for your Data Portal (**”NorthwindCustomerOrders_MyName”** with your name substituted in for MyName) in the **Name** field.
 2. Enter a brief description in the **Description** field.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/03.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/03.png)
 
 <!-- This will need to change -->
 For the **Connection**, use the Data Connection you created in the last section, **NorthwindDB_YourName**. It should appear in the dropdown list when clicked.
@@ -537,25 +558,25 @@ For the **Connection**, use the Data Connection you created in the last section,
 1. Expand the dropdown menu under **Connection**.
 2. Select your database, **NorthwindDB_YourName**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/04.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/04.png)
 
 Now specify the stored procedure that this data portal will be referencing. You will write the stored procedure itself shortly.
 
 Under **Stored Procedure / Command**, type in **”[demo].[northwind_customer_orders_myname]”**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/05.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/05.png)
 
 1. Under **Category**, enter **Demo**.
 2. Expand the dropdown list under **Command Type**.
 3. Choose **Stored Procedure Name** from the dropdown list.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/06.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/06.png)
 
 1. For **Data Portal Status**, choose **Enabled**.
 2. For **Is Custom Command?**, choose **No**
 3. Save your new data portal by clicking **CREATE NEW DATA PORTAL**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/07.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/07.png)
 
 **Step 3:** Add the formula parameters to the data portal.
 
@@ -568,23 +589,23 @@ It will be important later on, when writing the stored procedure, that the order
 
 Parameter order of filters in report:
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/08.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/08.png)
 
 You will now add the filter parameters into the data portal as Formula Parameters, in the same order as their input titles are displayed the report.
 
 1. Click on the **Click here to add a Formula Parameter** link.
 2. Enter the first parameter name, **CompanyName**, in the **NAME** field.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/09.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/09.png)
 
 1. Set the **TYPE** to **nvarchar** so that a character string can be entered by the user.
 2. Set the **DIRECTION** to **input** since this will be an input parameter to the stored procedure.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/10.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/10.png)
 
 Press the save button so that it turns from red to green.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/11.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/11.png)
 
 Add the next Formula Parameter for **ContactName**.
 
@@ -594,11 +615,11 @@ Add the next Formula Parameter for **ContactName**.
 4. Select **input** in the **DIRECTION** field.
 5. Click the save icon and wait until it turns green as in the picture.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/12.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/12.png)
 
 Repeat the last set of steps, changing only the **NAME** field to **CustomerID**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/13.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/13.png)
 
 **Step 4:** Add the system parameters to the report.
 
@@ -607,11 +628,11 @@ System Parameters are used to pass information from the user’s system to the s
 1. Create a new system parameter by pressing **Click here to add a System Parameter**.
 2. Choose **Interject_NTLogin** from the dropdown menu.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/14.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/14.png)
 
 Press the save button and wait until it turns green.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/15.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/15.png)
 
 Add a second System Parameter.
 
@@ -619,7 +640,7 @@ Add a second System Parameter.
 2. Choose **Interject_LocalTimeZoneOffset** from the dropdown menu.
 3. Press the save icon to save the new parameter.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/16.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/16.png)
 
 **Step 5:** Verify all parameters are correct.
 
@@ -627,7 +648,7 @@ Verify that you have all your parameter information correct and that you have sa
 
 Your screen should look as follows.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-6/17.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/17.png)
 
 ## Section 8: Build the CustomerOrderHistory Spreadsheet for the Report
 
@@ -1183,8 +1204,13 @@ CREATE PROC [dbo].[northwind_customer_single_order_myname]
 EXECUTE [dbo].[northwind_customer_single_order_myname]
 @OrderID = 11061
 ```
-
 </div>
+
+**Step 2:** Modify the stored procedure.
+
+Change "myname" in the following portion of code to your name (here "mary").
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/01.png)
 
 ## Section 10: Create the Data Portal for the SalesOrder Spreadsheet
 
@@ -1843,6 +1869,66 @@ Lastly, change the font of these two cells to Century Gothic.
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-11/66.png)
 
 You have now finished the standalone SalesOrder spreadsheet.
+
+## Section 12: Connecting CustomerOrderHistory and SalesOrder with ReportDrill()
+
+#### Introduction
+
+This section will walk you through setting up the DRILL between the two spreadsheets previously created. After this section, you will have finished the report.
+
+#### 12.1 - Setting up the ReportDrill() Formula
+
+**Step 1:** Add the formula to the CustomerOrderHistory sheet.
+
+1. Type **=ReportDefaults()** into cell **C12**.
+2. Click on the function builder icon.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/01.png)
+
+**Step 2:** Provide the function arguments to ReportDrill().
+
+When the DRILL action is run, SalesOrder should run its ReportRange() function with the ID
+<!-- ... -->
+
+The first argument to provide is the cell address of the data function to run on SalesOrder.
+
+Type **SalesOrder!C4** into the **ReportCellToRun** argument.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/02.png)
+
+The next argument you need for this DRILL is TransferPairs.
+
+Type **PairGroup(Pair())** into the **TransferPairs** argument to set up one Pair() function.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/03.png)
+
+For **DrillName**, enter **"Open Order Page"** then press **OK** to close the window.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/04.png)
+
+1. Click on cell **C12**.
+2. Click inside the word **Pair**.
+3. Click on the function builder.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/05.png)
+
+Enter **F27:F28** into the **From** argument to specify that the cell being drilled on must be in column F (where OrderID is) of the TargetDataRange in CustomerOrderHistory.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/06.png)
+
+Enter **SalesOrder!H15** into the **Target** argument to specify where the OrderID drilled on will be placed in the SalesOrder sheet.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/07.png)
+
+Lastly, enter **TRUE** into the **RequireValue** argument then press **OK** to save.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/08.png)
+
+#### 12.2 - Testing ReportDrill()
+
+To test ReportDrill(), you can use the INTERJECT DRILL command.
+
+
 
 ## Section 7: Introduce the INTERJECT Report
 
