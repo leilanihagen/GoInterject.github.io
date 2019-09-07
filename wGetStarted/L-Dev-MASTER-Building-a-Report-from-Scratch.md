@@ -1173,7 +1173,7 @@ USE [mydatabase]
 
 CREATE PROC [dbo].[northwind_customer_single_order_myname]
 
-    	 @OrderID	VARCHAR(100)
+    	 @OrderID	NVARCHAR(100)
     	,@Interject_RequestContext NVARCHAR(MAX)
 
     AS
