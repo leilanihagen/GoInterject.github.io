@@ -38,7 +38,7 @@ The first section simply ensures that you have the correct software and sample d
 #### [Section 2: SQL Server Basics](#section-2-sql-server-basics-1)
 This section provides you with resources for learning the basics of SQL Server. Those familiar with SQL server SELECT statements can skip this section entirely. You can also skip this section if you are only interested in learning the INTERJECT parts of creating a report.
 
-#### [Section 3: Important INTERJECT Terminology and Definitions](#section-3-important-interject-terminology-and-definitions-1)
+#### [Section 3: INTERJECT Report Terminology and Definitions](#section-3-interject-report-terminology-and-definitions-1)
 This section provides you with the necessary understanding of INTERJECT terminology and definitions. It explains all the key components that make up an INTERJECT report and how they work together. It is *recommended* that you read this section before completing the lab. This section can also be used as a reference to look up a terms that you do not know.
 
 <!-- ? -->
@@ -48,19 +48,19 @@ This section introduces the final, multi-sheet INTERJECT Report that you will cr
 #### [Section 5: Creating the Data Connection](#section-5-creating-the-data-connection-1)
 This section walks you through creating a Data Connection in the INTERJECT Portal Site. The Data Connection you create will store connection details for your sample database. You create the Data Connection before the Data Portal because the Data Portal uses the Data Connection to access your database.
 
-#### [Section 6: Writing the SQL Stored Procedure for the CustomerOrderHistory Spreadsheet](#section-6-writing-the-sql-stored-procedure-for-the-customerorderhistory-spreadsheet-1)
+#### [Section 6: Writing the SQL Stored Procedure for the CustomerOrderHistory Data PULL](#section-6-writing-the-sql-stored-procedure-for-the-customerorderhistory-data-pull-1)
 This section will walk you through writing a stored procedure that will perform an INTERJECT Data PULL action (inserts data from database tables into an Excel report). The stored procedure is the the first thing that you will create in this lab because it is the fundamental piece that needs to be working properly for the INTERJECT Data Portal and the report itself to work as well.
 
-#### [Section 7: Creating the Data Portal for the CustomerOrderHistory Spreadsheet](#section-7-creating-the-data-portal-for-the-customerorderhistory-spreadsheet-1)
+#### [Section 7: Creating the Data Portal for the CustomerOrderHistory Data PULL](#section-7-creating-the-data-portal-for-the-customerorderhistory-data-pull-1)
 This section walks you through creating the first of two Data Portals that you will create in this lab. Data Portals store the name of a specific stored procedure as well as the name of an existing Data Connection. It locates a database using the database connection information stored in the Data Connection, then locates the stored procedure within that database.
 
 #### [Section 8: Building the CustomerOrderHistory Spreadsheet for the Report](#section-8-building-the-customerorderhistory-spreadsheet-for-the-report)
 After completing this section, you will have created the first of two spreadsheets that will together make up the report. CustomerOrderHistory will be a summary sheet of historical customer order data.
 
-#### [Section 9: Writing the SQL Stored Procedure for the SalesOrder Spreadsheet](#section-9-writing-the-sql-stored-procedure-for-the-salesorder-spreadsheet-1)
+#### [Section 9: Writing the SQL Stored Procedure for the SalesOrder Data PULL](#section-9-writing-the-sql-stored-procedure-for-the-salesorder-data-pull-1)
 This section will walk you through writing the second stored procedure, which will be the backend to the Data Portal for the SalesOrder spreadsheet. This stored procedure will also perform a PULL that will bring data from the database to the SalesOrder spreadsheet.
 
-#### [Section 10: Creating the Data Portal for the SalesOrder Spreadsheet](#section-10-creating-the-data-portal-for-the-salesorder-spreadsheet-1)
+#### [Section 10: Creating the Data Portal for the SalesOrder Data PULL](#section-10-creating-the-data-portal-for-the-salesorder-data-pull-1)
 In this section you will create the Data Portal that will access the stored procedure written which performs a data PULL.
 
 #### [Section 11: Building the SalesOrder Spreadsheet for the Report](#section-11-building-the-salesorder-spreadsheet-for-the-report-1)
@@ -71,34 +71,32 @@ In this section, you will add the ReportDrill() data function to the CustomerOrd
 
 ## Section 1: Required Software and Sample Database
 
-*In this section:*
-
-##### [1.1 - Download SQL Server](#11---download-sql-server-1)
-##### [1.2 - Download SQL Server Management Studio](#12---download-sql-server-management-studio-1)
-##### [1.3 - Create Your own Northwind Sample Database](#13---create-your-own-northwind-sample-database-1)
-
 #### Introduction
 
-You will need SQL Server installed on your computer to complete this lab, and you will also need an editor for SQL Server that allows you to connect to a database and write a stored procedure to it.
+In order to complete this lab, you will need SQL server installed on your computer, a SQL editor, and a sample Northwind database that you can query. You will need SQL Server installed on your computer to complete this lab, and you will also need an editor for SQL Server that allows you to connect to a database and write a stored procedure to it.
 
-#### 1.1 - Download SQL Server
+*In this section:*
+
+##### [1.1 - Downloading SQL Server](#11---downloading-sql-server-1)
+##### [1.2 - Downloading SQL Server Management Studio](#12---downloading-sql-server-management-studio-1)
+##### [1.3 - Creating Your own Northwind Sample Database](#13---creating-your-own-northwind-sample-database-1)
+
+#### 1.1 - Downloading SQL Server
 
 Skip this step if you already have a working version of SQL Server on your computer.
 
 Navigate to [Microsoft's SQL Server downloads page](https://www.microsoft.com/en-us/sql-server/sql-server-downloads), download the correct version for your computer, then run the install wizard and follow the steps to install SQL Server on your computer.
 
-#### 1.2 - Download SQL Server Management Studio
+#### 1.2 - Downloading SQL Server Management Studio
 
 Skip this step if you already have a SQL editor that you are familiar with. If not, we recommend installing and using SQL Server Management Studio (SSMS), as it is the industry standard editor for SQL Server on Windows.
 
 Navigate to [Microsoft's SSMS download page](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017), download the correct version for your computer, then run the install wizard and follow the steps to install SSMS on your computer.
 
-#### 1.3 - Create Your own Northwind Sample Database
+#### 1.3 - Creating Your own Northwind Sample Database
 
 This lab requires that you have access to a Northwind sample database that can be used as a data source. Northwind is a Microsoft sample/demo database that is used in many SQL Server tutorials for educational and demo purposes. If you do not already have a Northwind database, follow this step to get one on your SQL database instance.
 
-
-<!-- Create full steps with pictures for how to create the DB in SSMS -->
 Complete the following steps to obtain the CREATE DATABASE script for the Northwind database from GitHub.
 1. Click on the following Github link to the [CREATE DATABASE script for the Northwind database](https://github.com/microsoft/sql-server-samples/blob/master/samples/databases/northwind-pubs/instnwnd.sql).
 2. Click on "View raw" on the github page.
@@ -127,17 +125,17 @@ Click the **Execute** button in SSMS.
 
 ## Section 2: SQL Server Basics
 
+#### Introduction
+
+You will get the most out of this lab if you understand what SQL server is and how to write basic SQL SELECT statements and SQL stored procedures. However, this understanding is not strictly required in order to be able to reproduce the steps in this lab, and you can skip learning SQL if you are only focused on learning the Excel and INTERJECT portions of the lab.
+
+The following sections will provide links to external resources for you to use as learning resources for SQL Server.
+
 *In this section:*
 
 ##### [2.1 - What is SQL Server?](#21---what-is-sql-server-1)
 ##### [2.2 - The SQL SELECT Statement](#22---the-sql-select-statement-1)
 ##### [2.3 - SQL Stored Procedures](#23---sql-stored-procedures-1)
-
-#### Introduction
-
-You will get the most out of this lab if you understand what SQL server is and how to write basic SQL SELECT statements and SQL stored procedures. However, this understanding is not strictly required in order to be able to reproduce the steps in this lab, and you can skip learning SQL if you are only focused on learning the Excel and INTERJECT portions of the lab.
-
-The following sections wil links as learning resources for SQL Server.
 
 #### 2.1 - What is SQL Server?
 
@@ -156,7 +154,13 @@ Here is an [article from sqlservertutorial.net](http://www.sqlservertutorial.net
 
 Reports are more than just an Excel spreadsheet, however. Excel is the front-end interface that INTERJECT uses to allow end users to interact with their data in a familiar, intuitive environment. Behind Excel, the INTERJECT formulas on a given report connect to **Data Portals** which serve as the definition for how you wish to interact with your database (what data you want to retrieve and/or store). Data Portals then connect to Data Connections, which serve as a way for INTERJECT to remember how to connect to your data source, and in turn, connect to a database on a physical server or to a data API (the data source itself). -->
 
-## Section 3: Important INTERJECT Terminology and Definitions
+## Section 3: INTERJECT Report Terminology and Definitions
+
+#### Introduction
+
+This section will define all of the important terminology that relates to INTERJECT reports. Reading through this section will give you an understanding of all the components that make up an INTERJECT report.
+
+This section should also be used as a reference to go back to and look up terms as needed, as you work through this lab.
 
 *In this section:*
 
@@ -177,7 +181,6 @@ Reports are more than just an Excel spreadsheet, however. Excel is the front-end
     * ###### [Report Formulas](#report-formulas-3)
     * ###### [Hidden Parameters and Notes](#hidden-parameters-and-notes-1)
 * ##### [3.3.3 - Filter Parameters](#333---filter-parameters-1)
-
 
 #### 3.1 - What is an INTERJECT Report?
 
@@ -306,11 +309,19 @@ Formatting Ranges work by letting you define the formatting that you wish to app
 <!-- reportdefaults() -->
 The ReportDefaults() function is used to capture values from one or a set of cells (or a hard-coded value) then send the value/s to another cell or set of cells. Its execution is triggered based on an action or event ([read the distinction between an INTERJECT action/event](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) occurring in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used here. [Read more about ReportDefaults()](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
 
+<!-- formula/sys params -->
+Formula parameters are a way for the stored procedure designer to tell the data portal about any custom parameters that they add to the data portals corresponding stored procedure. Here, custom parameters mean additional parameters that are coded into the stored procedure for a specific purpose, in this case, to serve filter parameters. There are other parameters, System Parameters, that are not considered "custom" because they are hardcoded and pass a specific piece of information from the system to whichever stored procedure they are used in. System Parameters will be discussed more in the following section.
+
+
 ## Section 4: Introducing the INTERJECT Report
+
+#### Introduction
+
+This section introduces the report that you will be creating in this lab: its layout, structure and purpose.
 
 *In this section:*
 
-##### [4.1 - Spreadsheets in the Report](#41---spreadsheets-in-the-report-1)
+##### [4.1 - The Report as a Whole](#41---the-report-as-a-whole-1)
 
 ##### [4.2 - CustomerOrderHistory Sheet Preview](#42---customerorderhistory-sheet-preview-1)
 
@@ -318,18 +329,20 @@ The ReportDefaults() function is used to capture values from one or a set of cel
 
 ##### [4.4 - Drilling from CustomerOrderHistory to SalesOrder](#44---drilling-from-customerorderhistory-to-salesorder-1)
 
-#### Introduction
-
-This section introduces the report, its layout and structure, and its purpose.
+##### [4.5 - Construction Plan for the Report](#45---construction-plan-for-the-report-1)
 
 #### 4.1 - The Report as a Whole
 
-In this lab, you will create one report which contains two spreadsheets. The report is a customer order report, showing data about past orders, the orders' contents, and the customers who placed the orders.
+###### The Scope and Purpose of the Report
+In this lab, you will create one report which contains two spreadsheets. The report is a customer order report, showing data about past orders, the orders' contents, and the customers who placed the orders. The report will be broken up into two worksheets inside a single Excel workbook. Each worksheet presents slightly different data at a different scope, but both reporting on the same type of data: customer order data.
 
+###### Summary Sheet - CustomerOrderHistory
 The first sheet in the report is called **CustomerOrderHistory**. It is a summary sheet, showing one record for each of all past orders, and allowing filtering of the data reported based customer and company information. The data presented for each record in this sheet is brief, but tells the general story of who placed the order, when the order was placed, how much was spent, etc.
 
+###### Detailed Sheet - SalesOrder
 The second sheet is called **SalesOrder**. This sheet provides a detailed look at a single order, providing more detailed information about each order than CustomerOrderHistory provides, such as the contact information of the customer, shipper information, etc.
 
+###### Connection Between the Two Sheets
 The two sheets are linked together with an INTERJECT ReportDrill() function, which allows the user the select a record in CustomerOrderHistory and *DRILL* into the SalesOrder report for that specific order. This interaction between the two sheets within the report makes it a powerful and efficient tool for looking at lots of data at once in CustomerOrderHistory, and only drilling into SalesOrder when it is necessary to inspect a single order in detail.
 
 #### 4.2 - CustomerOrderHistory Sheet Preview
@@ -368,31 +381,33 @@ As you can see below, the PULL action brings you to the SalesOrder worksheet and
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-4/04.png)
 
-#### 4.5 - Construction of the Report
+#### 4.5 - Construction Plan for the Report
 
-With the complex report that you have just been introduced to, it may be somewhat mysterious how INTERJECT handles the data retrieval and operations in the background. This subsection will explain how the backend of the report will be built out in terms of the remaining sections in the lab.
+This subsection will explain how the each part of the report will be built out in terms of the remaining sections in the lab.
 
-##### The Data Connection
+###### The Data Connection
 
 **Section 5** will walk you through creating the Data Connection for this Report. Only one Data Connection is needed for the report as a whole, because only one database (your Northwind database) is being used as a data source in this Report.
 
-##### CustomerOrderHistory
+###### CustomerOrderHistory
 
 The CustomerOrderHistory sheet will be built in **sections 6-8**.
 
 The CustomerOrderHistory sheet will have its own SQL stored procedure written for its data PULL, which you will write in **Section 6**. Along with this, CustomerOrderHistory will have a Data Portal written for it in **Section 7**. Finally, you will create the CustomerOrderHistory spreadsheet itself in **Section 8**.
 
-##### SalesOrder
+###### SalesOrder
 
 The SalesOrder sheet will be built in **sections 9-11**.
 
 In **Section 9** you will write the stored procedure for the data PULL that will be used in the SalesOrder sheet. **Section 10** will then walk you through creating the Data Portal that goes with the stored procedure. You will create the SalesOrder spreadsheet itself in **Section 11**.
 
-##### Tying the Report together
+###### Tying Together the Report
 
 **Section 12** will walk you through connecting the CustomerOrderHistory and SalesOrder sheets together with a DRILL. This is the final step necessary for the report to be fully functional as a whole.
 
 ## Section 5: Creating the Data Connection
+
+#### Introduction
 
 You will now create the Data Connection that will serve as the layer that accesses your Northwind database. This Data Connection will be used to connect to your database by both of the Data Portals that will be created later in the lab.
 
@@ -404,27 +419,27 @@ Navigate to the portal site [here](https://portal.gointerject.com/).
 2. Type in your password.
 3. Press the **LOGIN** button.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/38.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-5/01.png)
 
 **Step 2:** Create a new Data Connection.
 
 Click on the **New Connection** button.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/39.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-5/02.png)
 
 **Step 3:** Fill in the connection details.
 
 1. Type the name of your connection (**NorthwindDB_MyName** with your name substituted for "MyName" is recommended) into the **Name** field.
 2.  Add a short description in the **Description** field.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/40.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-5/03.png)
 
 Select database as your connection type.
 
 1. Under **Connection Type**, click the small triable to show the options.
 2. Select **Database** from the dropdown list for **Connection Type**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/41.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-5/04.png)
 
 Enter the connection string for your Northwind database.
 
@@ -437,11 +452,13 @@ For the connection string, you must already have your own sample Northwind datab
 
 2. Once you have your connection string entered, press Save to continue.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/42.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-5/05.png)
 
-## Section 6: Writing the SQL Stored Procedure for the CustomerOrderHistory Spreadsheet
+## Section 6: Writing the SQL Stored Procedure for the CustomerOrderHistory Data PULL
 
-<!-- Add steps showing how to navigate SSMS to copy paste the code -->
+#### Introduction
+
+You will now write the stored procedure that will be called from the ReportRange() function on the CustomerOrderHistory report. This stored procedure performs the Data PULL operation.
 
 **Step 1:** Copy-paste the stored procedure code provided into your favorite SQL editor..
 
@@ -450,9 +467,9 @@ Using a SQL editor like [SQL Server Management Studio](https://docs.microsoft.co
 ```sql
 CREATE PROC [dbo].[northwind_customer_orders_myname]
 
-    	 @CompanyName VARCHAR(100) = ‘’
-    	,@ContactName VARCHAR(100) = ‘’
-    	,@CustomerID VARCHAR(500) = ''
+    	 @CompanyName NVARCHAR(100) = ‘’
+    	,@ContactName NVARCHAR(100) = ‘’
+    	,@CustomerID NVARCHAR(500) = ''
     	,@Interject_NTLogin VARCHAR(10)
     	,@Interject_LocalTimeZoneOffset MONEY
 
@@ -525,6 +542,10 @@ Change "myname" in the following portion of code to your name (here "mary").
 
 ## Section 7: Creating the Data Portal for the CustomerOrderHistory Spreadsheet
 
+#### Introduction
+
+This section walks you through creating the data portal for the CustomerOrderHistory sheet. This Data Portal will access the stored procedure just written in **Section 6**.
+
 *In this section:*
 
 ##### [7.1 - Creating the Data Portal](#71---creating-the-data-portal-1)
@@ -578,20 +599,19 @@ Under **Stored Procedure / Command**, type in **”[demo].[northwind_customer_or
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/07.png)
 
-**Step 3:** Add the formula parameters to the data portal.
+#### 7.2 - Adding the Formula Parameters
 
-<!-- Proofread this. this is long... -->
-Formula parameters are a way for the stored procedure designer to tell the data portal about any custom parameters that they add to the data portals corresponding stored procedure. Here, custom parameters mean additional parameters that are coded into the stored procedure for a specific purpose, in this case, to serve filter parameters. There are other parameters, System Parameters, that are not considered "custom" because they are hardcoded and pass a specific piece of information from the system to whichever stored procedure they are used in. System Parameters will be discussed more in the following section.
+Here, you will enter a Formula Parameter for each of the inputs specified for the stored procedure, which serve as filter parameters on the CustomerOrderHistory report: **Company Name**, **Contact Name** and **Customer ID**.
 
-If you look at the report, you will remember we have 3 filters on our report, **Company Name**, **Contact Name** and **Customer ID**. The Data Portal and stored procedures need to know that these filter parameters exist in order for the parameters to affect the data that they pull out.
+It is important that the order of parameters is the same across all of: the stored procedure, the Data Portal and the spreadsheet. It is crucial to match the order because SQL stored procedures rely only on order to know which parameter is which, so messing up the order will result in parameters being assigned to the wrong parameter name.
 
-It will be important later on, when writing the stored procedure, that the order the parameters are listed in the data portal and in the report is the same as their order listed in the stored procedure. Since you have already entered the filter parameters in the report, we will use the order chosen there as a template for the order in the data portal and the stored procedure.
+**Step 1:** Check order of parameters in stored procedure.
 
-Parameter order of filters in report:
+Go back to your stored procedure and check the order of the input parameters entered, and copy this order in the Data Portal.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/08.png)
 
-You will now add the filter parameters into the data portal as Formula Parameters, in the same order as their input titles are displayed the report.
+**Step 2:** Add the Formula Parameters.
 
 1. Click on the **Click here to add a Formula Parameter** link.
 2. Enter the first parameter name, **CompanyName**, in the **NAME** field.
@@ -652,6 +672,12 @@ Your screen should look as follows.
 
 ## Section 8: Building the CustomerOrderHistory Spreadsheet for the Report
 
+#### Introduction
+
+This section will walk you through building the CustomerOrderHistory spreadsheet, which is the first spreadsheet in the report that you will create in this lab.
+
+You can optionally end the lab after this section, and you will still have created a standalone report with only one worksheet.
+
 *In this section:*
 
 ##### [8.1 - Creating the Worksheet Definitions Area](#81---creating-the-worksheet-definitions-area-1)
@@ -671,12 +697,6 @@ Your screen should look as follows.
 ##### [8.8 - Adding ReportDefaults() to the Report](#88---adding-reportdefaults-to-the-report-1)
 
 ##### [8.9 - Testing ReportDefaults()](#89---testing-reportdefaults-1)
-
-#### Introduction
-
-This section will walk you through building the CustomerOrderHistory spreadsheet, which is the first spreadsheet in the report that you will create in this lab.
-
-You can optionally end the lab after this section, and you will still have created a standalone report with only 1 sheet.
 
 #### 8.1 - Creating the Worksheet Definitions Area
 
@@ -1137,7 +1157,11 @@ Now you should see that, as well as the data in the Target Data Range being clea
 
 You have now completed the standalone CustomerOrderHistory sheet; the only thing left to implement is the DRILL from the CustomerOrderHistory sheet to the SalesOrder sheet, which will be done after the SalesOrder sheet has been made.
 
-## Section 9: Writing the SQL Stored Procedure for the SalesOrder Spreadsheet
+## Section 9: Writing the SQL Stored Procedure for the SalesOrder Data PULL
+
+#### Introduction
+
+This section will walk you through writing the stored procedure for the Data PULL on the SalesOrder sheet.
 
 Using a SQL editor, create a new query file and copy-paste in the following code:
 
@@ -1214,6 +1238,10 @@ Change "myname" in the following portion of code to your name (here "mary").
 
 ## Section 10: Creating the Data Portal for the SalesOrder Spreadsheet
 
+#### Introduction
+
+This section will walk you through creating the Data Portal that will connect to the [northwind_customer_single_order_myname] stored procedure. This Data Portal will be used to populate data into the SalesOrder spreadsheet upon a data PULL.
+
 *In this section:*
 
 ##### [10.1 - Create the Data Portal](#101--create-the-data-portal-1)
@@ -1221,10 +1249,6 @@ Change "myname" in the following portion of code to your name (here "mary").
 ##### [10.2 - Add the Formula Parameters](#102---add-the-formula-parameters-1)
 
 ##### [10.3 - Add the System Parameters](#103---add-the-system-parameters-1)
-
-#### Introduction
-
-This section will walk you through creating the Data Portal that will connect to the [northwind_customer_single_order_myname] stored procedure. This Data Portal will be used to populate data into the SalesOrder spreadsheet upon a data PULL.
 
 #### 10.1 - Create the Data Portal
 
@@ -1357,7 +1381,7 @@ The TYPE and DIRECTION are preset for System Parameters.
 
 #### Introduction
 
-This section will walk you through creating the SalesOrder spreadsheet, which is a detailed look at a single customer order. You will start by taking a look at the final SalesOrder spreadsheet to preview you will be creating.
+This section will walk you through creating the SalesOrder spreadsheet, which is a detailed look at a single customer order.
 
 *In this section:*
 
@@ -1876,6 +1900,16 @@ You have now finished the standalone SalesOrder spreadsheet.
 
 This section will walk you through setting up the DRILL between the two spreadsheets previously created. After this section, you will have finished the report.
 
+*In this section:*
+
+##### [12.1 - Setting up the ReportDrill() Formula](#121---setting-up-the-reportdrill-formula-1)
+
+##### [12.2 - Testing ReportDrill()](#122---testing-reportdrill-1)
+
+##### [12.3 -  Adding a "Return from Drill" Hyperlink](#123---adding-a-return-from-drill-hyperlink-1)
+
+
+
 #### 12.1 - Setting up the ReportDrill() Formula
 
 **Step 1:** Add the formula to the CustomerOrderHistory sheet.
@@ -1948,7 +1982,7 @@ Type **Return from Drill** into cell **H12** and then press **ENTER** on your ke
 1. Right-click on the cell after entering the text.
 2. Select **Hyperlink** or **Link**, depending on your version on Excel, from the menu.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/11.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/12.png)
 
 In the window that pops up, do the following.
 
@@ -1957,7 +1991,7 @@ In the window that pops up, do the following.
 3. Click on the **ScreenTip** button.
 4. Type **Interject Return from Drill** into the **ScreenTip text** field, then click **OK** to save.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/12.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/13.png)
 
 The hyperlink uses the ReportDrill() function to direct back to the CustomerOrderHistory sheet.
 
