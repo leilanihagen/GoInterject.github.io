@@ -171,6 +171,7 @@ This section should also be used as a reference to go back to and look up terms 
 * ###### [Data Portals](#data-portals-1)
 * ###### [Data Connections](#data-connections-1)
 * ###### [Data Portals](#data-portals-1)
+* ###### [Data Portal Parameters](#data-portal-parameters-1)
 * ###### [Data Sources](#data-sources-1)
 
 ##### [3.3 - Anatomy of an INTERJECT Report in Excel](#33---anatomy-of-an-interject-report-in-excel-1)
@@ -182,12 +183,14 @@ This section should also be used as a reference to go back to and look up terms 
     * ###### [Hidden Parameters and Notes](#hidden-parameters-and-notes-1)
 * ##### [3.3.3 - Filter Parameters](#333---filter-parameters-1)
 
+##### [3.4 - Report Formulas Used in this Lab](#34---report-formulas-used-in-this-lab-1)
+
 #### 3.1 - What is an INTERJECT Report?
 
-##### INTERJECT Report
+###### INTERJECT Report
 An INTERJECT report is a spreadsheet-based interface to data, designed for analysis, exploration, or manipulation of metrics in almost any form or arrangement. Reports are tools that are highly customizable and, with sufficient knowledge of INTERJECTs report formulas and features, can be designed for a multitude of different and specific business, scientific or exploratory purposes.
 
-##### Multiple Worksheets and Workbooks
+###### Multiple Worksheets and Workbooks
 A report can span multiple Excel workbooks or worksheets, as more than one workbook/worksheet may need to be used to achieve the purpose of the report. For example, one can use an INTERJECT DRILL to connect two worksheets or workbooks together. DRILLs work by letting the user choose a value from one sheet to "drill on", then this value is carried to another sheet where data processing can be done with the transferred value as input to the data operations. This allows the two sheets to work on the same data sets but perform different data processing on them. Using multiple sheets is a good approach to building complex INTERJECT reports because it allows you to show the data in different levels of detail for different purposes, while still having the data connected and centralized in one report. You will create a 2-spreadsheet report with a DRILL from a summary report to a detailed report in this lab.
 
 
@@ -201,15 +204,30 @@ To show you how INTERJECT reports are structured, one of the final spreadsheets 
 There is more to a report than just the spreadsheet. The Excel spreadsheet, or set of spreadsheets, is just the interface for the user to interact with the data in the report. Behind this, we have **Report Formulas**, **Data Portals**, **Data Connections**, and **the data source** all working together to bring the end report to the user. Below is a breakdown of how each of these components contributes to the functionality of an INTERJECT Report.
 <!-- capitalize Report Formulas? -->
 ###### Report Formulas
-Report Formulas control everything that happens at the report level, from controlling the look of the Excel sheet by allowing formatting to be programmed to populating data into the spreadsheet and extracting it from the spreadsheet back to the database.
+Report Formulas control everything that happens at the report level, from controlling the look of the Excel sheet by allowing programmed formatting to populating data into the spreadsheet and extracting it from the spreadsheet back to the database.
 
-Report formulas work the same way as general Excel formulas, but they are specific to INTERJECT report actions. The most important Report Formulas to understand here are Data Functions. Data Functions are a class of INTERJECT Report Formulas that directly control and manipulate the data that is displayed the sheet. Data Functions are typically not executed until the report user performs an action that tells the Data Function to execute. An example of this is can be shown with the Data Functions ReportFixed() and ReportRange(), which both bring data into the report. They are triggered to execute when the user runs a PULL on the report. Data Portals must be provided to Data Functions as one of the functions arguments; the Data Portal provides the data to which the Data Function can further manipulate (decide where to place on the sheet, etc.).
+Report formulas work the same way as general Excel formulas, but they are specific to INTERJECT report actions.
+
+The most important Report Formulas to understand here are Data Functions. Data Functions are a class of INTERJECT Report Formulas that directly control and manipulate the data that is displayed the sheet. Data Functions are typically not executed until the report user performs an action that tells the Data Function to execute. An example of this is can be shown with the Data Functions ReportFixed() and ReportRange(), which both bring data into the report. They are triggered to execute when the user runs a PULL on the report. Data Portals must be provided to Data Functions as one of the functions arguments; the Data Portal provides the data to which the Data Function can further manipulate (decide where to place on the sheet, etc.).
+
+Many INTERJECT report formulas use the Worksheet Definitions Section to find the information that they need in order to perform their actions. For example, report formulas that populate data in the spreadsheet use an area of the Worksheet Definitions Section called the Column Definitions in order to tell which data to to place in which column of the spreadsheet.
 
 ###### Data Portals
-Data Portals exist outside of the report, in the INTERJECT Portal Site. They serve as a way to define specific data operations that can be done to extract or retrieve data from your data source. Think of the Data Portal as holding a set of instructions for how to interact with the data source. Only when the Data Portal is called on by the Report Formula is the Data Portal actually activated. When the Portal is "activated," it performs the set of instructions it contains on the data source, then returns the result (usually a dataset), if any, back to the the report. Data Portals must be assigned a Data Connection, which allows communication with the data source.
+Data Portals exist outside of the report, in the INTERJECT Portal Site. They serve as a way to define specific data operations that can be done to extract or retrieve data from your data source. Think of the Data Portal as holding a set of instructions for how to interact with the data source. Only when the Data Portal is called on by a Report Formula is the Data Portal actually activated. When the Portal is "activated," it creates a point-to-point connection with the data source (vis its Data Connection) and performs the set of instructions it contains on the data source, then returns the result (usually a dataset) back to the the report. Data Portals must be assigned a Data Connection, which allows the Data Portal to communication with the data source.
+
+When using a SQL database as your data source, Data Portals provide a way to connect to specific stored procedures within an already existing Data Connection which connects directly to the database. Data Portals provide a finer-grain level of control, and connect to a single stored procedure on the database. You can have multiple Data Portals connected to one Data Connection, but not vice-versa.
+
+For more information on Data Portals, see [the website portal documentation](https://docs.gointerject.com/wPortal/The-INTERJECT-Website-Portal.html#-data-connections-).
+
+###### Data Portal Parameters
+Data Portals can be provided with input/output parameters, and there are two categories of parameters that they can be provided, **Formula Parameters** and **System Parameters**. **Formula Parameters** are a way for the stored procedure writer to tell the Data Portal about any "custom" parameters that they add to the data portals corresponding stored procedure. "Custom" parameter means additional parameters that are coded into the stored procedure for a specific purpose, such as for use as filter parameters in a report. **System Parameters** are not considered "custom" because they are hardcoded and pass a specific piece of information from the system to whichever stored procedure they are used in. System Parameters will be discussed more in the following section.
+
+See our [overview of parameters](https://docs.gointerject.com/wPortal/Data-Portals.html#overview-of-parameters) for more information.
 
 ###### Data Connections
 Data Connections also exist outside of the report, in the INTERJECT Portal Site. Data Connections store the connection information for a given data source. Using this information, INTERJECT can create a connection to the data source (a database or data API) when needed, such as when requested by a report formula being triggered and calling a Data Portal.
+
+See our [overview of Data Connections](https://docs.gointerject.com/wPortal/Data-Connections.html) for more information.
 
 ###### Data Sources
 The data source itself can be a database, or a data API. See our docs on [Data Connections](https://docs.gointerject.com/wPortal/Data-Connections.html) to learn more about the different types of data sources that Data Connections can be made with.
@@ -229,7 +247,7 @@ The report can be broken up into the following sections:
 It is standard to place a title somewhere on each spreadsheet to tell the users the topic of the current sheet.
 
 ###### 2 - Filter parameter input area
-Here, users can enter filter text for specific columns. The Data Function which pulls in the data is programmed to look at these cells and only return data records from the Data Portal who data abides by the restrictions of the filter parameters. For each data record returned, the columns specified in the filter parameters (for example, CompanyName) must *contain* the filter text provided by the user (for example "market").
+Here, users can enter filter text for specific columns. The Data Function which pulls in the data is programmed to look at these cells and only return data records from the Data Portal who data abide by the restrictions of the filter parameters. For each data record returned, the columns specified in the filter parameters (for example, CompanyName) must *contain* the filter text provided by the user (for example "market").
 
 ###### 3 - Column names section
 This section generally occupies 1 row and simply displays the titles of the data that appears below in each column.
@@ -237,9 +255,9 @@ This section generally occupies 1 row and simply displays the titles of the data
 ###### 4 - Target data range
 The target data range is the area of the sheet where report formulas are allowed to insert or extract data to/from the report.
 
-##### 3.3.2 - Worksheet Definitions area
+##### 3.3.2 - Worksheet Definitions Area
 
-INTERJECT reports have a sort of “behind the scenes” section at the top of each worksheet where all the spreadsheet configuration is kept. This area is colored differently from the rest of the report and hidden from the end user using Excel’s Freeze Panes option. While this section is typically hidden from the end user, those who build reports will typically spend much of their time configuring the worksheet functionality in this section. Once we unhide the section by [**unfreezing the panes**](), this is what the report looks like.
+INTERJECT reports have a sort of “behind the scenes” section at the top of each worksheet where all the spreadsheet configuration details are kept. This area is colored differently from the rest of the report and hidden from the end user using the INTERJECT jFreezePanes() function. While this section is typically hidden from the end user, those who build reports will typically spend much of their time configuring the worksheet functionality in this section. Once we unhide the section by [**unfreezing the panes**](), this is what the report looks like.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/02.png)
 
@@ -251,9 +269,9 @@ This section defines the names of the columns, or attributes, that the data sour
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/03.png)
 
 ###### Formatting Range
-The Formatting Range is a feature that allows you to define the formatting of the data in your Report Area in one place without repetition. It works similarly to how the Column Definitions section works, by copying the formatting applied to its cells down to the Report Area for each record that is pulled in from the data source.
+The Formatting Range is a feature that allows you to define how you would like the data in your Report Area to be formatted in one place without repetition. It works similarly to how the Column Definitions section works, by copying the formatting applied to its cells down to the Report Area for each record that is pulled in from the data source. The formatting of a given cell in the Formatting Range is applied to the cell just above it in the Column Definitions. This is demonstrated in the screenshot.
 
-<!-- You can define your formatting by simply formatting the cells in the formatting range, then this formatting will be applied to the attributes in the Column Definitions, when they are pulled into the report. A Formatting Range is only necessary for INTERJECT reports wherein you are pulling multi-row data records into your report, but we will speak more on this later. Note that our Formatting Range here has sample data that matches the data type of the attribute in its Column Definition above. -->
+You can define your formatting by simply formatting the cells in the formatting range, then this formatting will be applied to the attributes in the Column Definitions, when they are pulled into the report. A Formatting Range is only necessary for INTERJECT reports wherein you are pulling multi-row data records into your report, but we will speak more on this later. If you have only one row, and you don’t specify a formatting range, the formatting of the first row in the TargetDataRange will be copied to the output rows.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/04.png)
 
@@ -271,49 +289,54 @@ This section is optional on most reports. It is used as a place to give a brief 
 
 Filter parameters are used in reports that pull data in, and are used to restrict the result set to only records which match the filter parameter arguments given on the report.
 
-Filter parameters can be used to search the dataset for specific records.
+Filter parameters can be used to search the dataset for specific records, or simply to reduce the size of the result set returned.
 
 As you can see in the screenshot above, “market” was entered into the **Company Name** filter, which limits the result set that is returned to records which *contain* the partial string “market” in their CompanyName attribute.
 
 Filters work in INTERJECT reports by using a SQL Server LIKE operator inside the WHERE clause of the query that the report data is being sourced from.
 
-#### other stuff (review/see if we need)
-<!-- data portals -->
-When using a SQL database as your data source, Data Portals provide a way to connect to specific stored procedures within an already existing Data Connection which connects directly to the database. Data Portals provide a finer-grain level of control, and connect to a single stored procedure on the database. You can have multiple Data Portals connected to one Data Connection, but not vice-versa. For more, see [the website portal documentation](https://docs.gointerject.com/wPortal/The-INTERJECT-Website-Portal.html#-data-connections-).
+#### 3.4 - Report Formulas Used in this Lab
 
-<!-- dirlling: change 'report' language -->
-Drilling is a way to connect and pass values between separate worksheets or workbooks. In a drill, you always have a *source* report and a *destination* report, where the source report is the report that the user would start on and perform the drill on, and the destination report is the report that the user ends up on after the drill. A typical use case for a drill arises when you have a general report that provides a summary of some high-level data, and you want to allow the user to get more detail on some of the data in that report, but don’t have enough room to display this detail on the report. This can be resolved by creating a second report for that more detailed data and setting up a drill into the more detailed report from the summary one. You can then pass some piece of data from the general/summary report into a cell in the detailed report so that the detailed report can automatically pull in and filter data based on the cell the user drilled on in the source report. You can read more about ReportDrill() [here]().
+##### jFocus()
+The jFocus() formatting function lets you choose the active cell that will be focused upon (selected) when the spreadsheet is open. It is recommended to place the focus on an input cell, or otherwise important cell on the sheet. Read more about jFocus() in [its entry in the INTERJECT function index](https://docs.gointerject.com/wIndex/jFocus.html).
 
-<!-- jFreezePanes -->
-jFreezePanes() is an INTERJECT formatting function that takes advantage of the Excel native Freeze/Unfreeze panes option, and it can be executed in the Quick Tools menu. The jFreezePanes() function allows you to specify:
-* Which worksheets in a workbook will be frozen (whichever worksheets have the jFreezePanes() function in their Report Formulas section) when "Freeze/unfreeze panes" is run in Excel.
-* *Where* to freeze the panes in the workbook (which cells will be frozen at the top of the sheet and which will be hidden when panes are frozen). [Read more about jFreezePanes() here](https://docs.gointerject.com/wIndex/jFreezePanes.html).
+##### jFreezePanes()
+jFreezePanes() is an INTERJECT formatting function that takes advantage of the Excel native Freeze/Unfreeze panes option, which can be accessed in the Excel Quick Tools menu.
 
-INTERJECT uses freeze panes on its reports to:
-* Contain and hide the **report definitions section**. It is hidden to ensure that end users are not confused with details that they do not need to see.
+INTERJECT uses frozen panes on its reports to:
+* Contain and hide the **Worksheet Definitions Area**. It is hidden to ensure that end users are not confused with details that they do not need to see.
 * Keep a header with column titles and a report title visible to the user as they scroll through report data.
+
+The jFreezePanes() function allows you to specify:
+* Which worksheets in a workbook will be frozen (whichever worksheets have the jFreezePanes() function in their Report Formulas section) when "Freeze/unfreeze panes" is run in Excel.
+* *Where* to freeze the panes in the workbook (which cells will be frozen at the top of the sheet and which will be hidden when panes are frozen).
 
 There are two formula arguments for jFreezePanes(), **FreezePanesCell** and **AnchorViewCell**. AnchorViewCell specifies the very top row that will be visible when the panes are frozen. The cells above AnchorViewCell will be hidden when the panes are frozen. The cells between AnchorViewCell and FreezePanesCell will become a frozen block of cells that are anchored to the top of the sheet as the user scrolls down through the report.
 
-<!-- reportrage() -->
-ReportRange() is a report formula used to PULL data into a defined *range* of a report from a Data Portal. ReportRange() can be used with formatting to format the data returned from the Data Portal into the spreadsheet. Read more about ReportRange() [here](https://docs.gointerject.com/wIndex/ReportRange.html#function-summary).
+In the CustomerOrderHistory sheet, the **AnchorViewCell** is cell **A18**, which as you can see is the end of the Worksheet Definitions Section that is hidden when panes are frozen. Cell **A26** is the **FreezePanesCell**. This means that rows 18-26 are frozen at the top as the user scrolls down.
 
-ReportRange() works by inserting the result set returned from the Data Portal *in between* two or more rows. These rows are specified by the TargetDataRange argument. Input **27:28** for the **TargetDataRange** (down in the Report Area, below the filter parameters).
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/07.png)
 
+Read more about jFreezePanes() in [its entry in the INTERJECT function index](https://docs.gointerject.com/wIndex/jFreezePanes.html).
 
-The **Parameters** parameter specifies which cells will be the “filter” cells whose values are sent to the Data Portal to filter results to the user’s specifications. The Param() function ([read more here](https://docs.gointerject.com/wIndex/Param.html)) is used here to capture the cells. Type **Param(C21,C22,C23)** into **Parameters**.
+##### ReportRange()
 
+ReportRange() is a data function used to PULL data into a defined *range* of a report from a Data Portal. ReportRange() can be used with formatting ranges to programatically format the data returned from the Data Portal into the spreadsheet.
 
-Formatting Ranges work by letting you define the formatting that you wish to apply to your output data (specified in the Column Definition area); they let you do it concisely, in one place, such that the formatting can be copied down and repeated for each data record set pulled from the Data Portal. You don’t need to design a Formatting Range for every report you will write, but when you are using report formulas that trigger a pull action, you need a Formatting Range if you have more than one row in your column definition. If you have only one row, and you don’t specify a formatting range, the formatting of the first row in the TargetDataRange will be copied to the output rows.
+ReportRange() works by inserting the result set returned from the Data Portal *in between* two or more rows. These rows are specified by the **TargetDataRange** argument.
 
-<!-- reportdefaults() -->
-The ReportDefaults() function is used to capture values from one or a set of cells (or a hard-coded value) then send the value/s to another cell or set of cells. Its execution is triggered based on an action or event ([read the distinction between an INTERJECT action/event](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) occurring in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used here. [Read more about ReportDefaults()](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
+Filter cells in the spreadsheet are passed into the **Parameters** parameter of ReportRange() so that ReportRange() knows where to find its input values to pass along to the Data Portal. The Param() function ([read more here](https://docs.gointerject.com/wIndex/Param.html)) is used here to capture the input cells' addresses.
 
-<!-- formula/sys params -->
-Formula parameters are a way for the stored procedure designer to tell the data portal about any custom parameters that they add to the data portals corresponding stored procedure. Here, custom parameters mean additional parameters that are coded into the stored procedure for a specific purpose, in this case, to serve filter parameters. There are other parameters, System Parameters, that are not considered "custom" because they are hardcoded and pass a specific piece of information from the system to whichever stored procedure they are used in. System Parameters will be discussed more in the following section.
+Read more about ReportRange() in [its entry in the INTERJECT function index](https://docs.gointerject.com/wIndex/ReportRange.html#function-summary).
 
-<!-- jFocus -->
-The jFocus() formatting function lets you choose the active cell that will be focused upon (selected) when the spreadsheet is open. It is recommended to place the focus on an input cell, or otherwise important cell on the sheet. Here, place the focus on the OrderID cell, which is the value that was drilled on to get to the SalesOrder sheet.
+##### ReportDefaults()
+
+The ReportDefaults() function is used to capture values from one or a set of cells (or a hard-coded value) then send the value/s to another cell or set of cells. Its execution is triggered based on an action or event ([read the distinction between an INTERJECT action/event](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) occurring in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used here.
+
+Read more about ReportDefaults() in [its entry in the INTERJECT function index](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
+
+##### ReportDrill()
+Drilling is a way to connect and pass values between separate worksheets or workbooks in a report. When designing a drill, you always have a *source* sheet and a *destination* sheet, where the source sheet is the sheet that the user starts on and runs the DRILL command on, and the destination sheet is the sheet that the user ends up on after the drill. A typical use case for a drill arises when you have a general sheet that provides a summary of some high-level data, and you want to allow the user to get more detail on some of the data in that sheet, but don’t have enough room to display this detail on the summary sheet. This can be resolved by creating a second sheet for that more detailed data and setting up a drill into the more detailed sheet from the summary one. You can then pass some piece of data from the general/summary sheet into a cell in the detailed sheet so that the detailed sheet can automatically pull in and filter data based on the cell the user drilled on in the source sheet. Read more about ReportDrill() in [its entry in the INTERJECT function index](https://docs.gointerject.com/wIndex/ReportDrill.html).
 
 ## Section 4: Introducing the INTERJECT Report
 
@@ -2020,19 +2043,3 @@ You should now be taken back to the CustomerOrderHistory sheet.
 ## Conclusion
 
 Congratulations! You have now finished the walkthrough and have created a fully functional INTERJECT report.
-
-## Section 7: Introduce the INTERJECT Report
-
-
-### CustomerOrderHistory - Introducing the Worksheet Definitions Area
-
-INTERJECT reports have a sort of “behind the scenes” section at the top of each worksheet where hidden formatting, INTERJECT formula definitions, and column definitions (definitions of which pieces of data to pull in from the data source) are kept. This area is colored differently from the rest of the report, given titles for each section, and then hidden from the end user using Excel’s Freeze Panes option. While this section is typically hidden from the end user, those who build reports will spend much of their time configuring the worksheet functionality in this section. Once we unhide the section by [**unfreezing the panes**](), this is what the report looks like.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/02.png)
-
-#### INTERJECT Report Formulas
-Report formulas are INTERJECTs way of providing fine-grain control to report creators. Report formulas work the same way as general Excel formulas, but they are specific to INTERJECT report actions. Report formulas do everything from controlling the look of the Excel sheet by allowing formatting to be programmed to populating data into the spreadsheet and extracting it from the spreadsheet back to the database.
-
-Many INTERJECT report formulas use the Worksheet Definitions Section to find the information that they need in order to perform their actions. For example, report formulas that populate data in the spreadsheet use an area of the Worksheet Definitions Section called the Column Definitions in order to tell which data to to place in which column of the spreadsheet.
-
-The worksheet definitions section is broken up into the subsections titled and colored dark blue at the top of the report, as shown above. The last title at the bottom names the Report Area, which is the final product report that end users will see. The subsections are each defined as follows:
