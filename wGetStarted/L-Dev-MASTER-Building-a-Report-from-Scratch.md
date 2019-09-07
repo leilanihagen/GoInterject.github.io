@@ -35,20 +35,54 @@ Click on any of the section headings listed here to jump to them.
 #### [Section 1: Required Software and Sample Database](#section-1-required-software-and-sample-database-1)
 
 ##### [1.1 - Downloading SQL Server](#11---downloading-sql-server-2)
-##### [1.2 - Downloading SQL Server Management Studio](#1.2 - Downloading SQL Server Management Studio)
-##### [1.3 - Creating Your own Northwind Sample Database](#1.3 - Creating Your own Northwind Sample Database)
+##### [1.2 - Downloading SQL Server Management Studio](#12---downloading-sql-server-management-studio-2)
+##### [1.3 - Creating Your own Northwind Sample Database](#13---creating-your-own-northwind-sample-database)
 
-The first section simply ensures that you have the correct software and sample data installed on your computer. After completing Section 1, you will have SQL Server installed on your computer as well as an editor to create and run SQL code, and you will have a sample SQL database on your local machine that you can run SQL on.
+Section 1 simply ensures that you have the correct software and sample data installed on your computer. After completing Section 1, you will have SQL Server installed on your computer as well as an editor to create and run SQL code, and you will have a sample SQL database on your local machine that you can run SQL on.
 
 #### [Section 2: SQL Server Basics](#section-2-sql-server-basics-1)
-This section provides you with resources for learning the basics of SQL Server. Those familiar with SQL server SELECT statements can skip this section entirely. You can also skip this section if you are only interested in learning the INTERJECT parts of creating a report.
+
+##### [2.1 - What is SQL Server?](#21---what-is-sql-server-2)
+##### [2.2 - The SQL SELECT Statement](#22---the-sql-select-statement-2)
+##### [2.3 - SQL Stored Procedures](#23---sql-stored-procedures-2)
+
+Section 2 provides you with resources for learning the basics of SQL Server. Those familiar with SQL server SELECT statements can skip this section entirely. You can also skip this section if you are only interested in learning the INTERJECT parts of creating a report.
 
 #### [Section 3: INTERJECT Report Terminology and Definitions](#section-3-interject-report-terminology-and-definitions-1)
-This section provides you with the necessary understanding of INTERJECT terminology and definitions. It explains all the key components that make up an INTERJECT report and how they work together. It is *recommended* that you read this section before completing the lab. This section can also be used as a reference to look up a terms that you do not know.
+
+##### [3.1 - What is an INTERJECT Report?](#31---what-is-an-interject-report-2)
+
+##### [3.2 - How INTERJECT Reports Work Behind the Scenes](#32---how-interject-reports-work-behind-the-scenes-2)
+* ###### [Report Formulas](#report-formulas-2)
+* ###### [Data Portals](#data-portals-2)
+* ###### [Data Connections](#data-connections-2)
+* ###### [Data Portals](#data-portals-2)
+* ###### [Data Portal Parameters](#data-portal-parameters-2)
+* ###### [Data Sources](#data-sources-2)
+
+##### [3.3 - Anatomy of an INTERJECT Report in Excel](#33---anatomy-of-an-interject-report-in-excel-2)
+* ##### [3.3.1 - The Report Area](#331---the-report-area-2)
+* ##### [3.3.2 - Worksheet Definitions Area](#332---worksheet-definitions-area-2)
+    * ###### [Column Definitions](#column-definitions-2)
+    * ###### [Formatting Range](#formatting-range-2)
+    * ###### [Report Formulas](#report-formulas-3)
+    * ###### [Hidden Parameters and Notes](#hidden-parameters-and-notes-2)
+* ##### [3.3.3 - Filter Parameters](#333---filter-parameters-2)
+
+##### [3.4 - Report Formulas Used in this Lab](#34---report-formulas-used-in-this-lab-2)
+
+Section 3 provides you with the necessary understanding of INTERJECT terminology and definitions. It explains all the key components that make up an INTERJECT report and how they work together. It is *recommended* that you read this section before completing the lab. This section can also be used as a reference to look up a terms that you do not know.
 
 <!-- ? -->
-#### [Section 4: Introducing the INTERJECT Report](#section-4-introducing-the-interject-report-1)
-This section introduces the final, multi-sheet INTERJECT Report that you will create in the remaining sections and explains each backend component that will be created, and how they all fit together.
+#### [Section 4: Introducing the INTERJECT Report](#section-4-introducing-the-interject-report-2)
+
+##### [4.1 - The Report as a Whole](#41---the-report-as-a-whole-2)
+##### [4.2 - CustomerOrderHistory Sheet Preview](#42---customerorderhistory-sheet-preview-2)
+##### [4.3 - SalesOrder Sheet Preview](#43---salesorder-sheet-preview-2)
+##### [4.4 - Drilling from CustomerOrderHistory to SalesOrder](#44---drilling-from-customerorderhistory-to-salesorder-2)
+##### [4.5 - Construction Plan for the Report](#45---construction-plan-for-the-report-2)
+
+Section 4 introduces the final, multi-sheet INTERJECT Report that you will create in the remaining sections and explains each backend component that will be created, and how they all fit together.
 
 #### [Section 5: Creating the Data Connection](#section-5-creating-the-data-connection-1)
 This section walks you through creating a Data Connection in the INTERJECT Portal Site. The Data Connection you create will store connection details for your sample database. You create the Data Connection before the Data Portal because the Data Portal uses the Data Connection to access your database.
@@ -57,21 +91,58 @@ This section walks you through creating a Data Connection in the INTERJECT Porta
 This section will walk you through writing a stored procedure that will perform an INTERJECT Data PULL action (inserts data from database tables into an Excel report). The stored procedure is the the first thing that you will create in this lab because it is the fundamental piece that needs to be working properly for the INTERJECT Data Portal and the report itself to work as well.
 
 #### [Section 7: Creating the Data Portal for the CustomerOrderHistory Data PULL](#section-7-creating-the-data-portal-for-the-customerorderhistory-data-pull-1)
+
+##### [7.1 - Creating the Data Portal](#71---creating-the-data-portal-2)
+##### [7.2 - Adding the Formula Parameters](#72---adding-the-formula-parameters-2)
+##### [7.3 - Adding the System Parameters](#73---adding-the-system-parameters-2)
+
 This section walks you through creating the first of two Data Portals that you will create in this lab. Data Portals store the name of a specific stored procedure as well as the name of an existing Data Connection. It locates a database using the database connection information stored in the Data Connection, then locates the stored procedure within that database.
 
 #### [Section 8: Building the CustomerOrderHistory Spreadsheet](#section-8-building-the-customerorderhistory-spreadsheet-1)
+
+##### [8.1 - Creating the Worksheet Definitions Area](#81---creating-the-worksheet-definitions-area-2)
+##### [8.2 - Setting the Frozen Panes with jFreezePanes()](#82---setting-the-frozen-panes-with-jfreezepanes-2)
+##### [8.3 - Creating the Report Area](#83---creating-the-report-area-2)
+##### [8.4 - Adding the Column Definitions](#84---adding-the-column-definitions-2)
+##### [8.5 - Adding ReportRange() to the Sheet](#85---adding-reportrange-to-the-sheet-2)
+##### [8.6 - Designing the Formatting Range](#86---designing-the-formatting-range-2)
+##### [8.7 - Testing ReportRange() with a Data PULL](#87---testing-reportrange-with-a-data-pull-2)
+##### [8.8 - Adding ReportDefaults() to the Sheet](#88---adding-reportdefaults-to-the-sheet-2)
+##### [8.9 - Testing ReportDefaults()](#89---testing-reportdefaults-2)
+##### [8.10 - Setting the Focused Cell with jFocus()](#810---setting-the-focused-cell-with-jfocus-2)
+
 After completing this section, you will have created the first of two spreadsheets that will together make up the report. CustomerOrderHistory will be a summary sheet of historical customer order data.
 
 #### [Section 9: Writing the SQL Stored Procedure for the SalesOrder Data PULL](#section-9-writing-the-sql-stored-procedure-for-the-salesorder-data-pull-1)
 This section will walk you through writing the second stored procedure, which will be the backend to the Data Portal for the SalesOrder spreadsheet. This stored procedure will also perform a PULL that will bring data from the database to the SalesOrder spreadsheet.
 
 #### [Section 10: Creating the Data Portal for the SalesOrder Data PULL](#section-10-creating-the-data-portal-for-the-salesorder-data-pull-1)
+
+##### [10.1 - Create the Data Portal](#101--create-the-data-portal-2)
+##### [10.2 - Add the Formula Parameters](#102---add-the-formula-parameters-2)
+##### [10.3 - Add the System Parameters](#103---add-the-system-parameters-2)
+
 In this section you will create the Data Portal that will access the stored procedure written which performs a data PULL.
 
 #### [Section 11: Building the SalesOrder Spreadsheet](#section-11-building-the-salesorder-spreadsheet-1)
+
+##### [11.1 - Creating the SalesOrder Worksheet](#111---creating-the-salesorder-worksheet-2)
+##### [11.2 - Creating the Worksheet Definitions Area](#112---creating-the-worksheet-definitions-area-2)
+##### [11.3 - Setting the Frozen Panes with jFreezePanes()](#113---setting-the-frozen-panes-with-jfreezepanes-2)
+##### [11.4 - Formatting the Report Area](#114---formatting-the-report-area-2)
+##### [11.5 - Adding ReportRange() to the Sheet](#115---adding-reportrange-to-the-sheet-2)
+##### [11.6 - Adding ReportDefaults() to the Sheet](#116---adding-reportdefaults-to-the-sheet-2)
+##### [11.7 - Setting the Focused Cell with jFocus()](#117---setting-the-focused-cell-with-jfocus-2)
+##### [11.8 - Final Formatting of the Report Area](#118---final-formatting-of-the-report-area-2)
+
 In this section you will create the second of two spreadsheets in the report. SalesOrder will be a detailed look at a single customer order.
 
 #### [Section 12: Connecting CustomerOrderHistory and SalesOrder with ReportDrill()](#section-12-connecting-customerorderhistory-and-salesorder-with-reportdrill-1)
+
+##### [12.1 - Setting up the ReportDrill() Formula](#121---setting-up-the-reportdrill-formula-2)
+##### [12.2 - Testing ReportDrill()](#122---testing-reportdrill-2)
+##### [12.3 -  Adding a "Return from Drill" Hyperlink](#123---adding-a-return-from-drill-hyperlink-2)
+
 In this section, you will add the ReportDrill() data function to the CustomerOrderHistory sheet, which will allow CustomerOrderHistory to pass a value to DRILL on to SalesOrder.
 
 ## Section 1: Required Software and Sample Database
@@ -352,13 +423,9 @@ This section introduces the report that you will be creating in this lab: its la
 *In this section:*
 
 ##### [4.1 - The Report as a Whole](#41---the-report-as-a-whole-1)
-
 ##### [4.2 - CustomerOrderHistory Sheet Preview](#42---customerorderhistory-sheet-preview-1)
-
 ##### [4.3 - SalesOrder Sheet Preview](#43---salesorder-sheet-preview-1)
-
 ##### [4.4 - Drilling from CustomerOrderHistory to SalesOrder](#44---drilling-from-customerorderhistory-to-salesorder-1)
-
 ##### [4.5 - Construction Plan for the Report](#45---construction-plan-for-the-report-1)
 
 #### 4.1 - The Report as a Whole
@@ -579,9 +646,7 @@ This section walks you through creating the data portal for the CustomerOrderHis
 *In this section:*
 
 ##### [7.1 - Creating the Data Portal](#71---creating-the-data-portal-1)
-
 ##### [7.2 - Adding the Formula Parameters](#72---adding-the-formula-parameters-1)
-
 ##### [7.3 - Adding the System Parameters](#73---adding-the-system-parameters)
 
 #### 7.1 - Creating the Data Portal
@@ -711,23 +776,14 @@ You can optionally end the lab after this section, and you will still have creat
 *In this section:*
 
 ##### [8.1 - Creating the Worksheet Definitions Area](#81---creating-the-worksheet-definitions-area-1)
-
 ##### [8.2 - Setting the Frozen Panes with jFreezePanes()](#82---setting-the-frozen-panes-with-jfreezepanes-1)
-
 ##### [8.3 - Creating the Report Area](#83---creating-the-report-area-1)
-
 ##### [8.4 - Adding the Column Definitions](#84---adding-the-column-definitions-1)
-
 ##### [8.5 - Adding ReportRange() to the Sheet](#85---adding-reportrange-to-the-sheet-1)
-
 ##### [8.6 - Designing the Formatting Range](#86---designing-the-formatting-range-1)
-
 ##### [8.7 - Testing ReportRange() with a Data PULL](#87---testing-reportrange-with-a-data-pull-1)
-
 ##### [8.8 - Adding ReportDefaults() to the Sheet](#88---adding-reportdefaults-to-the-sheet-1)
-
 ##### [8.9 - Testing ReportDefaults()](#89---testing-reportdefaults-1)
-
 ##### [8.10 - Setting the Focused Cell with jFocus()](#810---setting-the-focused-cell-with-jfocus-1)
 
 #### 8.1 - Creating the Worksheet Definitions Area
@@ -1285,9 +1341,7 @@ This section will walk you through creating the Data Portal that will connect to
 *In this section:*
 
 ##### [10.1 - Create the Data Portal](#101--create-the-data-portal-1)
-
 ##### [10.2 - Add the Formula Parameters](#102---add-the-formula-parameters-1)
-
 ##### [10.3 - Add the System Parameters](#103---add-the-system-parameters-1)
 
 #### 10.1 - Create the Data Portal
@@ -1426,19 +1480,12 @@ This section will walk you through creating the SalesOrder spreadsheet, which is
 *In this section:*
 
 ##### [11.1 - Creating the SalesOrder Worksheet](#111---creating-the-salesorder-worksheet-1)
-
 ##### [11.2 - Creating the Worksheet Definitions Area](#112---creating-the-worksheet-definitions-area-1)
-
 ##### [11.3 - Setting the Frozen Panes with jFreezePanes()](#113---setting-the-frozen-panes-with-jfreezepanes-1)
-
 ##### [11.4 - Formatting the Report Area](#114---formatting-the-report-area-1)
-
 ##### [11.5 - Adding ReportRange() to the Sheet](#115---adding-reportrange-to-the-sheet-1)
-
 ##### [11.6 - Adding ReportDefaults() to the Sheet](#116---adding-reportdefaults-to-the-sheet-1)
-
 ##### [11.7 - Setting the Focused Cell with jFocus()](#117---setting-the-focused-cell-with-jfocus-1)
-
 ##### [11.8 - Final Formatting of the Report Area](#118---final-formatting-of-the-report-area-1)
 
 #### 11.1 - Creating the SalesOrder Worksheet
@@ -1943,12 +1990,8 @@ This section will walk you through setting up the DRILL between the two spreadsh
 *In this section:*
 
 ##### [12.1 - Setting up the ReportDrill() Formula](#121---setting-up-the-reportdrill-formula-1)
-
 ##### [12.2 - Testing ReportDrill()](#122---testing-reportdrill-1)
-
 ##### [12.3 -  Adding a "Return from Drill" Hyperlink](#123---adding-a-return-from-drill-hyperlink-1)
-
-
 
 #### 12.1 - Setting up the ReportDrill() Formula
 
