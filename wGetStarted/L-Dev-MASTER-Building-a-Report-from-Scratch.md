@@ -125,7 +125,7 @@ Click the **Execute** button in SSMS.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-1/04.png)
 
-## Section 2: Learn SQL Server Basics
+## Section 2: SQL Server Basics
 
 *In this section:*
 
@@ -306,7 +306,7 @@ Formatting Ranges work by letting you define the formatting that you wish to app
 <!-- reportdefaults() -->
 The ReportDefaults() function is used to capture values from one or a set of cells (or a hard-coded value) then send the value/s to another cell or set of cells. Its execution is triggered based on an action or event ([read the distinction between an INTERJECT action/event](https://docs.gointerject.com/wIndex/ReportDefaults.html#trigger-combination-list)) occurring in the report (for example a save or clear action). ReportDefaults() is commonly used to clear values in the filter list after data has been pulled in and then cleared, which is how it will be used here. [Read more about ReportDefaults()](https://docs.gointerject.com/wIndex/ReportDefaults.html#function-summary).
 
-## Section 4: Introduce the INTERJECT Report
+## Section 4: Introducing the INTERJECT Report
 
 *In this section:*
 
@@ -650,7 +650,7 @@ Your screen should look as follows.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/17.png)
 
-## Section 8: Build the CustomerOrderHistory Spreadsheet for the Report
+## Section 8: Building the CustomerOrderHistory Spreadsheet for the Report
 
 *In this section:*
 
@@ -1137,7 +1137,7 @@ Now you should see that, as well as the data in the Target Data Range being clea
 
 You have now completed the standalone CustomerOrderHistory sheet; the only thing left to implement is the DRILL from the CustomerOrderHistory sheet to the SalesOrder sheet, which will be done after the SalesOrder sheet has been made.
 
-## Section 9: Write the SQL Stored Procedure for the SalesOrder Spreadsheet
+## Section 9: Writing the SQL Stored Procedure for the SalesOrder Spreadsheet
 
 Using a SQL editor, create a new query file and copy-paste in the following code:
 
@@ -1212,7 +1212,7 @@ Change "myname" in the following portion of code to your name (here "mary").
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/01.png)
 
-## Section 10: Create the Data Portal for the SalesOrder Spreadsheet
+## Section 10: Creating the Data Portal for the SalesOrder Spreadsheet
 
 *In this section:*
 
@@ -1353,7 +1353,7 @@ The TYPE and DIRECTION are preset for System Parameters.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/13.png)
 
-## Section 11: Build the SalesOrder Spreadsheet for the Report
+## Section 11: Building the SalesOrder Spreadsheet for the Report
 
 #### Introduction
 
@@ -1887,18 +1887,15 @@ This section will walk you through setting up the DRILL between the two spreadsh
 
 **Step 2:** Provide the function arguments to ReportDrill().
 
-When the DRILL action is run, SalesOrder should run its ReportRange() function with the ID
-<!-- ... -->
-
 The first argument to provide is the cell address of the data function to run on SalesOrder.
 
 Type **SalesOrder!C4** into the **ReportCellToRun** argument.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/02.png)
 
-The next argument you need for this DRILL is TransferPairs.
+The next argument you need is TransferPairs, which tells ReportDrill() which range of cells can be transferred from CustomerOrderHistory to SalesOrder.
 
-Type **PairGroup(Pair())** into the **TransferPairs** argument to set up one Pair() function.
+Type **PairGroup(Pair())** into the **TransferPairs** argument to set up one Pair() function. You will fill in the input to the Pair() function shortly.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/03.png)
 
@@ -1928,7 +1925,55 @@ Lastly, enter **TRUE** into the **RequireValue** argument then press **OK** to s
 
 To test ReportDrill(), you can use the INTERJECT DRILL command.
 
+1. Select one of the **OrderID** cells in column F.
+2. Click on the **DRILL on Data** button in the INTERJECT ribbon OR press **CTRL + SHIFT + K** on your keyboard.
+3. Click **Do Drill** OR press **ENTER** on your keyboard.
 
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/09.png)
+
+The SalesOrder sheet should now open, and pull data for OrderID = 11011.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/10.png)
+
+#### 12.3 -  Adding a "Return from Drill" Hyperlink
+
+Hyperlinks can be used with DRILLs either to drill on a specific item or to return from the drill sheet back to the main sheet. In this case, you will create a hyperlink on the SalesOrder page that takes the user back to the CustomerOrderHistory sheet.
+
+**Step 1:** Add the hyperlink text.
+
+Type **Return from Drill** into cell **H12** and then press **ENTER** on your keyboard.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/11.png)
+
+1. Right-click on the cell after entering the text.
+2. Select **Hyperlink** or **Link**, depending on your version on Excel, from the menu.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/11.png)
+
+In the window that pops up, do the following.
+
+1. Select **Place in This Document**.
+2. Type **H12** into the **Type the cell reference** input field.
+3. Click on the **ScreenTip** button.
+4. Type **Interject Return from Drill** into the **ScreenTip text** field, then click **OK** to save.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/12.png)
+
+The hyperlink uses the ReportDrill() function to direct back to the CustomerOrderHistory sheet.
+
+Test the hyperlink by doing the following.
+
+Click on the hyperlink.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/13.png)
+
+You should now be taken back to the CustomerOrderHistory sheet.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/14.png)
+
+## Conclusion
+
+Congratulations! You have now finished the walkthrough and have created a fully functional INTERJECT report.
 
 ## Section 7: Introduce the INTERJECT Report
 
