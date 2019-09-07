@@ -54,7 +54,7 @@ This section will walk you through writing a stored procedure that will perform 
 #### [Section 7: Creating the Data Portal for the CustomerOrderHistory Data PULL](#section-7-creating-the-data-portal-for-the-customerorderhistory-data-pull-1)
 This section walks you through creating the first of two Data Portals that you will create in this lab. Data Portals store the name of a specific stored procedure as well as the name of an existing Data Connection. It locates a database using the database connection information stored in the Data Connection, then locates the stored procedure within that database.
 
-#### [Section 8: Building the CustomerOrderHistory Spreadsheet for the Report](#section-8-building-the-customerorderhistory-spreadsheet-for-the-report)
+#### [Section 8: Building the CustomerOrderHistory Spreadsheet](#section-8-building-the-customerorderhistory-spreadsheet-1)
 After completing this section, you will have created the first of two spreadsheets that will together make up the report. CustomerOrderHistory will be a summary sheet of historical customer order data.
 
 #### [Section 9: Writing the SQL Stored Procedure for the SalesOrder Data PULL](#section-9-writing-the-sql-stored-procedure-for-the-salesorder-data-pull-1)
@@ -63,7 +63,7 @@ This section will walk you through writing the second stored procedure, which wi
 #### [Section 10: Creating the Data Portal for the SalesOrder Data PULL](#section-10-creating-the-data-portal-for-the-salesorder-data-pull-1)
 In this section you will create the Data Portal that will access the stored procedure written which performs a data PULL.
 
-#### [Section 11: Building the SalesOrder Spreadsheet for the Report](#section-11-building-the-salesorder-spreadsheet-for-the-report-1)
+#### [Section 11: Building the SalesOrder Spreadsheet](#section-11-building-the-salesorder-spreadsheet-1)
 In this section you will create the second of two spreadsheets in the report. SalesOrder will be a detailed look at a single customer order.
 
 #### [Section 12: Connecting CustomerOrderHistory and SalesOrder with ReportDrill()](#section-12-connecting-customerorderhistory-and-salesorder-with-reportdrill-1)
@@ -312,6 +312,8 @@ The ReportDefaults() function is used to capture values from one or a set of cel
 <!-- formula/sys params -->
 Formula parameters are a way for the stored procedure designer to tell the data portal about any custom parameters that they add to the data portals corresponding stored procedure. Here, custom parameters mean additional parameters that are coded into the stored procedure for a specific purpose, in this case, to serve filter parameters. There are other parameters, System Parameters, that are not considered "custom" because they are hardcoded and pass a specific piece of information from the system to whichever stored procedure they are used in. System Parameters will be discussed more in the following section.
 
+<!-- jFocus -->
+The jFocus() formatting function lets you choose the active cell that will be focused upon (selected) when the spreadsheet is open. It is recommended to place the focus on an input cell, or otherwise important cell on the sheet. Here, place the focus on the OrderID cell, which is the value that was drilled on to get to the SalesOrder sheet.
 
 ## Section 4: Introducing the INTERJECT Report
 
@@ -670,7 +672,7 @@ Your screen should look as follows.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/17.png)
 
-## Section 8: Building the CustomerOrderHistory Spreadsheet for the Report
+## Section 8: Building the CustomerOrderHistory Spreadsheet
 
 #### Introduction
 
@@ -1377,7 +1379,7 @@ The TYPE and DIRECTION are preset for System Parameters.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/13.png)
 
-## Section 11: Building the SalesOrder Spreadsheet for the Report
+## Section 11: Building the SalesOrder Spreadsheet
 
 #### Introduction
 
@@ -1864,7 +1866,7 @@ You have now configured the ReportDefaults() function for the SalesOrder report.
 
 #### 11.7 - Adding the jFocus() Formatting Function to the Report
 
-The jFocus() formatting function lets you choose the active cell that will be focused upon (selected) when the spreadsheet is open. It is recommended to place the focus on an input cell, or otherwise important cell on the sheet. Here, place the focus on the OrderID cell, which is the value that was drilled on to get to the SalesOrder sheet.
+In this subsection you will set the Excel active focused cell for the sheet. Set the active cell to the OrderID cell, since this should be highlighted to the user as it is the value which was drilled on.
 
 1. Type **=jFocus()** into cell **G5**.
 2. Click on the function builder.
