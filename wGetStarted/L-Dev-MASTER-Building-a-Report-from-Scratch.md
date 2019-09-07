@@ -34,7 +34,7 @@ Click on any of the section headings listed here to jump to them.
 
 #### [Section 1: Required Software and Sample Database](#section-1-required-software-and-sample-database-1)
 
-##### [1.1 - Downloading SQL Server](#11---downloading-sql-server-3)
+##### [1.1 - Downloading SQL Server](#11---downloading-sql-server-2)
 ##### [1.2 - Downloading SQL Server Management Studio](#1.2 - Downloading SQL Server Management Studio)
 ##### [1.3 - Creating Your own Northwind Sample Database](#1.3 - Creating Your own Northwind Sample Database)
 
