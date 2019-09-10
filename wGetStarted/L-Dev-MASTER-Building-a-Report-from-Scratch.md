@@ -644,9 +644,9 @@ This section walks you through creating the data portal for the CustomerOrderHis
 
 *In this section:*
 
-##### [7.1 - Creating the Data Portal](#71---creating-the-data-portal-1)
-##### [7.2 - Adding the Formula Parameters](#72---adding-the-formula-parameters-1)
-##### [7.3 - Adding the System Parameters](#73---adding-the-system-parameters)
+##### [7.1 - Creating the Data Portal](#71---creating-the-data-portal-2)
+##### [7.2 - Adding the Formula Parameters](#72---adding-the-formula-parameters-2)
+##### [7.3 - Adding the System Parameters](#73---adding-the-system-parameters-2)
 
 #### 7.1 - Creating the Data Portal
 
