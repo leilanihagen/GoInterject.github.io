@@ -776,17 +776,17 @@ You can optionally end the lab after this section, and you will still have creat
 
 *In this section:*
 
-##### [8.1 - Creating the Worksheet Definitions Area](#81---creating-the-worksheet-definitions-area-1)
-##### [8.2 - Setting the Frozen Panes with jFreezePanes()](#82---setting-the-frozen-panes-with-jfreezepanes-1)
-##### [8.3 - Creating the Report Area](#83---creating-the-report-area-1)
-##### [8.4 - Adding the Column Definitions](#84---adding-the-column-definitions-1)
-##### [8.5 - Adding Titles for the Columns in the Report Area](#85---adding-titles-for-the-columns-in-the-report-area-1)
-##### [8.6 - Adding ReportRange() to the Sheet](#86---adding-reportrange-to-the-sheet-1)
-##### [8.7 - Designing the Formatting Range](#87---designing-the-formatting-range-1)
-##### [8.8 - Testing ReportRange() with a Data PULL](#88---testing-reportrange-with-a-data-pull-1)
-##### [8.9 - Adding ReportDefaults() to the Sheet](#89---adding-reportdefaults-to-the-sheet-1)
-##### [8.10 - Testing ReportDefaults()](#810---testing-reportdefaults-1)
-##### [8.11 - Setting the Focused Cell with jFocus()](#811---setting-the-focused-cell-with-jfocus-1)
+##### [8.1 - Creating the Worksheet Definitions Area](#81---creating-the-worksheet-definitions-area-2)
+##### [8.2 - Setting the Frozen Panes with jFreezePanes()](#82---setting-the-frozen-panes-with-jfreezepanes-2)
+##### [8.3 - Creating the Report Area](#83---creating-the-report-area-2)
+##### [8.4 - Adding the Column Definitions](#84---adding-the-column-definitions-2)
+##### [8.5 - Adding Titles for the Columns in the Report Area](#85---adding-titles-for-the-columns-in-the-report-area-2)
+##### [8.6 - Adding ReportRange() to the Sheet](#86---adding-reportrange-to-the-sheet-2)
+##### [8.7 - Designing the Formatting Range](#87---designing-the-formatting-range-2)
+##### [8.8 - Testing ReportRange() with a Data PULL](#88---testing-reportrange-with-a-data-pull-2)
+##### [8.9 - Adding ReportDefaults() to the Sheet](#89---adding-reportdefaults-to-the-sheet-2)
+##### [8.10 - Testing ReportDefaults()](#810---testing-reportdefaults-2)
+##### [8.11 - Setting the Focused Cell with jFocus()](#811---setting-the-focused-cell-with-jfocus-2)
 
 #### 8.1 - Creating the Worksheet Definitions Area
 
