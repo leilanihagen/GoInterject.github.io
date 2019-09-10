@@ -244,12 +244,12 @@ This section should also be used as a reference to go back to and look up terms 
 ##### [3.1 - What is an INTERJECT Report?](#31---what-is-an-interject-report-1)
 
 ##### [3.2 - How INTERJECT Reports Work Behind the Scenes](#32---how-interject-reports-work-behind-the-scenes-1)
-* ###### [Report Formulas](#report-formulas-1)
-* ###### [Data Portals](#data-portals-1)
-* ###### [Data Connections](#data-connections-1)
-* ###### [Data Portals](#data-portals-1)
-* ###### [Data Portal Parameters](#data-portal-parameters-1)
-* ###### [Data Sources](#data-sources-1)
+* ###### [Report Formulas](#report-formulas-3)
+* ###### [Data Portals](#data-portals-3)
+* ###### [Data Connections](#data-connections-3)
+* ###### [Data Portals](#data-portals-3)
+* ###### [Data Portal Parameters](#data-portal-parameters-3)
+* ###### [Data Sources](#data-sources-3)
 
 ##### [3.3 - Anatomy of an INTERJECT Report in Excel](#33---anatomy-of-an-interject-report-in-excel-1)
 * ##### [3.3.1 - The Report Area](#331---the-report-area-1)
