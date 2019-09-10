@@ -73,7 +73,7 @@ Section 2 provides you with resources for learning the basics of SQL Server. Tho
 Section 3 provides you with the necessary understanding of INTERJECT terminology and definitions. It explains all the key components that make up an INTERJECT report and how they work together. It is *recommended* that you read this section before completing the lab. This section can also be used as a reference to look up a terms that you do not know.
 
 <!-- ? -->
-#### [Section 4: Introducing the INTERJECT Report](#section-4-introducing-the-interject-report-2)
+#### [Section 4: Introducing the INTERJECT Report](#section-4-introducing-the-interject-report-1)
 
 ##### [4.1 - The Report as a Whole](#41---the-report-as-a-whole-2)
 ##### [4.2 - CustomerOrderHistory Sheet Preview](#42---customerorderhistory-sheet-preview-2)
@@ -636,7 +636,7 @@ Change "myname" in the following portion of code to your name (here "mary").
 
 **Step 3:** Execute your stored procedure.
 
-## Section 7: Creating the Data Portal for the CustomerOrderHistory Spreadsheet
+## Section 7: Creating the Data Portal for the CustomerOrderHistory Data PULL
 
 #### Introduction
 
