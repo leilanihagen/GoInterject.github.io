@@ -48,12 +48,12 @@ Section 1 simply ensures that you have the correct software and sample data inst
 
 Section 2 provides you with resources for learning the basics of SQL Server. Those familiar with SQL server SELECT statements can skip this section entirely. You can also skip this section if you are only interested in learning the INTERJECT parts of creating a report.
 
-#### [Section 3: INTERJECT Report Terminology and Definitions](#section-3-interject-report-terminology-and-definitions-2)
+#### [Section 3: INTERJECT Report Terminology and Definitions](#section-3-interject-report-terminology-and-definitions-1)
 
 ##### [3.1 - What is an INTERJECT Report?](#31---what-is-an-interject-report-2)
 
 ##### [3.2 - How INTERJECT Reports Work Behind the Scenes](#32---how-interject-reports-work-behind-the-scenes-2)
-* ###### [Report Formulas](#report-formulas-3)
+* ###### [Report Formulas](#report-formulas-4)
 * ###### [Data Portals](#data-portals-3)
 * ###### [Data Connections](#data-connections-3)
 * ###### [Data Portals](#data-portals-3)
