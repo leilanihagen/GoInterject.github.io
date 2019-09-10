@@ -36,7 +36,7 @@ Click on any of the section headings listed here to jump to them.
 
 ##### [1.1 - Downloading SQL Server](#11---downloading-sql-server-2)
 ##### [1.2 - Downloading SQL Server Management Studio](#12---downloading-sql-server-management-studio-2)
-##### [1.3 - Creating Your own Northwind Sample Database](#13---creating-your-own-northwind-sample-database-3)
+##### [1.3 - Creating Your own Northwind Sample Database](#13---creating-your-own-northwind-sample-database-2)
 
 Section 1 simply ensures that you have the correct software and sample data installed on your computer. After completing Section 1, you will have SQL Server installed on your computer as well as an editor to create and run SQL code, and you will have a sample SQL database on your local machine that you can run SQL on.
 
