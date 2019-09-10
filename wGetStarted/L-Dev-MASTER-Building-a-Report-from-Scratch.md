@@ -154,9 +154,9 @@ In order to complete this lab, you will need SQL server installed on your comput
 
 *In this section:*
 
-##### [1.1 - Downloading SQL Server](#11---downloading-sql-server-1)
-##### [1.2 - Downloading SQL Server Management Studio](#12---downloading-sql-server-management-studio-1)
-##### [1.3 - Creating Your own Northwind Sample Database](#13---creating-your-own-northwind-sample-database-1)
+##### [1.1 - Downloading SQL Server](#11---downloading-sql-server-2)
+##### [1.2 - Downloading SQL Server Management Studio](#12---downloading-sql-server-management-studio-2)
+##### [1.3 - Creating Your own Northwind Sample Database](#13---creating-your-own-northwind-sample-database-2)
 
 #### 1.1 - Downloading SQL Server
 
@@ -210,9 +210,9 @@ The following sections will provide links to external resources for you to use a
 
 *In this section:*
 
-##### [2.1 - What is SQL Server?](#21---what-is-sql-server-1)
-##### [2.2 - The SQL SELECT Statement](#22---the-sql-select-statement-1)
-##### [2.3 - SQL Stored Procedures](#23---sql-stored-procedures-1)
+##### [2.1 - What is SQL Server?](#21---what-is-sql-server-2)
+##### [2.2 - The SQL SELECT Statement](#22---the-sql-select-statement-2)
+##### [2.3 - SQL Stored Procedures](#23---sql-stored-procedures-2)
 
 #### 2.1 - What is SQL Server?
 
