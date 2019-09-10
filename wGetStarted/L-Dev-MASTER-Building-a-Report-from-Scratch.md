@@ -54,7 +54,7 @@ Section 2 provides you with resources for learning the basics of SQL Server. Tho
 
 ##### [3.2 - How INTERJECT Reports Work Behind the Scenes](#32---how-interject-reports-work-behind-the-scenes-2)
 * ###### [Report Formulas](#report-formulas-4)
-* ###### [Data Portals](#data-portals-3)
+* ###### [Data Portals](#data-portals-2)
 * ###### [Data Portal Parameters](#data-portal-parameters-3)
 * ###### [Data Connections](#data-connections-3)
 * ###### [Data Sources](#data-sources-3)
