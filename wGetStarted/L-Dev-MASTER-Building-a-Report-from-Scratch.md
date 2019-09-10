@@ -240,23 +240,22 @@ This section should also be used as a reference to go back to and look up terms 
 
 *In this section:*
 
-##### [3.1 - What is an INTERJECT Report?](#31---what-is-an-interject-report-1)
+##### [3.1 - What is an INTERJECT Report?](#31---what-is-an-interject-report-2)
 
-##### [3.2 - How INTERJECT Reports Work Behind the Scenes](#32---how-interject-reports-work-behind-the-scenes-1)
-* ###### [Report Formulas](#report-formulas-3)
-* ###### [Data Portals](#data-portals-3)
-* ###### [Data Connections](#data-connections-3)
-* ###### [Data Portals](#data-portals-3)
-* ###### [Data Portal Parameters](#data-portal-parameters-3)
-* ###### [Data Sources](#data-sources-3)
+##### [3.2 - How INTERJECT Reports Work Behind the Scenes](#32---how-interject-reports-work-behind-the-scenes-2)
+* ###### [Report Formulas](#report-formulas-4)
+* ###### [Data Portals](#data-portals-4)
+* ###### [Data Portal Parameters](#data-portal-parameters-4)
+* ###### [Data Connections](#data-connections-4)
+* ###### [Data Sources](#data-sources-4)
 
-##### [3.3 - Anatomy of an INTERJECT Report in Excel](#33---anatomy-of-an-interject-report-in-excel-1)
+##### [3.3 - Anatomy of an INTERJECT Report in Excel](#33---anatomy-of-an-interject-report-in-excel-2)
 * ##### [3.3.1 - The Report Area](#331---the-report-area-1)
 * ##### [3.3.2 - Worksheet Definitions Area](#332---worksheet-definitions-area-1)
-    * ###### [Column Definitions](#column-definitions-1)
-    * ###### [Formatting Range](#formatting-range-1)
-    * ###### [Report Formulas](#report-formulas-3)
-    * ###### [Hidden Parameters and Notes](#hidden-parameters-and-notes-1)
+    * ###### [Column Definitions](#column-definitions-4)
+    * ###### [Formatting Range](#formatting-range-4)
+    * ###### [Report Formulas](#report-formulas-4)
+    * ###### [Hidden Parameters and Notes](#hidden-parameters-and-notes-4)
 * ##### [3.3.3 - Filter Parameters](#333---filter-parameters-1)
 
 ##### [3.4 - Report Formulas Used in this Lab](#34---report-formulas-used-in-this-lab-1)
