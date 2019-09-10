@@ -104,12 +104,13 @@ This section walks you through creating the first of two Data Portals that you w
 ##### [8.2 - Setting the Frozen Panes with jFreezePanes()](#82---setting-the-frozen-panes-with-jfreezepanes-2)
 ##### [8.3 - Creating the Report Area](#83---creating-the-report-area-2)
 ##### [8.4 - Adding the Column Definitions](#84---adding-the-column-definitions-2)
-##### [8.5 - Adding ReportRange() to the Sheet](#85---adding-reportrange-to-the-sheet-2)
-##### [8.6 - Designing the Formatting Range](#86---designing-the-formatting-range-2)
-##### [8.7 - Testing ReportRange() with a Data PULL](#87---testing-reportrange-with-a-data-pull-2)
-##### [8.8 - Adding ReportDefaults() to the Sheet](#88---adding-reportdefaults-to-the-sheet-2)
-##### [8.9 - Testing ReportDefaults()](#89---testing-reportdefaults-2)
-##### [8.10 - Setting the Focused Cell with jFocus()](#810---setting-the-focused-cell-with-jfocus-2)
+##### [8.5 - Adding Titles for the Columns in the Report Area](#85---adding-titles-for-the-columns-in-the-report-area-1)
+##### [8.6 - Adding ReportRange() to the Sheet](#86---adding-reportrange-to-the-sheet-2)
+##### [8.7 - Designing the Formatting Range](#87---designing-the-formatting-range-2)
+##### [8.8 - Testing ReportRange() with a Data PULL](#88---testing-reportrange-with-a-data-pull-2)
+##### [8.9 - Adding ReportDefaults() to the Sheet](#89---adding-reportdefaults-to-the-sheet-2)
+##### [8.10 - Testing ReportDefaults()](#810---testing-reportdefaults-2)
+##### [8.11 - Setting the Focused Cell with jFocus()](#811---setting-the-focused-cell-with-jfocus-2)
 
 After completing this section, you will have created the first of two spreadsheets that will together make up the report. CustomerOrderHistory will be a summary sheet of historical customer order data.
 
@@ -779,12 +780,13 @@ You can optionally end the lab after this section, and you will still have creat
 ##### [8.2 - Setting the Frozen Panes with jFreezePanes()](#82---setting-the-frozen-panes-with-jfreezepanes-1)
 ##### [8.3 - Creating the Report Area](#83---creating-the-report-area-1)
 ##### [8.4 - Adding the Column Definitions](#84---adding-the-column-definitions-1)
-##### [8.5 - Adding ReportRange() to the Sheet](#85---adding-reportrange-to-the-sheet-1)
-##### [8.6 - Designing the Formatting Range](#86---designing-the-formatting-range-1)
-##### [8.7 - Testing ReportRange() with a Data PULL](#87---testing-reportrange-with-a-data-pull-1)
-##### [8.8 - Adding ReportDefaults() to the Sheet](#88---adding-reportdefaults-to-the-sheet-1)
-##### [8.9 - Testing ReportDefaults()](#89---testing-reportdefaults-1)
-##### [8.10 - Setting the Focused Cell with jFocus()](#810---setting-the-focused-cell-with-jfocus-1)
+##### [8.5 - Adding Titles for the Columns in the Report Area](#85---adding-titles-for-the-columns-in-the-report-area-1)
+##### [8.6 - Adding ReportRange() to the Sheet](#86---adding-reportrange-to-the-sheet-1)
+##### [8.7 - Designing the Formatting Range](#87---designing-the-formatting-range-1)
+##### [8.8 - Testing ReportRange() with a Data PULL](#88---testing-reportrange-with-a-data-pull-1)
+##### [8.9 - Adding ReportDefaults() to the Sheet](#89---adding-reportdefaults-to-the-sheet-1)
+##### [8.10 - Testing ReportDefaults()](#810---testing-reportdefaults-1)
+##### [8.11 - Setting the Focused Cell with jFocus()](#811---setting-the-focused-cell-with-jfocus-1)
 
 #### 8.1 - Creating the Worksheet Definitions Area
 
@@ -1012,22 +1014,65 @@ In row 3, type:
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/31.png)
 
-#### 8.5 - Adding ReportRange() to the Sheet
+#### 8.5 - Adding Titles for the Columns in the Report Area
 
-This section will walk you through configuring a ReportRange() on the CustomerOrderHistory sheet as well as set up the arguments that you need to provide to it, such as the Column Definiton section.
+Now you will add titles to the Report Area that describe the data that will appear in each column when data is pulled in by the user.
+
+**Step 1:** Freeze the panes on the report.
+
+1. Click on the **Quick Tools** menu option in the INTERJECT Ribbon OR press **CTRL + SHIFT + T** on your keyboard.
+2. Select **Freeze/UnfreezePanes (current tab)**.
+3. Click **Run and Close** OR press **ENTER** on your keyboard.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/32.png)
+
+**Step 2:** Enter the column titles.
+
+Type the following:
+* **CustomerID** into cell **B25**,
+* **CompanyName** into cell **C25**,
+* **ContactName** into cell **E25**,
+* **OrderID** into cell **F25**,
+* **OrderDate** into cell **G25**,
+* **OrderAmount** into cell **H25**,
+* **Freight** into cell **I25**,
+* **TotalAmount** into cell **J25**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/33.png)
+
+You will add titles for the **ShipVia**
+
+**Step 3:** Make the titles bold.
+
+1. Select cells **B25-J25**.
+2. Click on the **Bold** option.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/34.png)
+
+**Step 4:** Add a border under the titles.
+
+1. Select cells **B25-J25**.
+2. Click on the **Borders** menu.
+3. Select **Thick Bottom Border**.
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/35.png)
+
+#### 8.6 - Adding ReportRange() to the Sheet
+
+This section will walk you through configuring a ReportRange() on the CustomerOrderHistory sheet as well as setting up the arguments that you need to provide to it, such as the Column Definiton section.
 
 **Step 1:** Add the formula to the report.
 
 1. Type **=ReportRange()** in cell **C10**.
 2. Click on the function builder icon.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/32.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/36.png)
 
 **Step 2:** Specify the Data Portal that ReportRange() will pull data from.
 
 1. Type **NorthwindCustomerOrders_MyName** into the DataPortal parameter box.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/33.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/37.png)
 
 Enter **2:4** into the **ColDefRange** to tell ReportRange() that all of its column definitions can be found in this range of rows. You can read more about ColDefRange here.
 
@@ -1038,17 +1083,17 @@ Type:
 * **2:4** into the **ColDefRange** argument,
 * **6:8** into the **FormatRange** argument.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/34.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/38.png)
 
 The **Parameters** parameter specifies which cells will be the “filter” cells whose values are sent to the Data Portal to filter results to the user’s specifications. The Param() function ([read more here](https://docs.gointerject.com/wIndex/Param.html)) is used here to capture the cells. Type **Param(C21,C22,C23)** into **Parameters**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/35.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/39.png)
 
 As a best practice, it is recommended that you set **UseEntireRow** to **TRUE** and **PutFieldNamesAtTop** to **FALSE**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/36.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/40.png)
 
-#### 8.6 - Designing the Formatting Range
+#### 8.7 - Designing the Formatting Range
 
 This section will walk you through designing the Formatting Range section of the Worksheet Definitions area.
 
@@ -1058,7 +1103,7 @@ This section will walk you through designing the Formatting Range section of the
 2. Click on the dropdown list next to the paint bucket icon.
 3. Select **white** from the dropdown list of paint bucket colors.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/37.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/41.png)
 
 **Step 2:** Apply desired formatting to sample data in the formatting range.
 
@@ -1066,7 +1111,7 @@ When designing Formatting Ranges, it is useful to use contrived sample data in t
 
 To format how you want **CustomerID** to look in the output data, enter the sample ID **GREAL** into cell **B6**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/38.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/42.png)
 
 Enter the formatting for **CompanyName** as follows.
 
@@ -1074,11 +1119,11 @@ Enter the formatting for **CompanyName** as follows.
 2. Select all the text.
 3. Toggle the **bold** option.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/39.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/43.png)
 
 For **ContactName**, enter **Howard Snyder** into cell **E6**. This field doesn't need any special formatting, so we are simply entering sample data to show that it will not be specially formatted.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/40.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/44.png)
 
 Enter the formatting for **OrderID** as follows:
 
@@ -1088,28 +1133,28 @@ Enter the formatting for **OrderID** as follows:
 4. Click the paint bucket.
 5. Select the lightest grey color.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/41.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/45.png)
 
 Enter the formatting for **OrderDate** as follows:
 
 1. Enter the sample date **4/30/98** in cell **G6**.
 2. Enter **Date** in the format options for the cell.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/42.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/46.png)
 
 Enter the formatting for **OrderAmount** as follows:
 
 1. Enter the sample data **510** in cell **H6**.
 2. Choose **Accounting** for the format options for the cell.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/43.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/47.png)
 
 Enter the formatting for **Freight** as follows:
 
 1. Enter **14.01** into cell **I6**.
 2. Choose **Accounting** for the format options for the cell.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/44.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/48.png)
 
 Enter the formatting for **TotalAmount** as follows:
 
@@ -1117,7 +1162,7 @@ Enter the formatting for **TotalAmount** as follows:
 2. Toggle the **bold** option for the text.
 3. Choose **Accounting** for the format options for the cell.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/45.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/49.png)
 
 You now only have to format the cells for **ShipVia** and **ShippedDate**. You will add titles for these fields in the row to the left of them and leave the values themselves without any formatting.
 
@@ -1125,24 +1170,24 @@ You now only have to format the cells for **ShipVia** and **ShippedDate**. You w
 2. Enter **Ship Date:** in cell **D7**.
 3. Expand column C a bit.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/46.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/50.png)
 
 Now, add a border under row 7 (at the top of row 8) to demarcate the end of each record set.
 
 Select cells **B8-J8**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/47.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/51.png)
 
 1. Click on the **Borders** dropdown menu.
 2. Choose **Top Border**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/48.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/52.png)
 
 Lastly, reduce **row 8** to provide a small padding under the border we just added.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/49.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/53.png)
 
-#### 8.7 - Testing ReportRange() with a Data PULL
+#### 8.8 - Testing ReportRange() with a Data PULL
 
 You now have all the components in place for ReportRange() to be functional. This section will walk you through testing ReportRange(). It is always good practice to test each individual formula you add to the report you’re building once it’s done, before you move on to building the next part/formula on the report. This ensures that at the end when you’re ready to test the finished report, you know that all the constituent parts work by themselves.
 
@@ -1150,27 +1195,27 @@ You now have all the components in place for ReportRange() to be functional. Thi
 
 Enter **market** into the Company Name filter parameter in cell **C21**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/50.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/54.png)
 
 **Step 2:** Run a data PULL on the report.
 
 1. Press **CTRL + SHIFT + J** together on your keyboard or click the **PULL Data** button.
 2. Press **Enter** or click **Pull Data**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/51.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/55.png)
 
 **Step 3:** Unfreeze the panes to view the data in the same format that the end user would.
 
 1. Press **CTRL + SHIFT + T** together on your keyboard or click the **Quick Tools** button.
 2. Press **Enter** or click on **Freeze/Unfreeze Panes (current tab)** in the menu.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/52.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/56.png)
 
 Your data should look like the following screenshot:
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/53.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/57.png)
 
-#### 8.8 - Adding ReportDefaults() to the Sheet
+#### 8.9 - Adding ReportDefaults() to the Sheet
 
 This section will walk you through writing the ReportDefaults() function for this sheet. You are using ReportDefaults here to clear out the filter values in cells C21-C23 after a CLEAR is run on the report. CLEAR does not do this by default, because its scope of control over the report is limited to the *results* of the data pull (CLEAR is only allowed to modify the data that a PULL action brings in, because a CLEAR reverses a PULL).
 
@@ -1179,7 +1224,7 @@ This section will walk you through writing the ReportDefaults() function for thi
 1. Type **=ReportDefaults()** into cell **C11**.
 2. Open the function builder.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/54.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/58.png)
 
 **Step 2:** Fill in the formula arguments.
 <!-- does is make sense to have this explanation here? -->
@@ -1187,7 +1232,7 @@ For the arguments OnPullSaveOrBoth and OnClearRunOrBoth, you want ”Pull” and
 
 Enter **”Pull”** into the **OnPullSaveOrBoth** field, and **”Clear”** into **OnClearRunOrBoth**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/55.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/59.png)
 
 The TransferPairs argument is what decides the default values to place in the selected cells. We want to clear out our filter parameter cells, so we will pair each of these cells (C21-C23) with a blank string ("") to pass in when a Pull-Clear occurs.
 
@@ -1195,7 +1240,7 @@ Each of these pairs (a cell and a blank string (“”)) needs its own Pair() fu
 
 Input **PairGroup()** into **TransferPairs**, then press **Ok**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/56.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/60.png)
 
 Now, to give arguments to the PairGroup() function, click inside the PairGroup() function within ReportDefaults() and open the function builder.
 
@@ -1203,19 +1248,19 @@ Now, to give arguments to the PairGroup() function, click inside the PairGroup()
 2. In the **Formula Bar**, place the cursor somewhere in the function name text “PairGroup().”
 3. Click the function builder icon.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/57.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/61.png)
 
 The parameters to Pair() are **From, Target**, or, if you do not have a “From” cell, as in our case, they can be thought of as "SourceValue", and "Target". Our “Source Value” is “” (an empty string) and our Targets are cells C21-C23.
 
 Type **Pair(””, C21)** into **Pair1**, **Pair(””, C22)** into **Pair2** and **Pair(””, C23)** into **Pair3**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/58.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/62.png)
 
 Your ReportDefaults() function should now look like the following:
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/59.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/63.png)
 
-#### 8.9 - Testing ReportDefaults()
+#### 8.10 - Testing ReportDefaults()
 
 This sections walks you through testing ReportDefaults(). It should clear any filter arguments from cells C21-C23 after a PULL-CLEAR.
 
@@ -1223,33 +1268,33 @@ This sections walks you through testing ReportDefaults(). It should clear any fi
 
 Enter **market** into cell **C21**, and **b** into cell **C22**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/60.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/64.png)
 
 **Step 2:** PULL in the data.
 
 1. Press **CTRL + SHIFT + J** OR click the **PULL Data** menu button.
 2. Press **Enter** OR click **Pull Data**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/61.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/65.png)
 
 **Step 3:** CLEAR the data.
 
 1. Press **CTRL + SHIFT + T** or click the **Quick Tools** menu button.
 2. Press **Down Arrow** once then **Enter** OR click **Clear**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/62.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/66.png)
 
 Now you should see that, as well as the data in the Target Data Range being cleared, the filter values in cells C21-C23 will also clear out.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/63.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/67.png)
 
-#### 8.10 - Setting the Focused Cell with jFocus()
+#### 8.11 - Setting the Focused Cell with jFocus()
 
 As a finishing touch, set the active cell for the sheet. It is standard to set the Excel active focused cell on a user input cell when one exists. Set the active focused cell on the input field for the first filter parameter, Company Name.
 
 Type **=jFocus(C21)** into cell **F11**.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/64.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/68.png)
 
 You have now completed the standalone CustomerOrderHistory sheet; the only thing left to implement is the DRILL from the CustomerOrderHistory sheet to the SalesOrder sheet, which will be done after the SalesOrder sheet has been made.
 
