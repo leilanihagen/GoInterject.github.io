@@ -740,7 +740,7 @@ Repeat the last set of steps, changing only the **NAME** field to **CustomerID**
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/13.png)
 
-**Step 4:** Add the system parameters to the report.
+#### 7.3 - Adding the System Parameters
 
 System Parameters are used to pass information from the user’s system to the stored procedure via Data Portal. Here you will be adding 2 System Parameters, **Interject_NTLogin**, which is used to capture the user’s Windows login, and **Interject_LocalTimeZoneOffset**, which is used to capture the difference from the user’s local time zone to the universal time. You can read more about System Parameters (and these specific ones) [here](https://docs.gointerject.com/wGetStarted/L-Dev-CustomerAging.html#system-parameters).
 
