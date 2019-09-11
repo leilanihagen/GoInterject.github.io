@@ -560,6 +560,9 @@ You will now write the stored procedure that will be called from the ReportRange
 
 Using a SQL editor like [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/sql-server-management-studio-ssms?view=sql-server-2017), copy and paste in the following code:
 
+<button class="collapsible">\[dbo\].\[northwind_customer_orders_myname\]</button>
+<div markdown="1" class="panel">
+
 ```sql
 CREATE PROC [dbo].[northwind_customer_orders_myname]
 
@@ -627,6 +630,8 @@ CREATE PROC [dbo].[northwind_customer_orders_myname]
 
     END
 ```
+
+</div>
 
 **Step 2:** Modify the stored procedure.
 
