@@ -118,9 +118,9 @@ This section will walk you through writing the second stored procedure, which wi
 
 #### [Section 10: Creating the Data Portal for the SalesOrder Data PULL](#section-10-creating-the-data-portal-for-the-salesorder-data-pull-1)
 
-##### [10.1 - Create the Data Portal](#101--create-the-data-portal-2)
-##### [10.2 - Add the Formula Parameters](#102---add-the-formula-parameters-2)
-##### [10.3 - Add the System Parameters](#103---add-the-system-parameters-2)
+##### [10.1 - Creating the Data Portal](#101--creating-the-data-portal-2)
+##### [10.2 - Adding the Formula Parameters](#102---adding-the-formula-parameters-2)
+##### [10.3 - Adding the System Parameters](#103---adding-the-system-parameters-2)
 
 In this section you will create the Data Portal that will access the stored procedure written which performs a data PULL.
 
@@ -1394,11 +1394,11 @@ This section will walk you through creating the Data Portal that will connect to
 
 *In this section:*
 
-##### [10.1 - Create the Data Portal](#101--create-the-data-portal-1)
-##### [10.2 - Add the Formula Parameters](#102---add-the-formula-parameters-1)
-##### [10.3 - Add the System Parameters](#103---add-the-system-parameters-1)
+##### [10.1 - Creating the Data Portal](#101--creating-the-data-portal-2)
+##### [10.2 - Adding the Formula Parameters](#102---adding-the-formula-parameters-2)
+##### [10.3 - Adding the System Parameters](#103---adding-the-system-parameters-2)
 
-#### 10.1 - Create the Data Portal
+#### 10.1 - Creating the Data Portal
 
 **Step 1:** Create the Data Portal.
 
@@ -1440,7 +1440,7 @@ Now, set some of the descriptive attributes of the Data Portal and specify the s
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/06.png)
 
-#### 10.2 - Add the Formula Parameters
+#### 10.2 - Adding the Formula Parameters
 
 Once you save your Data Portal, you will be able to add parameters to your Data Portal.
 
@@ -1512,7 +1512,7 @@ Add the last 2 Forumula Parameters.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/12.png)
 
-#### 10.3 - Add the System Parameters
+#### 10.3 - Adding the System Parameters
 
 In this Data Portal, we will use the Interject_RequestContext system parameter.
 
