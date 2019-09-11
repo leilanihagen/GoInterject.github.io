@@ -103,7 +103,7 @@ This section walks you through creating the first of two Data Portals that you w
 ##### [8.2 - Setting the Frozen Panes with jFreezePanes()](#82---setting-the-frozen-panes-with-jfreezepanes-2)
 ##### [8.3 - Creating the Report Area](#83---creating-the-report-area-2)
 ##### [8.4 - Adding the Column Definitions](#84---adding-the-column-definitions-2)
-##### [8.5 - Adding Titles for the Columns in the Report Area](#85---adding-titles-for-the-columns-in-the-report-area-1)
+##### [8.5 - Adding Titles for the Columns in the Report Area](#85---adding-titles-for-the-columns-in-the-report-area-2)
 ##### [8.6 - Adding ReportRange() to the Sheet](#86---adding-reportrange-to-the-sheet-2)
 ##### [8.7 - Designing the Formatting Range](#87---designing-the-formatting-range-2)
 ##### [8.8 - Testing ReportRange() with a Data PULL](#88---testing-reportrange-with-a-data-pull-2)
