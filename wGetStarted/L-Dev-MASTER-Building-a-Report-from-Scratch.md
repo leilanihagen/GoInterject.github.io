@@ -900,7 +900,6 @@ Type “=jFreezePanes()” in cell **F10**.
 
 **Step 2:** Set the freeze panes at the correct location.
 
-
 Click on the function builder icon to open it.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/15.png)
@@ -977,7 +976,7 @@ Go to **Options**:
 
 Now there should be no gridlines on the current worksheet.
 
-**Step 4:** Give the worksheet a name and delete any other worksheets you may have in the current workbook.
+**Step 4:** Give the worksheet a name.
 
 Right-click on the first sheet’s title and select **Rename**.
 
@@ -1082,7 +1081,7 @@ This section will walk you through configuring a ReportRange() on the CustomerOr
 
 Enter **2:4** into the **ColDefRange** to tell ReportRange() that all of its column definitions can be found in this range of rows. You can read more about ColDefRange here.
 
-**Step 3:**
+**Step 3:** Specify the rest of the argument values.
 
 Type:
 * **27:28** into the **TargetDataRange** argument,
