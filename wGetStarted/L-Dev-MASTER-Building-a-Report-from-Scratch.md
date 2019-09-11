@@ -1533,7 +1533,7 @@ This section will walk you through creating the SalesOrder spreadsheet, which is
 
 *In this section:*
 
-##### [11.1 - Creating the SalesOrder Worksheet](#111---creating-the-salesorder-worksheet-1)
+##### [11.1 - Creating the SalesOrder Worksheet](#111---creating-the-salesorder-worksheet-2)
 ##### [11.2 - Creating the Worksheet Definitions Area](#112---creating-the-worksheet-definitions-area-1)
 ##### [11.3 - Setting the Frozen Panes with jFreezePanes()](#113---setting-the-frozen-panes-with-jfreezepanes-1)
 ##### [11.4 - Formatting the Report Area](#114---formatting-the-report-area-1)
