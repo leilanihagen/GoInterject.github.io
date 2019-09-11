@@ -942,7 +942,7 @@ This section walks you through creating the report area.
 
 Report filter parameters are a way for the report user to restrict the dataset being pulled into the report from the data portal by specifying a set of characters that the pulled in data records must contain. You will start by labeling the filter input areas, where the user can input their filter text. Labeling the filters is important so that the user understands where they can type in the report and have it impact what data is returned.
 
-In cells **B21, B22 and B23**, respectively, type in: **“Company Name:”**, **“Contact Name:”**, and **“Customer ID:”**
+In cells **B21, B22 and B23**, respectively, type in: **Company Name:**, **Contact Name:**, and **Customer ID:**
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/21.png)
 
@@ -987,7 +987,10 @@ Type in **CustomerOrderHistory**.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/28.png)
 
-Right-click on any other sheets that you have in the workbook and select **Delete**.
+**Step 5:** Apply a font to the entire workbook.
+
+1. Select all cells in the worksheet by pressing the select all button in the top left corner on the page.
+2. Type **Century Gothic** into the font selector box.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/29.png)
 
@@ -1145,25 +1148,29 @@ Enter the formatting for **OrderDate** as follows:
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/46.png)
 
-Enter the formatting for **OrderAmount** as follows:
+Apply the formatting for **OrderAmount**, **Freight** and **TotalAmount** as follows.
 
-1. Enter the sample data **510** in cell **H6**.
+Enter the following:
+* **510** into cell **H6**,
+* **14.01** into cell **I6**,
+* **524.01** into cell **J6**.
+
 2. Choose **Accounting** for the format options for the cell.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/47.png)
 
-Enter the formatting for **Freight** as follows:
+Format these cells to display as money.
 
-1. Enter **14.01** into cell **I6**.
-2. Choose **Accounting** for the format options for the cell.
+1. Select **cells H6-J6**.
+2. Click on the dropdown menu for cell formatting options.
+3. Click on **Accounting**.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/48.png)
 
-Enter the formatting for **TotalAmount** as follows:
+Make the **TotalAmount** cell bold to highlight it in the report area.
 
-1. Enter **524.01** into cell **J6**.
+1. Select cell **J6**.
 2. Toggle the **bold** option for the text.
-3. Choose **Accounting** for the format options for the cell.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/49.png)
 
