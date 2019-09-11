@@ -1386,7 +1386,7 @@ Change "myname" in the following portion of code to your name (here "mary").
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-9/01.png)
 
-## Section 10: Section 10: Creating the Data Portal for the SalesOrder Data PULL
+## Section 10: Creating the Data Portal for the SalesOrder Data PULL
 
 #### Introduction
 
