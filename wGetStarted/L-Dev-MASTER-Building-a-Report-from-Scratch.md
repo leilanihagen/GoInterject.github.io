@@ -118,7 +118,7 @@ This section will walk you through writing the second stored procedure, which wi
 
 #### [Section 10: Creating the Data Portal for the SalesOrder Data PULL](#section-10-creating-the-data-portal-for-the-salesorder-data-pull-1)
 
-##### [10.1 - Creating the Data Portal](#101--creating-the-data-portal-2)
+##### [10.1 - Creating the Data Portal](#101---creating-the-data-portal-2)
 ##### [10.2 - Adding the Formula Parameters](#102---adding-the-formula-parameters-2)
 ##### [10.3 - Adding the System Parameters](#103---adding-the-system-parameters-2)
 
@@ -1394,7 +1394,7 @@ This section will walk you through creating the Data Portal that will connect to
 
 *In this section:*
 
-##### [10.1 - Creating the Data Portal](#101--creating-the-data-portal-2)
+##### [10.1 - Creating the Data Portal](#101---creating-the-data-portal-2)
 ##### [10.2 - Adding the Formula Parameters](#102---adding-the-formula-parameters-2)
 ##### [10.3 - Adding the System Parameters](#103---adding-the-system-parameters-2)
 
