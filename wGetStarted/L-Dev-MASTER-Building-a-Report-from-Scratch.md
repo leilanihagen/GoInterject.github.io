@@ -1534,13 +1534,13 @@ This section will walk you through creating the SalesOrder spreadsheet, which is
 *In this section:*
 
 ##### [11.1 - Creating the SalesOrder Worksheet](#111---creating-the-salesorder-worksheet-2)
-##### [11.2 - Creating the Worksheet Definitions Area](#112---creating-the-worksheet-definitions-area-1)
-##### [11.3 - Setting the Frozen Panes with jFreezePanes()](#113---setting-the-frozen-panes-with-jfreezepanes-1)
-##### [11.4 - Formatting the Report Area](#114---formatting-the-report-area-1)
-##### [11.5 - Adding ReportRange() to the Sheet](#115---adding-reportrange-to-the-sheet-1)
-##### [11.6 - Adding ReportDefaults() to the Sheet](#116---adding-reportdefaults-to-the-sheet-1)
-##### [11.7 - Setting the Focused Cell with jFocus()](#117---setting-the-focused-cell-with-jfocus-1)
-##### [11.8 - Final Formatting of the Report Area](#118---final-formatting-of-the-report-area-1)
+##### [11.2 - Creating the Worksheet Definitions Area](#112---creating-the-worksheet-definitions-area-2)
+##### [11.3 - Setting the Frozen Panes with jFreezePanes()](#113---setting-the-frozen-panes-with-jfreezepanes-2)
+##### [11.4 - Formatting the Report Area](#114---formatting-the-report-area-2)
+##### [11.5 - Adding ReportRange() to the Sheet](#115---adding-reportrange-to-the-sheet-2)
+##### [11.6 - Adding ReportDefaults() to the Sheet](#116---adding-reportdefaults-to-the-sheet-2)
+##### [11.7 - Setting the Focused Cell with jFocus()](#117---setting-the-focused-cell-with-jfocus-2)
+##### [11.8 - Final Formatting of the Report Area](#118---final-formatting-of-the-report-area-2)
 
 #### 11.1 - Creating the SalesOrder Worksheet
 
@@ -2043,9 +2043,9 @@ This section will walk you through setting up the DRILL between the two spreadsh
 
 *In this section:*
 
-##### [12.1 - Setting up the ReportDrill() Formula](#121---setting-up-the-reportdrill-formula-1)
-##### [12.2 - Testing ReportDrill()](#122---testing-reportdrill-1)
-##### [12.3 -  Adding a "Return from Drill" Hyperlink](#123---adding-a-return-from-drill-hyperlink-1)
+##### [12.1 - Setting up the ReportDrill() Formula](#121---setting-up-the-reportdrill-formula-2)
+##### [12.2 - Testing ReportDrill()](#122---testing-reportdrill-2)
+##### [12.3 -  Adding a "Return from Drill" Hyperlink](#123---adding-a-return-from-drill-hyperlink-2)
 
 #### 12.1 - Setting up the ReportDrill() Formula
 
