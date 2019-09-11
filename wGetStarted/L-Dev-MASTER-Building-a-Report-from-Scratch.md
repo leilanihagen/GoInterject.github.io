@@ -141,7 +141,7 @@ In this section you will create the second of two spreadsheets in the report. Sa
 
 ##### [12.1 - Setting up the ReportDrill() Formula](#121---setting-up-the-reportdrill-formula-2)
 ##### [12.2 - Testing ReportDrill()](#122---testing-reportdrill-2)
-##### [12.3 -  Adding a "Return from Drill" Hyperlink](#123---adding-a-return-from-drill-hyperlink-2)
+##### [12.3 - Adding a "Return from Drill" Hyperlink](#123---adding-a-return-from-drill-hyperlink-2)
 
 In this section, you will add the ReportDrill() data function to the CustomerOrderHistory sheet, which will allow CustomerOrderHistory to pass a value to DRILL on to SalesOrder.
 
@@ -2045,7 +2045,7 @@ This section will walk you through setting up the DRILL between the two spreadsh
 
 ##### [12.1 - Setting up the ReportDrill() Formula](#121---setting-up-the-reportdrill-formula-2)
 ##### [12.2 - Testing ReportDrill()](#122---testing-reportdrill-2)
-##### [12.3 -  Adding a "Return from Drill" Hyperlink](#123---adding-a-return-from-drill-hyperlink-2)
+##### [12.3 - Adding a "Return from Drill" Hyperlink](#123---adding-a-return-from-drill-hyperlink-2)
 
 #### 12.1 - Setting up the ReportDrill() Formula
 
@@ -2106,7 +2106,7 @@ The SalesOrder sheet should now open, and pull data for OrderID = 11011.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/10.png)
 
-#### 12.3 -  Adding a "Return from Drill" Hyperlink
+#### 12.3 - Adding a "Return from Drill" Hyperlink
 
 Hyperlinks can be used with DRILLs either to drill on a specific item or to return from the drill sheet back to the main sheet. In this case, you will create a hyperlink on the SalesOrder page that takes the user back to the CustomerOrderHistory sheet.
 
