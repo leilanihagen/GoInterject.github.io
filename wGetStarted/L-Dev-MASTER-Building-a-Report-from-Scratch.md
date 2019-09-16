@@ -120,7 +120,6 @@ This section will walk you through writing the second stored procedure, which wi
 
 ##### [10.1 - Creating the Data Portal](#101---creating-the-data-portal-2)
 ##### [10.2 - Adding the Formula Parameters](#102---adding-the-formula-parameters-2)
-##### [10.3 - Adding the System Parameters](#103---adding-the-system-parameters-2)
 
 In this section you will create the Data Portal that will access the stored procedure written which performs a data PULL.
 
@@ -149,9 +148,9 @@ In this section, you will add the ReportDrill() data function to the CustomerOrd
 
 This lab is comprehensive and detailed, which means it is also quite long. If you are pressed for time, or just want to see how to build a report without the extra steps, try the 60-minute estimated time version of this lab.
 
-Use the [full table of contents](#table-of-contents) above to read the full descriptions of each section and to view the contents of their subsections.
-
 The 60-minute version of the lab will walk you through the backend to frontend creation of a report with only *one* spreadsheet. This means you will only have to go through the formatting of one spreadsheet instead of two; but it also means that you will not learn how to create a DRILL between two spreadsheets in an INTERJECT report.
+
+Use the [full table of contents](#table-of-contents) above to read the descriptions and subsection breakdowns of each section.
 
 Complete the following sections for a quicker overview of building an INTERJECT report.
 
@@ -1410,7 +1409,6 @@ This section will walk you through creating the Data Portal that will connect to
 
 ##### [10.1 - Creating the Data Portal](#101---creating-the-data-portal-2)
 ##### [10.2 - Adding the Formula Parameters](#102---adding-the-formula-parameters-2)
-##### [10.3 - Adding the System Parameters](#103---adding-the-system-parameters-2)
 
 #### 10.1 - Creating the Data Portal
 
