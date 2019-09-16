@@ -145,20 +145,18 @@ In this section you will create the second of two spreadsheets in the report. Sa
 
 In this section, you will add the ReportDrill() data function to the CustomerOrderHistory sheet, which will allow CustomerOrderHistory to pass a value to DRILL on to SalesOrder.
 
-## Alternate Tables of Contents for Different Versions of the Lab
+## 60-Minute Version: Alternate Table of Contents
 
-This lab is meant to be a comprehensive and detailed, which means it is also quite long. If you are pressed for time, or just want to see how to build a report without the extra steps, try the 60-minute estimated time version of this lab.
+This lab is comprehensive and detailed, which means it is also quite long. If you are pressed for time, or just want to see how to build a report without the extra steps, try the 60-minute estimated time version of this lab.
 
 Use the [full table of contents](#table-of-contents) above to read the full descriptions of each section and to view the contents of their subsections.
 
-#### 60-Minute Version
-
-This version of the lab will walk you through the backend to frontend creation of a report with only *one* spreadsheet. This means you will only have to go through the formatting of one spreadsheet instead of two; but it also means that you will not learn how to create a DRILL between two spreadsheets in an INTERJECT report.
+The 60-minute version of the lab will walk you through the backend to frontend creation of a report with only *one* spreadsheet. This means you will only have to go through the formatting of one spreadsheet instead of two; but it also means that you will not learn how to create a DRILL between two spreadsheets in an INTERJECT report.
 
 Complete the following sections for a quicker overview of building an INTERJECT report.
 
 ###### Required sections:
-When the highest level section title is included, this means you must complete this whole section. Otherwise, the subsection name wil be provided.
+When the highest level section title is included, this means you must complete this whole section. Otherwise, the subsection name will be provided.
 
 #### [Section 1: Required Software and Sample Database](#section-1-required-software-and-sample-database-2)
 
