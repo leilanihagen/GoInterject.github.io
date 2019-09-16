@@ -18,11 +18,12 @@ You will accomplish the following in this lab:
 
 You will learn how to use the following INTERJECT report formulas in this lab:
 
-* [ReportRange()]()
-* [ReportDrill()]()
-* [ReportDefaults()]()
-* [jFreezePanes()]()
-* [jFocus()]()
+
+* [jFocus()](https://docs.gointerject.com/wIndex/jFocus.html)
+* [jFreezePanes()](https://docs.gointerject.com/wIndex/jFreezePanes.html)
+* [ReportRange()](https://docs.gointerject.com/wIndex/ReportRange.html)
+* [ReportDefaults()](https://docs.gointerject.com/wIndex/ReportDefaults.html)
+* [ReportDrill()](https://docs.gointerject.com/wIndex/ReportDrill.html)
 
 View the following [Table of Contents](#table-of-contents) to see what you will learn and accomplish by completing this lab.
 
@@ -251,13 +252,8 @@ Here is an [article from sqlservertutorial.net](http://www.sqlservertutorial.net
 * Here is an [article from techonthenet.com](https://www.techonthenet.com/sql_server/select.php) explaining the SELECT statement and how to use it, including all additional clauses that can be added to SELECT.
 
 #### 2.3 - SQL Stored Procedures
-1. [Here](https://www.essentialsql.com/what-is-a-stored-procedure/) is an article from essentialsql.com on what a stored procedure is, why they are used, and how they can be used. It is a higher-level overview.
-2. [Here](http://www.sqlservertutorial.net/sql-server-stored-procedures/basic-sql-server-stored-procedures/) is a tutorial from sqlservertutorial.net showing how to write basic stored procedures, explaining the structure and syntax of stored procedure creation and how to execute stored procedures.
-
-
-<!--
-
-Reports are more than just an Excel spreadsheet, however. Excel is the front-end interface that INTERJECT uses to allow end users to interact with their data in a familiar, intuitive environment. Behind Excel, the INTERJECT formulas on a given report connect to **Data Portals** which serve as the definition for how you wish to interact with your database (what data you want to retrieve and/or store). Data Portals then connect to Data Connections, which serve as a way for INTERJECT to remember how to connect to your data source, and in turn, connect to a database on a physical server or to a data API (the data source itself). -->
+1. Here is an [article from essentialsql.com](https://www.essentialsql.com/what-is-a-stored-procedure/) on what a stored procedure is, why they are used, and how they can be used. It is a higher-level overview.
+2. Here is a [tutorial from sqlservertutorial.net](http://www.sqlservertutorial.net/sql-server-stored-procedures/basic-sql-server-stored-procedures/) showing how to write basic stored procedures, explaining the structure and syntax of stored procedure creation and how to execute stored procedures.
 
 ## Section 3: INTERJECT Report Terminology and Definitions
 
@@ -316,12 +312,14 @@ The most important Report Formulas to understand here are Data Functions. Data F
 
 Many INTERJECT report formulas use the Worksheet Definitions Section to find the information that they need in order to perform their actions. For example, report formulas that populate data in the spreadsheet use an area of the Worksheet Definitions Section called the Column Definitions in order to tell which data to to place in which column of the spreadsheet.
 
+Read more about [INTERJECT Report Formulas in our About section](https://docs.gointerject.com/wAbout/Basics-of-Report-Formulas.html#overview).
+
 ###### Data Portals
 Data Portals exist outside of the report, in the INTERJECT Portal Site. They serve as a way to define specific data operations that can be done to extract or retrieve data from your data source. Think of the Data Portal as holding a set of instructions for how to interact with the data source. Only when the Data Portal is called on by a Report Formula is the Data Portal actually activated. When the Portal is "activated," it creates a point-to-point connection with the data source (vis its Data Connection) and performs the set of instructions it contains on the data source, then returns the result (usually a dataset) back to the the report. Data Portals must be assigned a Data Connection, which allows the Data Portal to communication with the data source.
 
 When using a SQL database as your data source, Data Portals provide a way to connect to specific stored procedures within an already existing Data Connection which connects directly to the database. Data Portals provide a finer-grain level of control, and connect to a single stored procedure on the database. You can have multiple Data Portals connected to one Data Connection, but not vice-versa.
 
-For more information on Data Portals, see [the website portal documentation](https://docs.gointerject.com/wPortal/The-INTERJECT-Website-Portal.html#-data-connections-).
+For more information on Data Portals, see [the website portal documentation on Data Portals](https://docs.gointerject.com/wPortal/Data-Portals.html#setting-up-a-data-portal).
 
 ###### Data Portal Parameters
 Input/output parameters can be provided to Data Portals, and there are two categories of parameters that can be provided, **Formula Parameters** and **System Parameters**.
@@ -548,7 +546,7 @@ You will now create the Data Connection that will serve as the layer that access
 
 **Step 1:** Log in to the INTERJECT portal site.
 
-Navigate to the portal site [here](https://portal.gointerject.com/).
+Navigate to [the INTERJECT portal site](https://portal.gointerject.com/).
 
 1. Type in your email.
 2. Type in your password.
@@ -719,11 +717,11 @@ For the **Connection**, use the Data Connection you created in the last section,
 
 Now specify the stored procedure that this data portal will be referencing. You will write the stored procedure itself shortly.
 
-Under **Stored Procedure / Command**, type in **”[demo].[northwind_customer_orders_myname]”**.
+Under **Stored Procedure / Command**, type in **”[dbo].[northwind_customer_orders_myname]”**.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/05.png)
 
-1. Under **Category**, enter **Demo**.
+1. Optionally, you can include **Demo** for the **Category** field (it can also be left blank).
 2. Expand the dropdown list under **Command Type**.
 3. Choose **Stored Procedure Name** from the dropdown list.
 
@@ -781,7 +779,7 @@ Repeat the last set of steps, changing only the **NAME** field to **CustomerID**
 
 You will not be using any system parameters in this lab, but it is common to use Interject_RequestContext in data PULL Data Portals/stored procedures in order to verify the identity/login information of the user trying to perform the PULL. The parsing of Interject_RequestContext is typically done with an INTERJECT stored procedure, which you may or may not have access to.
 
-[Read more about Interject_RequestContext](#data-portal-parameters-2).
+[Read more about System Parameters and Interject_RequestContext](#data-portal-parameters-2).
 
 ## Section 8: Building the CustomerOrderHistory Spreadsheet
 
@@ -953,9 +951,12 @@ This section walks you through creating the report area.
 
 **Step 2:** Add input fields for the filter parameters.
 
-Report filter parameters are a way for the report user to restrict the dataset being pulled into the report from the data portal by specifying a set of characters that the pulled in data records must contain. You will start by labeling the filter input areas, where the user can input their filter text. Labeling the filters is important so that the user understands where they can type in the report and have it impact what data is returned.
+Labeling the filters is important so that the user understands where they can type in the report and have it impact what data is returned.
 
-In cells **B21, B22 and B23**, respectively, type in: **Company Name:**, **Contact Name:**, and **Customer ID:**
+Enter the following:
+**Company Name:** into cell **B21**,
+**Contact Name:** into cell **B22**,
+**Customer ID:** into cell **B23**.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/21.png)
 
@@ -971,7 +972,6 @@ Color the input fields for the report filters. Apply the lightest orange color (
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-8/23.png)
 
-<!-- Should this be included? -->
 **Step 3:** Make the spreadsheet look better by removing the gridlines in Excel.
 
 Go to the **File** tab in Excel:
@@ -1329,7 +1329,7 @@ This section will walk you through writing the stored procedure for the Data PUL
 
 Using a SQL editor, create a new query file and copy-paste in the following code:
 
-<button class="collapsible">\[demo\].\[northwind_customer_single_order_myname\]</button>
+<button class="collapsible">\[dbo\].\[northwind_customer_single_order_myname\]</button>
 <div markdown="1" class="panel">
 
 ```sql
@@ -1439,7 +1439,7 @@ Under **connection**, you will need to find the name of the Data Connection that
 
 Now, set some of the descriptive attributes of the Data Portal and specify the stored procedure you created in Section 9.
 
-1. Optionally, you can include **Demo** for the **Category** field (it can also be left blank).
+1. Optionally, enter **Demo** into the **Category** field.
 2. Under **Command Type**, click the dropdown menu.
 3. Select **Stored Procedure Name** from the dropdown list that appears.
 4. Type in the name of the stored procedure you created in Section 9, **[dbo].[northwind_customer_single_order_myname]** with your name substituted for "myname".
@@ -2135,11 +2135,11 @@ Test the hyperlink by doing the following.
 
 Click on the hyperlink.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/13.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/14.png)
 
 You should now be taken back to the CustomerOrderHistory sheet.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/14.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-12/15.png)
 
 ## Conclusion
 
