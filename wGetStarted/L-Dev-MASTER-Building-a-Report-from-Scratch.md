@@ -19,10 +19,10 @@ You will accomplish the following in this lab:
 You will learn how to use the following INTERJECT report formulas in this lab:
 
 * [ReportRange()]()
-* [ReportDrill]()
-* [ReportDefaults]()
-* [jFreezePanes]()
-* [jFocus]()
+* [ReportDrill()]()
+* [ReportDefaults()]()
+* [jFreezePanes()]()
+* [jFocus()]()
 
 View the following [Table of Contents](#table-of-contents) to see what you will learn and accomplish by completing this lab.
 
@@ -93,7 +93,7 @@ This section will walk you through writing a stored procedure that will perform 
 
 ##### [7.1 - Creating the Data Portal](#71---creating-the-data-portal-2)
 ##### [7.2 - Adding the Formula Parameters](#72---adding-the-formula-parameters-2)
-##### [7.3 - Adding the System Parameters](#73---adding-the-system-parameters-2)
+##### [7.3 - A Note on System Parameters](#73---a-note-on-system-parameters-2)
 
 This section walks you through creating the first of two Data Portals that you will create in this lab. Data Portals store the name of a specific stored procedure as well as the name of an existing Data Connection. It locates a database using the database connection information stored in the Data Connection, then locates the stored procedure within that database.
 
@@ -325,7 +325,17 @@ When using a SQL database as your data source, Data Portals provide a way to con
 For more information on Data Portals, see [the website portal documentation](https://docs.gointerject.com/wPortal/The-INTERJECT-Website-Portal.html#-data-connections-).
 
 ###### Data Portal Parameters
-Data Portals can be provided with input/output parameters, and there are two categories of parameters that they can be provided, **Formula Parameters** and **System Parameters**. **Formula Parameters** are a way for the stored procedure writer to tell the Data Portal about any "custom" parameters that they add to the data portals corresponding stored procedure. "Custom" parameter means additional parameters that are coded into the stored procedure for a specific purpose, such as for use as filter parameters in a report. **System Parameters** are not considered "custom" because they are hardcoded and pass a specific piece of information from the system to whichever stored procedure they are used in. System Parameters will be discussed more in the following section.
+Input/output parameters can be provided to Data Portals, and there are two categories of parameters that can be provided, **Formula Parameters** and **System Parameters**.
+
+**Formula Parameters** are a way for the stored procedure writer to tell the Data Portal about any "custom" parameters that they add to the data portals corresponding stored procedure. "Custom" parameter means additional parameters that are coded into the stored procedure for a specific purpose, such as for use as filter parameters in a report.
+
+**System Parameters** are not considered "custom" because they are hardcoded and pass a specific piece of information from the system to whichever stored procedure they are used in.
+
+Take a look at the complete list of System Parameters that are available to be used in a stored procedure:
+
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/01.png)
+
+The first parameter, **Interject_RequestContext**, which is preselected when you create a new System Parameter, actually contains all of the other parameters in one. When you use Interject_RequestContext, you will typically use an INTERJECT internal stored procedure parse out only the specific values you need. But, instead of parsing, you can instead just select exactly the System Parameters that you know you will need in your stored procedure from this list.
 
 See our [overview of parameters](https://docs.gointerject.com/wPortal/Data-Portals.html#overview-of-parameters) for more information.
 
@@ -346,7 +356,7 @@ The report area is the part of the report that displays the data. It has all the
 
 The report can be broken up into the following sections:
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/01.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/02.png)
 
 ###### 1 - Title of the current sheet in the report
 It is standard to place a title somewhere on each spreadsheet to tell the users the topic of the current sheet.
@@ -364,31 +374,31 @@ The target data range is the area of the sheet where report formulas are allowed
 
 INTERJECT reports have a sort of “behind the scenes” section at the top of each worksheet where all the spreadsheet configuration details are kept. This area is colored differently from the rest of the report and hidden from the end user using the INTERJECT jFreezePanes() function. While this section is typically hidden from the end user, those who build reports will typically spend much of their time configuring the worksheet functionality in this section. Once we unhide the section by [**unfreezing the panes**](), this is what the report looks like.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/02.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/03.png)
 
 The following sections make up the Worksheet Definitions area:
 
 ###### Column Definitions
 This section defines the names of the columns, or attributes, that the data source will return, and also defines where those attributes should be placed in the report. The columns where attributes are placed in the Column Definitions section will match where they get placed in the worksheet.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/03.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/04.png)
 
 ###### Formatting Range
 The Formatting Range is a feature that allows you to define how you would like the data in your Report Area to be formatted in one place without repetition. It works similarly to how the Column Definitions section works, by copying the formatting applied to its cells down to the Report Area for each record that is pulled in from the data source. The formatting of a given cell in the Formatting Range is applied to the cell just above it in the Column Definitions. This is demonstrated in the screenshot.
 
 You can define your formatting by simply formatting the cells in the formatting range, then this formatting will be applied to the attributes in the Column Definitions, when they are pulled into the report. A Formatting Range is only necessary for INTERJECT reports wherein you are pulling multi-row data records into your report, but we will speak more on this later. If you have only one row, and you don’t specify a formatting range, the formatting of the first row in the TargetDataRange will be copied to the output rows.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/04.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/05.png)
 
 ###### Report Formulas
 This section is where the INTERJECT Report Formulas that you need for a given sheet will be placed. To add a Report Formula, simply start typing = and the name of the formula. Labels can be added in cells adjacent to cells containing report formulas to help describe what each formula is doing, as shown below.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/05.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/06.png)
 
 ###### Hidden Parameters and Notes
 This section is optional on most reports. It is used as a place to give a brief description of the use case or functionality of a report, and to add Filter Parameters to the report that should always be there (and in turn should be hidden from users so they cannot modify them).
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/06.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/07.png)
 
 ##### 3.3.3 - Filter Parameters
 
@@ -420,7 +430,7 @@ There are two formula arguments for jFreezePanes(), **FreezePanesCell** and **An
 
 In the CustomerOrderHistory sheet, the **AnchorViewCell** is cell **A18**, which as you can see is the end of the Worksheet Definitions Section that is hidden when panes are frozen. Cell **A26** is the **FreezePanesCell**. This means that rows 18-26 are frozen at the top as the user scrolls down.
 
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/07.png)
+![](../images/L-Dev-MASTER-Report-From-Scratch/section-3/08.png)
 
 Read more about jFreezePanes() in [its entry in the INTERJECT function index](https://docs.gointerject.com/wIndex/jFreezePanes.html).
 
@@ -681,7 +691,7 @@ This section walks you through creating the data portal for the CustomerOrderHis
 
 ##### [7.1 - Creating the Data Portal](#71---creating-the-data-portal-2)
 ##### [7.2 - Adding the Formula Parameters](#72---adding-the-formula-parameters-2)
-##### [7.3 - Adding the System Parameters](#73---adding-the-system-parameters-2)
+##### [7.3 - A Note on System Parameters](#73---a-note-on-system-parameters-2)
 
 #### 7.1 - Creating the Data Portal
 
@@ -770,34 +780,11 @@ Repeat the last set of steps, changing only the **NAME** field to **CustomerID**
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/13.png)
 
-#### 7.3 - Adding the System Parameters
+#### 7.3 - A Note on System Parameters
 
-System Parameters are used to pass information from the user’s system to the stored procedure via Data Portal. Here you will be adding 2 System Parameters, **Interject_NTLogin**, which is used to capture the user’s Windows login, and **Interject_LocalTimeZoneOffset**, which is used to capture the difference from the user’s local time zone to the universal time. You can read more about System Parameters (and these specific ones) [here](https://docs.gointerject.com/wGetStarted/L-Dev-CustomerAging.html#system-parameters).
+You will not be using any system parameters in this lab, but it is common to use Interject_RequestContext in data PULL Data Portals/stored procedures in order to verify the identity/login information of the user trying to perform the PULL. The parsing of Interject_RequestContext is typically done with an INTERJECT stored procedure, which you may or may not have access to.
 
-1. Create a new system parameter by pressing **Click here to add a System Parameter**.
-2. Choose **Interject_NTLogin** from the dropdown menu.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/14.png)
-
-Press the save button and wait until it turns green.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/15.png)
-
-Add a second System Parameter.
-
-1. Create a new system parameter by pressing **Click here to add a System Parameter**.
-2. Choose **Interject_LocalTimeZoneOffset** from the dropdown menu.
-3. Press the save icon to save the new parameter.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/16.png)
-
-**Step 5:** Verify all parameters are correct.
-
-Verify that you have all your parameter information correct and that you have saved them all before moving on.
-
-Your screen should look as follows.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-7/17.png)
+[Read more about Interject_RequestContext](#data-portal-parameters-2).
 
 ## Section 8: Building the CustomerOrderHistory Spreadsheet
 
@@ -1541,19 +1528,6 @@ Add the last 2 Forumula Parameters.
 5. Press the save icon following the last parameter added.
 
 ![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/12.png)
-
-#### 10.3 - Adding the System Parameters
-
-In this Data Portal, we will use the Interject_RequestContext system parameter.
-
-1. Scroll down to the System Parameters section and click **Click here to add a System Parameter**.
-2. Select **Interject_RequestContext** from the list.
-
-Click the save icon to save if it does not save automatically.
-
-The TYPE and DIRECTION are preset for System Parameters.
-
-![](../images/L-Dev-MASTER-Report-From-Scratch/section-10/13.png)
 
 ## Section 11: Building the SalesOrder Spreadsheet
 
