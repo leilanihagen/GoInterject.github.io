@@ -609,8 +609,6 @@ CREATE PROC [dbo].[northwind_customer_orders_myname]
     	 @CompanyName NVARCHAR(100) = ‘’
     	,@ContactName NVARCHAR(100) = ‘’
     	,@CustomerID NVARCHAR(500) = ''
-    	,@Interject_NTLogin VARCHAR(10)
-    	,@Interject_LocalTimeZoneOffset MONEY
 
     AS
     BEGIN
@@ -1341,7 +1339,6 @@ USE [mydatabase]
 CREATE PROC [dbo].[northwind_customer_single_order_myname]
 
     	 @OrderID	NVARCHAR(100)
-    	,@Interject_RequestContext NVARCHAR(MAX)
 
     AS
     BEGIN
