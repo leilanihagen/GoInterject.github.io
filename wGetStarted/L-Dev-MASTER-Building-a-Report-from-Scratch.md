@@ -32,7 +32,7 @@ This lab will be broken up into sections that each achieve a small goal of their
 
 Click on any of the section headings listed here to jump to them.
 
-#### [Section 1: Required Software and Sample Database](#section-1-required-software-and-sample-database-1)
+#### [Section 1: Required Software and Sample Database](#section-1-required-software-and-sample-database-2)
 
 ##### [1.1 - Downloading SQL Server](#11---downloading-sql-server-2)
 ##### [1.2 - Downloading SQL Server Management Studio](#12---downloading-sql-server-management-studio-2)
@@ -48,7 +48,7 @@ Section 1 simply ensures that you have the correct software and sample data inst
 
 Section 2 provides you with resources for learning the basics of SQL Server. Those familiar with SQL server SELECT statements can skip this section entirely. You can also skip this section if you are only interested in learning the INTERJECT parts of creating a report.
 
-#### [Section 3: INTERJECT Report Terminology and Definitions](#section-3-interject-report-terminology-and-definitions-1)
+#### [Section 3: INTERJECT Report Terminology and Definitions](#section-3-interject-report-terminology-and-definitions-2)
 
 ##### [3.1 - What is an INTERJECT Report?](#31---what-is-an-interject-report-2)
 
@@ -76,20 +76,20 @@ Section 3 provides you with the necessary understanding of INTERJECT terminology
 #### [Section 4: Introducing the INTERJECT Report](#section-4-introducing-the-interject-report-1)
 
 ##### [4.1 - The Report as a Whole](#41---the-report-as-a-whole-2)
-##### [4.2 - CustomerOrderHistory Sheet Preview](#42---customerorderhistory-sheet-preview-2)
+##### [4.2 - CustomerOrderHistory Sheet Preview](#42---customerorderhistory-sheet-preview-3)
 ##### [4.3 - SalesOrder Sheet Preview](#43---salesorder-sheet-preview-2)
 ##### [4.4 - Drilling from CustomerOrderHistory to SalesOrder](#44---drilling-from-customerorderhistory-to-salesorder-2)
 ##### [4.5 - Construction Plan for the Report](#45---construction-plan-for-the-report-2)
 
 Section 4 introduces the final, multi-sheet INTERJECT Report that you will create in the remaining sections and explains each backend component that will be created, and how they all fit together.
 
-#### [Section 5: Creating the Data Connection](#section-5-creating-the-data-connection-1)
+#### [Section 5: Creating the Data Connection](#section-5-creating-the-data-connection-2)
 This section walks you through creating a Data Connection in the INTERJECT Portal Site. The Data Connection you create will store connection details for your sample database. You create the Data Connection before the Data Portal because the Data Portal uses the Data Connection to access your database.
 
-#### [Section 6: Writing the SQL Stored Procedure for the CustomerOrderHistory Data PULL](#section-6-writing-the-sql-stored-procedure-for-the-customerorderhistory-data-pull-1)
+#### [Section 6: Writing the SQL Stored Procedure for the CustomerOrderHistory Data PULL](#section-6-writing-the-sql-stored-procedure-for-the-customerorderhistory-data-pull-2)
 This section will walk you through writing a stored procedure that will perform an INTERJECT Data PULL action (inserts data from database tables into an Excel report). The stored procedure is the the first thing that you will create in this lab because it is the fundamental piece that needs to be working properly for the INTERJECT Data Portal and the report itself to work as well.
 
-#### [Section 7: Creating the Data Portal for the CustomerOrderHistory Data PULL](#section-7-creating-the-data-portal-for-the-customerorderhistory-data-pull-1)
+#### [Section 7: Creating the Data Portal for the CustomerOrderHistory Data PULL](#section-7-creating-the-data-portal-for-the-customerorderhistory-data-pull-2)
 
 ##### [7.1 - Creating the Data Portal](#71---creating-the-data-portal-2)
 ##### [7.2 - Adding the Formula Parameters](#72---adding-the-formula-parameters-2)
@@ -97,7 +97,7 @@ This section will walk you through writing a stored procedure that will perform 
 
 This section walks you through creating the first of two Data Portals that you will create in this lab. Data Portals store the name of a specific stored procedure as well as the name of an existing Data Connection. It locates a database using the database connection information stored in the Data Connection, then locates the stored procedure within that database.
 
-#### [Section 8: Building the CustomerOrderHistory Spreadsheet](#section-8-building-the-customerorderhistory-spreadsheet-1)
+#### [Section 8: Building the CustomerOrderHistory Spreadsheet](#section-8-building-the-customerorderhistory-spreadsheet-2)
 
 ##### [8.1 - Creating the Worksheet Definitions Area](#81---creating-the-worksheet-definitions-area-2)
 ##### [8.2 - Setting the Frozen Panes with jFreezePanes()](#82---setting-the-frozen-panes-with-jfreezepanes-2)
@@ -144,6 +144,38 @@ In this section you will create the second of two spreadsheets in the report. Sa
 ##### [12.3 - Adding a "Return from Drill" Hyperlink](#123---adding-a-return-from-drill-hyperlink-2)
 
 In this section, you will add the ReportDrill() data function to the CustomerOrderHistory sheet, which will allow CustomerOrderHistory to pass a value to DRILL on to SalesOrder.
+
+## Alternate Tables of Contents for Different Versions of the Lab
+
+This lab is meant to be a comprehensive and detailed, which means it is also quite long. If you are pressed for time, or just want to see how to build a report without the extra steps, try the 60-minute estimated time version of this lab.
+
+Use the [full table of contents](#table-of-contents) above to read the full descriptions of each section and to view the contents of their subsections.
+
+#### 60-Minute Version
+
+This version of the lab will walk you through the backend to frontend creation of a report with only *one* spreadsheet. This means you will only have to go through the formatting of one spreadsheet instead of two; but it also means that you will not learn how to create a DRILL between two spreadsheets in an INTERJECT report.
+
+Complete the following sections for a quicker overview of building an INTERJECT report.
+
+###### Required sections:
+When the highest level section title is included, this means you must complete this whole section. Otherwise, the subsection name wil be provided.
+
+#### [Section 1: Required Software and Sample Database](#section-1-required-software-and-sample-database-2)
+
+##### [4.2 - CustomerOrderHistory Sheet Preview](#42---customerorderhistory-sheet-preview-3)
+
+#### [Section 5: Creating the Data Connection](#section-5-creating-the-data-connection-2)
+
+#### [Section 6: Writing the SQL Stored Procedure for the CustomerOrderHistory Data PULL](#section-6-writing-the-sql-stored-procedure-for-the-customerorderhistory-data-pull-2)
+
+#### [Section 7: Creating the Data Portal for the CustomerOrderHistory Data PULL](#section-7-creating-the-data-portal-for-the-customerorderhistory-data-pull-2)
+
+#### [Section 8: Building the CustomerOrderHistory Spreadsheet](#section-8-building-the-customerorderhistory-spreadsheet-2)
+
+###### Optional sections:
+You can use Section 3 as a reference to look up terminology that you are not familiar with, instead of reading through all of it.
+
+#### [Section 3: INTERJECT Report Terminology and Definitions](#section-3-interject-report-terminology-and-definitions-2)
 
 ## Section 1: Required Software and Sample Database
 
